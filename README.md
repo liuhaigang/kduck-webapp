@@ -1,39 +1,24 @@
-# kduck-webapp
+# K-Duck-Webapp
 
-#### 介绍
-{**以下是 Gitee 平台说明，您可以替换此简介**
-Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用 Gitee 实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+## 介绍
+这是一个基于kduck-core和kduck-security为基础的演示性质的开源项目，该项目包含了一般项目的常规基础功能，从而展示K-Duck相关组件的使用、开发方法。
 
-#### 软件架构
-软件架构说明
+## 软件功能
 
+该项目包含了：
 
-#### 安装教程
+1. 用户登录：拥有帐号的用户，可以登录系统，对于登录可以限制N次（默认3次）登录失败后出现图形验证码，再次失败N次（默认5次）后锁定帐号
+2. 帐号管理：创建用户后，基于用户创建账户，并可通过配置管理进行一些简单的账号规则配置
+3. 用户管理：系统用户的管理
+4. 机构管理：一个树形结构的机构管理模块，在机构中选择已存账号到机构中
+5. 资源管理：系统中涵盖的资源是在开发后端Controller时通过注解标记的，这些资源可以直接提供给前端使用，而不用单独的模块进行管理
+6. 菜单管理：在菜单管理中可以配置目前系统支持的菜单项的管理，对于菜单项目配置一个关联资源，当用户用狗该资源的访问权时，则可以看到该菜单项
+7. 角色管理：创建角色用于授权，对接口的访问授权进行控制管理
+8. 分级授权管理：权限可以基于机构进行逐级授权，即上级机构管理员分配给下级机构管理员部分权限，下级机构可以基于该部分授权再次向下分配
+9. 配置管理：配置管理是在后台业务开发中，通过代码方式定制的配置对象，映射到页面中会自动形成配置页面，对业务模块进行配置
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+## 软件截图
 
-#### 使用说明
+![输入图片说明](https://images.gitee.com/uploads/images/2021/0110/233122_7b35d6aa_403814.png "登录.png")
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
-
-
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+![输入图片说明](https://images.gitee.com/uploads/images/2021/0110/233305_c759c5a8_403814.png "主界面.png")
