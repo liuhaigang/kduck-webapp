@@ -38,4 +38,6 @@ public interface AuthorizeService {
 //    @Deprecated
 //    List<AuthorizeResource> listAuthorizeResourceByUserId(String userId);
 
+    List<AuthorizeOperate> listAuthenticatedOperate(String userId);
+
 }

@@ -1,5 +1,7 @@
 package cn.kduck.module.authorize.service.impl;
 
+import cn.kduck.core.service.ValueMapList;
+import cn.kduck.module.authorize.query.AuthenticatedOperateQuery;
 import cn.kduck.module.authorize.service.AuthorizeOperate;
 import cn.kduck.module.role.service.Role;
 import cn.kduck.module.role.service.RoleService;
@@ -25,6 +27,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static cn.kduck.module.authorize.query.AuthenticatedOperateQuery.AUTH_TYPE_ORG;
+import static cn.kduck.module.authorize.query.AuthenticatedOperateQuery.AUTH_TYPE_ROLE;
+import static cn.kduck.module.authorize.query.AuthenticatedOperateQuery.AUTH_TYPE_USER;
 import static cn.kduck.module.organization.service.OrganizationService.CODE_ORGANIZATION;
 
 @Service
@@ -167,6 +172,26 @@ public class AuthorizeServiceImpl extends DefaultService implements AuthorizeSer
         List<AuthorizeOperate> authorizeOperateList = super.listForBean(query, AuthorizeOperate::new);
 
         return authorizeOperateList;
+    }
+
+    @Override
+    public List<AuthorizeOperate> listAuthenticatedOperate(String userId) {
+
+        List<AuthorizeOperate> allAuthList = new ArrayList<>();
+
+        Map<String, Object> paramMap = ParamMap.create("authType",AUTH_TYPE_USER).set("userId", userId).toMap();
+        QuerySupport query = super.getQuery(AuthenticatedOperateQuery.class, paramMap);
+        allAuthList.addAll(super.listForBean(query, AuthorizeOperate::new));
+
+        paramMap = ParamMap.create("authType",AUTH_TYPE_ORG).set("userId", userId).toMap();
+        query = super.getQuery(AuthenticatedOperateQuery.class, paramMap);
+        allAuthList.addAll(super.listForBean(query, AuthorizeOperate::new));
+
+        paramMap = ParamMap.create("authType",AUTH_TYPE_ROLE).set("userId", userId).toMap();
+        query = super.getQuery(AuthenticatedOperateQuery.class, paramMap);
+        allAuthList.addAll(super.listForBean(query, AuthorizeOperate::new));
+
+        return allAuthList;
     }
 
 //    @Deprecated

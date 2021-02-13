@@ -44,7 +44,9 @@ public class ChangePasswordFilterInterceptor implements FilterInterceptor {
 
             if(needChangePwd){
                 //FIXME 固定的/account/changePassword，对修改密码的接口请求不做拦截
-                if(request.getRequestURI().startsWith("/account/changePassword")){
+//                固定的/account/credential/valid，对密码强度校验请求不做拦截
+                if(request.getRequestURI().startsWith("/account/changePassword") ||
+                        request.getRequestURI().startsWith("/account/credential/valid")){
                     return true;
                 }
 

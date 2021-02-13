@@ -13,6 +13,7 @@ CREATE TABLE k_account(
     expired_date                DATETIME,
     credentials_expired_date    DATETIME,
     last_login_date             DATETIME,
+    change_password_date        DATETIME,
     user_id                     VARCHAR(50)     NOT NULL,
     PRIMARY KEY (account_id)
 )ENGINE=INNODB
@@ -159,7 +160,7 @@ CREATE TABLE k_ENTITY_RELATION(
 --
 
 CREATE TABLE k_hierarchical_authorize(
-    authorize_user_id    VARCHAR(50)    NOT NULL,
+    authorize_id    VARCHAR(50)    NOT NULL,
     org_id               VARCHAR(50),
     user_id              VARCHAR(50),
     create_time          DATETIME,

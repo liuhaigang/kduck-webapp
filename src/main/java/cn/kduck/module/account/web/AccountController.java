@@ -1,5 +1,7 @@
 package cn.kduck.module.account.web;
 
+import cn.kduck.core.web.annotation.ModelOperate;
+import cn.kduck.core.web.annotation.ModelResource;
 import cn.kduck.module.account.service.Account;
 import cn.kduck.module.account.service.AccountService;
 import cn.kduck.security.principal.AuthUser;
@@ -21,6 +23,7 @@ import static cn.kduck.security.principal.AuthUserHolder.getAuthUser;
 @RestController
 @RequestMapping("/account")
 @Api(tags = "帐号管理")
+@ModelResource
 public class AccountController {
 
     @Autowired
@@ -34,6 +37,7 @@ public class AccountController {
             @ApiImplicitParam(name = "password", value = "帐号密码", paramType = "query"),
             @ApiImplicitParam(name = "accountState", value = "帐号状态（1启用，2锁定）", paramType = "query"),
     })
+    @ModelOperate
     public JsonObject addAccount(Account account){
 
         Integer accountState = account.getAccountState();
@@ -54,6 +58,7 @@ public class AccountController {
             @ApiImplicitParam(name = "password", value = "帐号密码", paramType = "query"),
             @ApiImplicitParam(name = "accountState", value = "帐号状态", paramType = "query"),
     })
+    @ModelOperate
     public JsonObject updateAccount(Account account){
         accountService.updateAccount(account);
         return JsonObject.SUCCESS;
@@ -64,6 +69,7 @@ public class AccountController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", value = "帐户Id", paramType = "query"),
     })
+    @ModelOperate
     public JsonObject deleteAccount(@RequestParam("ids") String[] accountIds){
         accountService.deleteAccount(accountIds);
         return JsonObject.SUCCESS;
@@ -74,6 +80,7 @@ public class AccountController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "accountId", value = "帐户Id", paramType = "query"),
     })
+    @ModelOperate
     public JsonObject getAccount(@RequestParam("accountId") String accountId){
         Account account = accountService.getAccount(accountId);
         return new JsonObject(account);
@@ -84,6 +91,7 @@ public class AccountController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "用户Id", paramType = "query"),
     })
+    @ModelOperate
     public JsonObject getAccountByUserId(@RequestParam("userId") String userId){
         Account account = accountService.getAccountByUserId(userId);
         return new JsonObject(account);
@@ -101,9 +109,10 @@ public class AccountController {
 
     @PostMapping("/changePassword")
     @ApiOperation("修改当前登录人密码")
+    @ModelOperate
     public JsonObject changePassword(@RequestParam("oldPwd") String oldPwd,@RequestParam("newPwd") String newPwd){
         if(oldPwd.equals(newPwd)){
-            throw new RuntimeException("新旧密码不能相同");
+            return new JsonObject(null,-1,"新旧密码不能相同");
         }
         AuthUser authUser = getAuthUser();
         accountService.changePassword(authUser.getUsername(),oldPwd,newPwd);

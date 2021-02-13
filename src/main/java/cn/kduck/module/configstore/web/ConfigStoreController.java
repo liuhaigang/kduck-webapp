@@ -1,5 +1,7 @@
 package cn.kduck.module.configstore.web;
 
+import cn.kduck.core.web.annotation.ModelOperate;
+import cn.kduck.core.web.annotation.ModelResource;
 import cn.kduck.module.configstore.service.ConfigObjectBean;
 import cn.kduck.module.configstore.service.ConfigStoreService;
 import cn.kduck.module.configstore.service.impl.ConfigStoreServiceImpl.ConfigWrapper;
@@ -19,6 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/configstore")
 @Api(tags="模块参数配置")
+@ModelResource
 public class ConfigStoreController {
 
     @Autowired
@@ -38,6 +41,7 @@ public class ConfigStoreController {
             @ApiField(name = "itemName", value = "参数名",paramType = "query",position=3),
             @ApiField(name = "itemValue", value = "参数值",paramType = "query",position=4),
     })
+    @ModelOperate
     public JsonObject addConfigItem(@RequestBody List<ConfigItemBean> configItemList){
         configStoreService.saveConfigItem(configItemList);
         return JsonObject.SUCCESS;
@@ -48,6 +52,7 @@ public class ConfigStoreController {
     @ApiParamRequest(
             @ApiField(name="configCode",value="主配置编码")
     )
+    @ModelOperate
     public JsonObject listConfigItem(@RequestParam("configCode") String configCode){
         ConfigWrapper configWrapper = configStoreService.listConfigItem(configCode);
         return new JsonObject(configWrapper);
@@ -55,6 +60,7 @@ public class ConfigStoreController {
 
     @GetMapping("/list")
     @ApiOperation("查询可配置模块")
+    @ModelOperate
     public JsonObject listConfig(){
         List<ConfigObjectBean> configObjectBeanList = configStoreService.listConfigObject();
         return new JsonObject(configObjectBeanList);

@@ -1,5 +1,7 @@
 package cn.kduck.webapp.security;
 
+import cn.kduck.core.utils.StringUtils;
+import cn.kduck.core.web.GlobalErrorController;
 import cn.kduck.module.account.service.Account;
 import cn.kduck.module.account.service.AccountService;
 import cn.kduck.module.authorize.service.AuthorizeOperate;
@@ -10,7 +12,6 @@ import cn.kduck.module.resource.service.ResourceService;
 import cn.kduck.security.access.AbstractRoleAccessVoter;
 import cn.kduck.security.principal.AuthUser;
 import cn.kduck.security.principal.AuthUserHolder;
-import cn.kduck.core.utils.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,7 +95,7 @@ public class CustomRoleAccessVoter extends AbstractRoleAccessVoter {
             }
 
         }
-
+        request.setAttribute(GlobalErrorController.GLOBAL_ERROR_MESSAGE,resourceOperate.getOperateName());
         return false;
     }
 

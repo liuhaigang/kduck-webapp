@@ -1,5 +1,7 @@
 package cn.kduck.module.organization.web;
 
+import cn.kduck.core.web.annotation.ModelOperate;
+import cn.kduck.core.web.annotation.ModelResource;
 import cn.kduck.module.organization.service.Organization;
 import cn.kduck.module.organization.service.OrganizationService;
 import cn.kduck.module.user.service.User;
@@ -29,6 +31,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/organization")
 @Api(tags = "组织机构管理")
+@ModelResource
 public class OrganizationController {
 
     @Autowired
@@ -50,6 +53,7 @@ public class OrganizationController {
             @ApiImplicitParam(name = "orgType", value = "机构类型", paramType = "query"),
             @ApiImplicitParam(name = "orgNature", value = "机构性质", paramType = "query")
     })
+    @ModelOperate
     public JsonObject addOrganization(@ApiIgnore Organization organization) {
         orgService.addOrganization(organization);
         return JsonObject.SUCCESS;
@@ -72,6 +76,7 @@ public class OrganizationController {
             @ApiImplicitParam(name = "orgType", value = "机构类型", paramType = "query"),
             @ApiImplicitParam(name = "orgNature", value = "机构性质", paramType = "query")
     })
+    @ModelOperate
     public JsonObject updateOrganization(@ApiIgnore Organization organization) {
         orgService.updateOrganization(organization);
         return JsonObject.SUCCESS;
@@ -86,6 +91,7 @@ public class OrganizationController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", value = "机构主键", paramType = "query", allowMultiple = true),
     })
+    @ModelOperate
     public JsonObject deleteOrganization(@RequestParam("ids") String[] ids) {
         orgService.deleteOrganization(ids);
         return JsonObject.SUCCESS;
@@ -102,6 +108,7 @@ public class OrganizationController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "orgId", value = "机构主键", paramType = "query"),
     })
+    @ModelOperate
     public JsonObject getOrganization(@RequestParam("orgId") String orgId) {
         Organization organization = orgService.getOrganization(orgId);
         return new JsonObject(organization);
@@ -124,6 +131,7 @@ public class OrganizationController {
 
     @GetMapping("/tree")
     @ApiOperation(value = "查询机构详情(树结构封装)")
+    @ModelOperate
     public JsonObject listOrganizationTree(){
         List<Organization> valueMaps = orgService.listAllOrganization(true);
         List<Node<Organization>> nodes = TreeNodeUtils.formatTreeNode(valueMaps, Organization::getOrgId, Organization::getOrgName, Organization::getParentId);
@@ -138,6 +146,7 @@ public class OrganizationController {
             @ApiImplicitParam(name = "orgId", value = "机构ID", paramType = "query"),
             @ApiImplicitParam(name = "userIds", value = "用户ID", paramType = "query",allowMultiple = true),
     })
+    @ModelOperate
     public JsonObject addOrgUser(@RequestParam("orgId") String orgId,@RequestParam("userIds") String[] userIds){
         orgService.addOrgUser(orgId,userIds);
         return JsonObject.SUCCESS;
@@ -148,6 +157,7 @@ public class OrganizationController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", value = "机构用户ID", paramType = "query",allowMultiple = true),
     })
+    @ModelOperate
     public JsonObject deleteOrgUser(@RequestParam("ids") String[] orgUserIds){
         orgService.deleteOrgUser(orgUserIds);
         return JsonObject.SUCCESS;
@@ -158,6 +168,7 @@ public class OrganizationController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "orgId", value = "机构ID", paramType = "query"),
     })
+    @ModelOperate
     public JsonObject listOrgUser(@RequestParam("orgId") String orgId,@ApiIgnore Page page){
         ValueMapList valueMaps = orgService.listOrgUser(orgId,page);
         return new JsonPageObject(page,valueMaps);

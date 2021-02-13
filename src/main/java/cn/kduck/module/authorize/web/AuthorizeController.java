@@ -1,16 +1,20 @@
 package cn.kduck.module.authorize.web;
 
+import cn.kduck.core.web.json.JsonObject;
+import cn.kduck.core.web.swagger.ApiField;
+import cn.kduck.core.web.swagger.ApiParamRequest;
 import cn.kduck.module.authorize.service.AuthorizeOperate;
 import cn.kduck.module.authorize.service.AuthorizeService;
 import cn.kduck.security.principal.AuthUser;
 import cn.kduck.security.principal.AuthUserHolder;
-import cn.kduck.core.web.json.JsonObject;
-import cn.kduck.core.web.swagger.ApiField;
-import cn.kduck.core.web.swagger.ApiParamRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -114,6 +118,15 @@ public class AuthorizeController {
     //参数orgId主要用于分级授权，查询具体某个机构的权限
     public JsonObject listAuthorizeOperateByGroup(String orgId,String userId){
         List<AuthorizeOperate> authorizeOperateList = authorizeService.listAuthorizeResourceByUserId(userId, orgId,AuthorizeOperate.OPERATE_TYPE_GROUP,false);
+        return new JsonObject(authorizeOperateList);
+    }
+
+    @ApiOperation("查询当前用户所有已授权的资源操作")
+    @GetMapping("/list/authenticated")
+    public JsonObject listAuthenticatedOperate(){
+        AuthUser authUser = AuthUserHolder.getAuthUser();
+        String userId = (String)authUser.getDetailsItem("userId");
+        List<AuthorizeOperate> authorizeOperateList = authorizeService.listAuthenticatedOperate(userId);
         return new JsonObject(authorizeOperateList);
     }
 
