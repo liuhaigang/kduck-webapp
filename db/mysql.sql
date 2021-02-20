@@ -379,6 +379,7 @@ CREATE TABLE k_user(
     nationality      VARCHAR(255),
     nation           VARCHAR(50),
     native_place     VARCHAR(255),
+    photo_id         VARCHAR(50),
     PRIMARY KEY (user_id)
 )ENGINE=INNODB
 ;
@@ -570,3 +571,5 @@ INSERT INTO `kduck`.`k_role_object`(`object_id`, `role_id`, `role_object`, `obje
 
 INSERT INTO `k_menu`(`menu_id`, `parent_id`, `menu_name`, `menu_code`, `order_num`) VALUES ('-1', '-1', '菜单管理', 'ROOT', 0);
 INSERT INTO `k_organization`(`org_id`, `parent_id`, `org_name`, `org_code`, `short_name`, `data_path`, `order_num`) VALUES ('-1', '-1', '组织机构', 'ROOT', '组织机构', '/', 0);
+
+INSERT INTO `kduck`.`k_hierarchical_authorize`(`authorize_id`, `org_id`, `user_id`) VALUES ('1', '-1', '1');

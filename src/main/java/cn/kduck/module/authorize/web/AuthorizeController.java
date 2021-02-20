@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/authorize")
@@ -121,12 +122,12 @@ public class AuthorizeController {
         return new JsonObject(authorizeOperateList);
     }
 
-    @ApiOperation("查询当前用户所有已授权的资源操作")
+    @ApiOperation("查询指定用户所有已授权的资源操作")
     @GetMapping("/list/authenticated")
-    public JsonObject listAuthenticatedOperate(){
+    public JsonObject listAuthenticatedOperate(String userId){
         AuthUser authUser = AuthUserHolder.getAuthUser();
-        String userId = (String)authUser.getDetailsItem("userId");
-        List<AuthorizeOperate> authorizeOperateList = authorizeService.listAuthenticatedOperate(userId);
+        userId = userId == null ? authUser.getUserId():userId;
+        Map<String,List<String>> authorizeOperateList = authorizeService.listAuthenticatedOperate(userId);
         return new JsonObject(authorizeOperateList);
     }
 

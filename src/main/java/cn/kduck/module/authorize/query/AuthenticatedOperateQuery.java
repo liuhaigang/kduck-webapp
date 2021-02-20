@@ -50,7 +50,7 @@ public class AuthenticatedOperateQuery implements QueryCreator {
         sqlBuiler.bindFields("ro",BeanDefUtils.includeField(resourceOperateDef.getFieldList(),"operateId","operateName"));
         sqlBuiler.from("a",authorizeDef)
                 .innerJoinOn("ro",resourceOperateDef,"operateObject:operateId")
-                .innerJoinOn("u",userDef,"operateId:userId")
+                .innerJoinOn("u",userDef,"authorizeObject:userId",authorizeDef)
                 .where().and("a.authorize_type", ConditionType.EQUALS,"${1}")
                 .and("a.operate_type", ConditionType.EQUALS,"${1}")
                 .and("u.user_id",ConditionType.EQUALS,"userId");

@@ -1,6 +1,7 @@
 package cn.kduck.module.authorize.service;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AuthorizeService {
 
@@ -38,6 +39,6 @@ public interface AuthorizeService {
 //    @Deprecated
 //    List<AuthorizeResource> listAuthorizeResourceByUserId(String userId);
 
-    List<AuthorizeOperate> listAuthenticatedOperate(String userId);
+    Map<String,List<String>> listAuthenticatedOperate(String userId);
 
 }

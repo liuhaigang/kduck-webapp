@@ -5,6 +5,7 @@ import cn.kduck.module.account.service.AccountService;
 import cn.kduck.module.organization.service.OrganizationService;
 import cn.kduck.module.role.service.Role;
 import cn.kduck.module.role.service.RoleService;
+import cn.kduck.module.user.service.User;
 import cn.kduck.module.user.service.UserService;
 import cn.kduck.core.service.DefaultService;
 import cn.kduck.core.service.ValueMap;
@@ -12,7 +13,6 @@ import cn.kduck.core.service.ValueMapList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -79,8 +79,11 @@ public class UserDetailsServiceImpl extends DefaultService implements UserDetail
             authorities.add(new SimpleGrantedAuthority(roleMap.getValueAsString("roleCode")));
         }
 
+        User user = userService.getUser(account.getUserId());
+
 //        AuthUser authUser = new AuthUser(userId, username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
-        User authUser = new User(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+        Kuser authUser = new Kuser(user.getUserId(),user.getUserName(),username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+        authUser.setPhotoId(user.getPhotoId());
         return authUser;
     }
 

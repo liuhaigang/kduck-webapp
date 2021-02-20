@@ -1,5 +1,6 @@
 package cn.kduck.module.user.web;
 
+import cn.kduck.core.service.ParamMap;
 import cn.kduck.module.user.service.User;
 import cn.kduck.module.user.service.UserAccount;
 import cn.kduck.module.user.service.UserService;
@@ -15,14 +16,25 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * LiuHG
@@ -36,8 +48,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private List<HttpMessageConverter<?>> messageConverters;
+    @Value("${photoPath:${user.home}}")
+    private String photoPath;
 
     @PostMapping("/add")
     @ApiOperation(value = "添加用户")
@@ -50,6 +62,7 @@ public class UserController {
     })
     @ModelOperate(name="添加用户")
     public JsonObject addUser(@Validated User user){
+        processPhoto(user);
         userService.addUser(user);
         return JsonObject.SUCCESS;
     }
@@ -77,6 +90,7 @@ public class UserController {
     })
     @ModelOperate(name="修改用户")
     public JsonObject updateUser(User user){
+        processPhoto(user);
         userService.updateUser(user);
         return JsonObject.SUCCESS;
     }
@@ -106,5 +120,88 @@ public class UserController {
         List<UserAccount> users = userService.listUserAccount(paramMap, page);
         return new JsonPageObject(page,users);
     }
+
+    @PostMapping("/upload/photo")
+    @ModelOperate(name="更新用户头像")
+    public JsonObject uploadUserPhoto(String userId,MultipartFile photoFile){
+        String photoId = UUID.randomUUID().toString().replaceAll("-", "") + ".new";
+
+        //如果userID为null，说明是新增，需要暂时保存成临时文件，等待用户保存时将头像读取走，并删除临时文件
+        //如果userID不为null，说明是更新，直接将对应用户ID的用户头像进行更新，不存临时文件
+        System.out.println("上传用户("+userId+")头像："+photoFile.getOriginalFilename());
+
+        File photoDir = getPhotoBasePath();
+
+        try {
+            photoFile.transferTo(new File(photoDir,photoId));
+        } catch (IOException e) {
+            throw new RuntimeException("保存用户头像发生IO错误",e);
+        }
+        return new JsonObject(photoId);
+    }
+
+    @GetMapping("/get/photo")
+    public void getUserPhoto(String userId, String photoId, HttpServletResponse response){
+        if(StringUtils.hasText(photoId)){
+            File file = getPhotoPath(photoId);
+            try {
+                ServletOutputStream outputStream = response.getOutputStream();
+                FileCopyUtils.copy(new FileInputStream(file),outputStream);
+            } catch (IOException e) {
+                throw new RuntimeException("获取头像错误：photoId="+photoId,e);
+            }
+        }
+    }
+
+    @DeleteMapping("/delete/photo")
+//    @ModelOperate(name="删除用户头像")
+    public JsonObject deleteUserPhoto(String userId){
+        User u = userService.getUser(userId);
+        String photoId = u.getPhotoId();
+
+        User user = new User();
+        user.setUserId(userId);
+        user.setPhotoId(null);
+        userService.updateUser(user);
+
+        deletePhotoFile(photoId);
+        return JsonObject.SUCCESS;
+    }
+
+    private void processPhoto(User user) {
+        String photoId = user.getPhotoId();
+        if(photoId != null && photoId.endsWith(".new")){
+            if(StringUtils.hasText(user.getUserId())){
+                User u = userService.getUser(user.getUserId());
+                if(u != null && StringUtils.hasText(u.getPhotoId())){
+                    deletePhotoFile(u.getPhotoId());
+                }
+            }
+            String newPhotoId = photoId.substring(0,photoId.length()-4);
+            File photoPath = getPhotoPath(photoId);
+            photoPath.renameTo(getPhotoPath(newPhotoId));
+            user.setPhotoId(newPhotoId);
+        }
+    }
+
+    private void deletePhotoFile(String photoId) {
+        File photoFile = getPhotoPath(photoId);
+        if(photoFile.exists()){
+            photoFile.delete();
+        }
+    }
+
+    private File getPhotoPath(String photoId) {
+        return new File(getPhotoBasePath(),photoId);
+    }
+
+    private File getPhotoBasePath() {
+        File photoDir = new File(photoPath, "photo");
+        if(!photoDir.exists()){
+            photoDir.mkdirs();
+        }
+        return photoDir;
+    }
+
 
 }

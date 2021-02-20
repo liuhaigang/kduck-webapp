@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -175,23 +176,36 @@ public class AuthorizeServiceImpl extends DefaultService implements AuthorizeSer
     }
 
     @Override
-    public List<AuthorizeOperate> listAuthenticatedOperate(String userId) {
+    public Map<String,List<String>> listAuthenticatedOperate(String userId) {
 
-        List<AuthorizeOperate> allAuthList = new ArrayList<>();
+        Map<String,List<String>> allAuthMap = new HashMap<>();
 
         Map<String, Object> paramMap = ParamMap.create("authType",AUTH_TYPE_USER).set("userId", userId).toMap();
         QuerySupport query = super.getQuery(AuthenticatedOperateQuery.class, paramMap);
-        allAuthList.addAll(super.listForBean(query, AuthorizeOperate::new));
+        List<AuthorizeOperate> authList = super.listForBean(query, AuthorizeOperate::new);
+        allAuthMap.put(AUTH_TYPE_USER,getOperateIdList(authList));
 
         paramMap = ParamMap.create("authType",AUTH_TYPE_ORG).set("userId", userId).toMap();
         query = super.getQuery(AuthenticatedOperateQuery.class, paramMap);
-        allAuthList.addAll(super.listForBean(query, AuthorizeOperate::new));
+        authList = super.listForBean(query, AuthorizeOperate::new);
+        allAuthMap.put(AUTH_TYPE_ORG,getOperateIdList(authList));
 
         paramMap = ParamMap.create("authType",AUTH_TYPE_ROLE).set("userId", userId).toMap();
         query = super.getQuery(AuthenticatedOperateQuery.class, paramMap);
-        allAuthList.addAll(super.listForBean(query, AuthorizeOperate::new));
+        authList = super.listForBean(query, AuthorizeOperate::new);
+        allAuthMap.put(AUTH_TYPE_ROLE,getOperateIdList(authList));
 
-        return allAuthList;
+        return allAuthMap;
+    }
+
+    private List<String> getOperateIdList(List<AuthorizeOperate> authList){
+        List<String> operateIdList = new ArrayList<>(authList.size());
+        for (AuthorizeOperate authorizeOperate : authList) {
+            String operateId = authorizeOperate.getValueAsString("operateId");
+            operateIdList.add(operateId);
+        }
+
+        return operateIdList;
     }
 
 //    @Deprecated

@@ -38,6 +38,8 @@ public class User extends ValueMap {
     private static final String NATION = "nation";
     /**籍贯*/
     private static final String NATIVE_PLACE = "nativePlace";
+    /**用户头像*/
+    public static final String PHOTO_ID = "photoId";
 
 
     public User() {}
@@ -296,5 +298,23 @@ public class User extends ValueMap {
      */
     public String getNativePlace() {
         return super.getValueAsString(NATIVE_PLACE);
+    }
+
+    /**
+     * 设置
+     *
+     * @param photoId
+     */
+    public void setPhotoId(String photoId) {
+        super.setValue(PHOTO_ID, photoId);
+    }
+
+    /**
+     * 获取
+     *
+     * @return
+     */
+    public String getPhotoId() {
+        return super.getValueAsString(PHOTO_ID);
     }
 }
