@@ -28,13 +28,12 @@ CREATE TABLE k_account(
 CREATE TABLE k_audit_log(
     log_id          VARCHAR(50)     NOT NULL,
     method          VARCHAR(20),
-    module_code     VARCHAR(100),
     module_name     VARCHAR(200),
-    operate_code    VARCHAR(100),
     operate_name    VARCHAR(200),
     url             VARCHAR(200),
     user_id         VARCHAR(50),
-    ip              VARCHAR(20),
+    user_name       VARCHAR(100),
+    remote_host     VARCHAR(20),
     create_time     DATETIME,
     PRIMARY KEY (log_id)
 )ENGINE=INNODB

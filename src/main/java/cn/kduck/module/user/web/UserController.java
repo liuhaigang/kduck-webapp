@@ -143,13 +143,23 @@ public class UserController {
     @GetMapping("/get/photo")
     public void getUserPhoto(String userId, String photoId, HttpServletResponse response){
         if(StringUtils.hasText(photoId)){
-            File file = getPhotoPath(photoId);
-            try {
-                ServletOutputStream outputStream = response.getOutputStream();
-                FileCopyUtils.copy(new FileInputStream(file),outputStream);
-            } catch (IOException e) {
-                throw new RuntimeException("获取头像错误：photoId="+photoId,e);
+            downloadPhoto(photoId, response);
+        }else if(StringUtils.hasText(userId)){
+            User user = userService.getUser(userId);
+            photoId = user.getPhotoId();
+            if(StringUtils.hasText(photoId)){
+                downloadPhoto(photoId, response);
             }
+        }
+    }
+
+    private void downloadPhoto(String photoId, HttpServletResponse response) {
+        File file = getPhotoPath(photoId);
+        try {
+            ServletOutputStream outputStream = response.getOutputStream();
+            FileCopyUtils.copy(new FileInputStream(file), outputStream);
+        } catch (IOException e) {
+            throw new RuntimeException("获取头像错误：photoId=" + photoId, e);
         }
     }
 
