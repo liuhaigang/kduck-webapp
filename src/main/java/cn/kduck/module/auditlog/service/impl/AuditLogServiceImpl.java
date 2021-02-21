@@ -10,6 +10,7 @@ import cn.kduck.core.utils.StringUtils;
 import cn.kduck.core.web.interceptor.operateinfo.OperateInfo;
 import cn.kduck.core.web.interceptor.operateinfo.OperateInfoHandler;
 import cn.kduck.core.web.interceptor.operateinfo.OperateObject;
+import cn.kduck.core.web.interceptor.operateinfo.OperateObject.OperateType;
 import cn.kduck.module.auditlog.AuditLogConfig;
 import cn.kduck.module.auditlog.query.AuditLogQuery;
 import cn.kduck.module.auditlog.service.AuditLog;
@@ -18,7 +19,6 @@ import cn.kduck.security.principal.AuthUser;
 import cn.kduck.security.principal.AuthUserHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -46,6 +46,14 @@ public class AuditLogServiceImpl extends DefaultService implements AuditLogServi
                 log.setUserId(authUser.getUserId());
                 log.setUserName((String)authUser.getDetailsItem("userName"));
             }
+
+            StringBuilder strBuilder = new StringBuilder();
+            for (OperateObject operateObject : operateObjects) {
+                String tableName = operateObject.getEntityDef().getTableName();
+                OperateType operateType = operateObject.getOperateType();
+                strBuilder.append("数据表："+tableName + " 操作：" + operateType + "\r\n");
+            }
+            System.out.println(strBuilder);
 
             addAuditLog(log);
         }
