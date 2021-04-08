@@ -29,7 +29,9 @@ public class HolidayDayQuery implements QueryCreator {
         SelectBuilder sqlBuilder = new SelectBuilder(holidayDayDef,paramMap);
         sqlBuilder.where().and("calendar_id", ConditionType.EQUALS,"calendarId",true)
                 .and("holiday_month",ConditionType.EQUALS,"holidayMonth")
-                .and("holiday_day",ConditionType.EQUALS,"holidayDay").orderBy().asc("holiday_date");
+                .and("holiday_day",ConditionType.EQUALS,"holidayDay")
+                .and("holiday_day",ConditionType.GREATER_OR_EQUALS,"greaterDay")
+                .and("holiday_day",ConditionType.LESS_OR_EQUALS,"lessDay").orderBy().asc("holiday_date");
 //        sqlBuilder.from("w",workCalendarDef).innerJoinOn("h",holidayDayDef, "calendarId");
         return sqlBuilder.build();
     }

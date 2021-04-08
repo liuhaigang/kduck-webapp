@@ -240,6 +240,8 @@ public class WorkCalendarServiceImpl extends DefaultService implements WorkCalen
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         Map<String, Object> paramMap = ParamMap.create("calendarCode", calendarCode).set("calendarYear", year).toMap();
         QuerySupport workCalendarQuery = getQuery(WorkCalendarQuery.class, paramMap);
@@ -248,9 +250,22 @@ public class WorkCalendarServiceImpl extends DefaultService implements WorkCalen
             throw new RuntimeException("当前日期没有日历配置，请先为"+calendarCode+"编码，" + year + "年创建工作日历");
         }
 
-        int month = calendar.get(Calendar.DAY_OF_MONTH);
-        QuerySupport holidayDayQuery = super.getQuery(HolidayDayQuery.class, ParamMap.create("calendarId", workCalendar.getCalendarId()).set("holidayMonth", month).toMap());
+        paramMap = ParamMap.create("calendarId", workCalendar.getCalendarId()).set("holidayMonth", month)
+                .set("greaterDay",day).toMap();
+        QuerySupport holidayDayQuery = super.getQuery(HolidayDayQuery.class, paramMap);
         List<HolidayDay> holidayDays = super.listForBean(holidayDayQuery, HolidayDay::new);
+
+        for (int i = days; i > 0; ) {
+            for (HolidayDay holidayDay : holidayDays) {
+                if(holidayDay.getHolidayMonth() != month && holidayDay.getHolidayDay() == day){
+                    i--;
+                }
+                calendar.add(Calendar.DAY_OF_MONTH,1);
+            }
+            if(i > 0){
+                //TODO 跨年
+            }
+        }
 
         return null;
     }
