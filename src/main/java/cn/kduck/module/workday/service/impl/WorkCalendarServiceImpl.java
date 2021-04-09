@@ -6,6 +6,7 @@ import cn.kduck.core.dao.sqlbuilder.DeleteBuilder;
 import cn.kduck.core.service.DefaultService;
 import cn.kduck.core.service.Page;
 import cn.kduck.core.service.ParamMap;
+import cn.kduck.core.service.ValueMap;
 import cn.kduck.core.utils.ConversionUtils;
 import cn.kduck.module.workday.query.HolidayDayQuery;
 import cn.kduck.module.workday.query.WorkCalendarQuery;
@@ -317,7 +318,17 @@ public class WorkCalendarServiceImpl extends DefaultService implements WorkCalen
 
     @Override
     public boolean isWorkDay(String calendarCode, Date date) {
-        return false;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        Map paramMap = ParamMap.create().set("year",year).set("month",month).set("day",day).toMap();
+        QuerySupport holidayDayQuery = super.getQuery(HolidayDayQuery.class, paramMap);
+        ValueMap valueMap = super.get(holidayDayQuery);
+        return valueMap == null;
     }
 
     public HolidayDayOrchestrator getHolidayDayOrchestrator() {
