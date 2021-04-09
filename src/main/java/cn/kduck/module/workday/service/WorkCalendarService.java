@@ -1,10 +1,14 @@
 package cn.kduck.module.workday.service;
 
+import cn.kduck.core.dao.query.QuerySupport;
 import cn.kduck.core.service.Page;
+import cn.kduck.core.service.ParamMap;
+import cn.kduck.module.workday.query.WorkCalendarQuery;
 import cn.kduck.module.workday.service.orchestrator.HolidayDayOrchestrator;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 注意：月份从0开始，日从1开始
@@ -33,14 +37,19 @@ public interface WorkCalendarService {
 
     List<WorkCalendar> listWorkCalendar(Page page);
 
+    WorkCalendar getWorkCalendar(String code,int year);
+
     boolean existWorkCalendar(String code,int year);
+
 
     /**
      * 获取指定日历下的工作日信息，即全年
      * @param calendarId 日历Id
      * @return 全年每个月的工作日信息，数组顺序为月份顺序
      */
-    CalendarMonth[] getCalendarMonth(String calendarId);
+    CalendarMonth[] getCalendarMonths(String calendarId);
+
+    CalendarMonth[] getCalendarMonths(String calendarCode, int year);
 
     /**
      * 获取指定日历下的某个月的工作日信息
@@ -49,6 +58,8 @@ public interface WorkCalendarService {
      * @return 指定月份的工作日信息
      */
     CalendarDay[] getCalendarMonth(String calendarId,int month);
+
+    CalendarDay[] getCalendarMonthByCode(String calendarCode,int year,int month);
 
     /**
      * 指定工作日的月、日是否为工作日，因为对于同一年可能存在多组工作日配置，因此这里不能依靠年份来决定工作日。
@@ -132,6 +143,14 @@ public interface WorkCalendarService {
      */
     Date getAfterWorkDay(String calendarCode,Date date,int days);
 
+    /**
+     * 
+     * @param calendarCode
+     * @param date 起始日期
+     * @param days 跨天数
+     * @return
+     * @see #getAfterWorkDay(String, java.util.Date, int)
+     */
     Date getBeforeWorkDay(String calendarCode,Date date,int days);
 
     /**

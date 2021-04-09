@@ -77,14 +77,19 @@ public class WorkCalendarServiceImpl extends DefaultService implements WorkCalen
     }
 
     @Override
-    public boolean existWorkCalendar(String code,int year) {
+    public WorkCalendar getWorkCalendar(String code, int year) {
         Map<String, Object> paramMap = ParamMap.create().set("calendarCode",code).set("calendarYear",year).toMap();
         QuerySupport query = super.getQuery(WorkCalendarQuery.class, paramMap);
-        return super.get(query) != null;
+        return super.getForBean(query,WorkCalendar::new);
     }
 
     @Override
-    public CalendarMonth[] getCalendarMonth(String calendarId) {
+    public boolean existWorkCalendar(String code,int year) {
+        return getWorkCalendar(code,year) != null;
+    }
+
+    @Override
+    public CalendarMonth[] getCalendarMonths(String calendarId) {
         WorkCalendar workCalendar = getWorkCalendar(calendarId);
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR,workCalendar.getCalendarYear());
@@ -97,10 +102,28 @@ public class WorkCalendarServiceImpl extends DefaultService implements WorkCalen
     }
 
     @Override
+    public CalendarMonth[] getCalendarMonths(String calendarCode, int year) {
+        WorkCalendar workCalendar = getWorkCalendar(calendarCode,year);
+        if(workCalendar == null){
+            throw new RuntimeException("当前日期没有日历配置，请先为"+calendarCode+"编码，" + year + "年创建工作日历");
+        }
+        return getCalendarMonths(workCalendar.getCalendarId());
+    }
+
+    @Override
     public CalendarDay[] getCalendarMonth(String calendarId,int month) {
         WorkCalendar workCalendar = getWorkCalendar(calendarId);
         CalendarMonth calendarMonth = getCalendarMonth(workCalendar, month);
         return calendarMonth.getCalendarDays();
+    }
+
+    @Override
+    public CalendarDay[] getCalendarMonthByCode(String calendarCode, int year, int month) {
+        WorkCalendar workCalendar = getWorkCalendar(calendarCode,year);
+        if(workCalendar == null){
+            throw new RuntimeException("当前日期没有日历配置，请先为"+calendarCode+"编码，" + year + "年创建工作日历");
+        }
+        return getCalendarMonth(workCalendar.getCalendarId(),month);
     }
 
     private CalendarMonth getCalendarMonth(WorkCalendar workCalendar,int month) {
