@@ -118,7 +118,7 @@ public class WorkCalendarServiceImpl extends DefaultService implements WorkCalen
     }
 
     @Override
-    public CalendarDay[] getCalendarMonthByCode(String calendarCode, int year, int month) {
+    public CalendarDay[] getCalendarMonth(String calendarCode, int year, int month) {
         WorkCalendar workCalendar = getWorkCalendar(calendarCode,year);
         if(workCalendar == null){
             throw new RuntimeException("当前日期没有日历配置，请先为"+calendarCode+"编码，" + year + "年创建工作日历");
@@ -199,6 +199,7 @@ public class WorkCalendarServiceImpl extends DefaultService implements WorkCalen
             holidayDay.setCalendarId(calendarId);
             holidayDay.setHolidayDate(holidayDate);
         }
+        //FIXME 检查指定日期是否已经是休息日了，需要忽略添加
         super.batchAdd(CODE_HOLIDAY_DAY,holidayDays);
     }
 

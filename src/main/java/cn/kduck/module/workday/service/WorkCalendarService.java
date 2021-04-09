@@ -59,7 +59,14 @@ public interface WorkCalendarService {
      */
     CalendarDay[] getCalendarMonth(String calendarId,int month);
 
-    CalendarDay[] getCalendarMonthByCode(String calendarCode,int year,int month);
+    /**
+     * 根据日历编码和年份查询指定月份下的工作日信息
+     * @param calendarCode
+     * @param year
+     * @param month
+     * @return
+     */
+    CalendarDay[] getCalendarMonth(String calendarCode,int year,int month);
 
     /**
      * 指定工作日的月、日是否为工作日，因为对于同一年可能存在多组工作日配置，因此这里不能依靠年份来决定工作日。
