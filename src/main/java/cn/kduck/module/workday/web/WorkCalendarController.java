@@ -13,6 +13,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 @RestController
 @RequestMapping("/workDay")
 @Api(tags="工作日历管理")
@@ -49,7 +51,7 @@ public class WorkCalendarController {
     @GetMapping("/get")
     @ApiOperation("查看工作日历信息（不含具体工作日信息）")
     @ApiParamRequest({
-            @ApiField(name="calendarId",value="日历ID"),
+            @ApiField(name="calendarId",value="日历ID", paramType = "query"),
     })
     public JsonObject getWorkCalendar(String  calendarId){
         WorkCalendar workCalendar = workCalendarService.getWorkCalendar(calendarId);
@@ -59,8 +61,8 @@ public class WorkCalendarController {
     @GetMapping("/get/byMonth")
     @ApiOperation("查看指定月份工作日历")
     @ApiParamRequest({
-            @ApiField(name="calendarId",value="日历ID"),
-            @ApiField(name="month",value="月份（1-12）"),
+            @ApiField(name="calendarId",value="日历ID", paramType = "query"),
+            @ApiField(name="month",value="月份（1-12）", paramType = "query"),
     })
     public JsonObject getCalendarMonthByMonth(String  calendarId,Integer month){
         CalendarDay[] calendarDays = workCalendarService.getCalendarMonth(calendarId, month);
@@ -70,10 +72,34 @@ public class WorkCalendarController {
     @GetMapping("/get/byYear")
     @ApiOperation("查看指定日历ID的工作日信息")
     @ApiParamRequest({
-            @ApiField(name="calendarId",value="日历ID"),
+            @ApiField(name="calendarId",value="日历ID", paramType = "query"),
     })
     public JsonObject getCalendarMonth(String  calendarId){
         CalendarMonth[] calendarMonths = workCalendarService.getCalendarMonth(calendarId);
         return new JsonObject(calendarMonths);
+    }
+
+    @GetMapping("/get/afterWorkDay")
+    @ApiOperation("查看指定日期后days天的工作日")
+    @ApiParamRequest({
+            @ApiField(name="calendarCode",value="日历编码"),
+            @ApiField(name="date",value="起始日期"),
+            @ApiField(name="days",value="跨天数"),
+    })
+    public JsonObject getAfterWorkDay(String calendarCode, Date date, int days){
+        Date afterDate = workCalendarService.getAfterWorkDay(calendarCode,date,days);
+        return new JsonObject(afterDate);
+    }
+
+    @GetMapping("/get/beforeWorkDay")
+    @ApiOperation("查看指定日期前days天的工作日")
+    @ApiParamRequest({
+            @ApiField(name="calendarCode",value="日历编码"),
+            @ApiField(name="date",value="起始日期"),
+            @ApiField(name="days",value="跨天数"),
+    })
+    public JsonObject getBeforeWorkDay(String calendarCode, Date date, int days){
+        Date afterDate = workCalendarService.getBeforeWorkDay(calendarCode,date,days);
+        return new JsonObject(afterDate);
     }
 }

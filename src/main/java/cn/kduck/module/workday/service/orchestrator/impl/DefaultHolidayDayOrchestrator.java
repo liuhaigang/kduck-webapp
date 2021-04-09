@@ -26,7 +26,7 @@ public class DefaultHolidayDayOrchestrator implements HolidayDayOrchestrator {
         if(dayOfWeek == Calendar.SUNDAY || dayOfWeek == Calendar.SATURDAY ){
             CalendarDay holidayDay = new CalendarDay(true,year,month,day);
             holidayDay.setHolidayType(HolidayDay.HOLIDAYDAY_TYPE_PUBLIC);
-            holidayDay.setHolidayName("公休日");
+            holidayDay.setName("公休日");
             return holidayDay;
         }
         return new CalendarDay(false,year,month,day);

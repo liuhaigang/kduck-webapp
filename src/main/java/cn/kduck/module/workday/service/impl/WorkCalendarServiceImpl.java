@@ -237,12 +237,71 @@ public class WorkCalendarServiceImpl extends DefaultService implements WorkCalen
 
     @Override
     public Date getAfterWorkDay(String calendarCode, Date date, int days) {
+        return getCrossWorkDay(true,calendarCode,date,days);
+    }
+
+    @Override
+    public Date getBeforeWorkDay(String calendarCode, Date date, int days) {
+        return getCrossWorkDay(false,calendarCode,date,days);
+    }
+
+    private Date getCrossWorkDay(boolean after,String calendarCode, Date date, int days) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
+        int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
+        List<HolidayDay> holidayDays = listHolidayDays(calendarCode, calendar,after);
+
+        while(days >= 0){
+            boolean isHoliday = false;
+            for (HolidayDay holidayDay : holidayDays) {
+                if(holidayDay.getHolidayMonth() == month && holidayDay.getHolidayDay() == day){
+                    isHoliday = true;
+                    break;
+                }
+            }
+
+            //TODO 判断是否为指定的日子，比如星期X
+
+            if(!isHoliday){
+                days--;
+                /*
+                当前日期不是休息日，但是第二天是休息日且days--后为0时，会导致接下来的+1天不会检测休息日，因此需要再次进入循环进行
+                休息日判断，再次不是休息日时，才跳出while循环。
+                 */
+                if(days < 0){
+                    break;
+                }
+            }
+            if(after){
+                calendar.add(Calendar.DAY_OF_MONTH,1);
+            }else{
+                calendar.add(Calendar.DAY_OF_MONTH,-1);
+            }
+            month = calendar.get(Calendar.MONTH) + 1;
+            day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            //跨年
+            int currentYear = calendar.get(Calendar.YEAR);
+            if(currentYear != year){
+                year = currentYear;
+                holidayDays = listHolidayDays(calendarCode, calendar,after);
+            }
+        }
+
+        return calendar.getTime();
+    }
+
+    private List<HolidayDay> listHolidayDays(String calendarCode, Calendar calendar,boolean after) {
+
+        calendar.set(Calendar.HOUR,0);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MILLISECOND,0);
+
+        int year = calendar.get(Calendar.YEAR);
         Map<String, Object> paramMap = ParamMap.create("calendarCode", calendarCode).set("calendarYear", year).toMap();
         QuerySupport workCalendarQuery = getQuery(WorkCalendarQuery.class, paramMap);
         WorkCalendar workCalendar = super.getForBean(workCalendarQuery, WorkCalendar::new);
@@ -250,29 +309,10 @@ public class WorkCalendarServiceImpl extends DefaultService implements WorkCalen
             throw new RuntimeException("当前日期没有日历配置，请先为"+calendarCode+"编码，" + year + "年创建工作日历");
         }
 
-        paramMap = ParamMap.create("calendarId", workCalendar.getCalendarId()).set("holidayMonth", month)
-                .set("greaterDay",day).toMap();
+        String dateConditionName = after ? "greaterDate":"lessDate";
+        paramMap = ParamMap.create("calendarId", workCalendar.getCalendarId()).set(dateConditionName, calendar.getTime()).toMap();
         QuerySupport holidayDayQuery = super.getQuery(HolidayDayQuery.class, paramMap);
-        List<HolidayDay> holidayDays = super.listForBean(holidayDayQuery, HolidayDay::new);
-
-        for (int i = days; i > 0; ) {
-            for (HolidayDay holidayDay : holidayDays) {
-                if(holidayDay.getHolidayMonth() != month && holidayDay.getHolidayDay() == day){
-                    i--;
-                }
-                calendar.add(Calendar.DAY_OF_MONTH,1);
-            }
-            if(i > 0){
-                //TODO 跨年
-            }
-        }
-
-        return null;
-    }
-
-    @Override
-    public Date getBeforeWorkDay(String calendarCode, Date date, int days) {
-        return null;
+        return super.listForBean(holidayDayQuery, HolidayDay::new);
     }
 
     @Override
