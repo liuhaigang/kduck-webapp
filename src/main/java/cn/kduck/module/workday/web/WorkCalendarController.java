@@ -75,7 +75,7 @@ public class WorkCalendarController {
             @ApiField(name="calendarId",value="日历ID", paramType = "query"),
     })
     public JsonObject getCalendarMonth(String  calendarId){
-        CalendarMonth[] calendarMonths = workCalendarService.getCalendarMonth(calendarId);
+        CalendarMonth[] calendarMonths = workCalendarService.getCalendarMonths(calendarId);
         return new JsonObject(calendarMonths);
     }
 
