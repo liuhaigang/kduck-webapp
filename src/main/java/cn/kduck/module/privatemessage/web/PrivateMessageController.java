@@ -14,6 +14,7 @@ import cn.kduck.module.privatemessage.web.model.PrivateMessageModel;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +38,8 @@ public class PrivateMessageController {
             @ApiField(name="messateTitle",value="消息标题", paramType = "query"),
             @ApiField(name="messageContent",value="消息内容", paramType = "query"),
             @ApiField(name="receivers[].receiverId",value="接收对象Id", paramType = "query"),
-            @ApiField(name="receivers[].groupType",value="接收对象类型", paramType = "query"),
+            @ApiField(name="receivers[].receiverType",value="接收对象类型（MessageUser，MessageGroup）", paramType = "query"),
+            @ApiField(name="receivers[].groupType",value="接收对象类型（ORG，ALL）", paramType = "query"),
 
     })
     public JsonObject addPrivateMessage(@RequestBody PrivateMessageModel messageModel){
@@ -53,6 +55,7 @@ public class PrivateMessageController {
         int index = 0;
         for (MessageReceiverModel receiver : receivers) {
             String receiverType = receiver.getReceiverType();
+            Assert.notNull(receiverType,"接收类型不能为null");
             if(MessageUser.class.getSimpleName().equals(receiverType)){
                 MessageUser messageUser = new MessageUser();
                 messageUser.setUserId(receiver.getReceiverId());
