@@ -2,6 +2,7 @@ package cn.kduck.module.privatemessage.service;
 
 import cn.kduck.core.service.ValueMap;
 
+import java.util.Date;
 import java.util.Map;
 
 public class MessageGroup extends ValueMap implements MessageReceiver{
@@ -12,9 +13,10 @@ public class MessageGroup extends ValueMap implements MessageReceiver{
     public static final String RELATION_ID = "relationId";
     /***/
     public static final String GROUP_TYPE = "groupType";
-
     /***/
     public static final String MESSAGE_ID = "messageId";
+    /***/
+    public static final String EXPIRED_DATE = "expiredDate";
 
     public MessageGroup() {
     }
@@ -103,5 +105,23 @@ public class MessageGroup extends ValueMap implements MessageReceiver{
      */
     public String getMessageId() {
         return super.getValueAsString(MESSAGE_ID);
+    }
+
+    /**
+     * 设置
+     *
+     * @param expiredDate
+     */
+    public void setExpiredDate(Date expiredDate) {
+        super.setValue(EXPIRED_DATE, expiredDate);
+    }
+
+    /**
+     * 获取
+     *
+     * @return
+     */
+    public Date getExpiredDate() {
+        return super.getValueAsDate(EXPIRED_DATE);
     }
 }

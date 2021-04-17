@@ -6,6 +6,12 @@ import java.util.Map;
 
 public class MessageUser extends ValueMap implements MessageReceiver{
 
+    public static final int IS_READ_NO = 0;
+    public static final int IS_READ_YES = 1;
+
+    public static final int IS_DELETE_NO = 0;
+    public static final int IS_DELETE_YES = 1;
+
     /***/
     public static final String MESSAGE_USER_ID = "messageUserId";
     /***/
@@ -13,7 +19,9 @@ public class MessageUser extends ValueMap implements MessageReceiver{
     /***/
     public static final String USER_ID = "userId";
     /**是否已读*/
-    public static final String READ = "read";
+    public static final String IS_READ = "isRead";
+
+    public static final String IS_DELETE = "isDelete";
 
     public MessageUser() {
     }
@@ -21,7 +29,8 @@ public class MessageUser extends ValueMap implements MessageReceiver{
     public MessageUser(String messageId,String userId) {
         setMessageId(messageId);
         setUserId(userId);
-        setRead(false);
+        setIsRead(IS_READ_NO);
+        setIsDelete(IS_DELETE_NO);
     }
 
     public MessageUser(Map<String, Object> map) {
@@ -98,8 +107,8 @@ public class MessageUser extends ValueMap implements MessageReceiver{
      *
      * @param read 是否已读
      */
-    public void setRead(Boolean read) {
-        super.setValue(READ, read);
+    public void setIsRead(Integer read) {
+        super.setValue(IS_READ, read);
     }
 
     /**
@@ -107,7 +116,15 @@ public class MessageUser extends ValueMap implements MessageReceiver{
      *
      * @return 是否已读
      */
-    public Boolean getRead() {
-        return super.getValueAsBoolean(READ);
+    public Integer getIsRead() {
+        return super.getValueAsInteger(IS_READ);
+    }
+
+    public void setIsDelete(Integer read) {
+        super.setValue(IS_DELETE, read);
+    }
+
+    public Integer getIsDelete() {
+        return super.getValueAsInteger(IS_DELETE);
     }
 }

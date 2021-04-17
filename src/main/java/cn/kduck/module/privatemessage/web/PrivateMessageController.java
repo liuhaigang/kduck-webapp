@@ -1,9 +1,10 @@
 package cn.kduck.module.privatemessage.web;
 
+import cn.kduck.core.service.Page;
 import cn.kduck.core.web.json.JsonObject;
+import cn.kduck.core.web.json.JsonPageObject;
 import cn.kduck.core.web.swagger.ApiField;
 import cn.kduck.core.web.swagger.ApiJsonRequest;
-import cn.kduck.module.privatemessage.MessageGroupProvider;
 import cn.kduck.module.privatemessage.service.MessageGroup;
 import cn.kduck.module.privatemessage.service.MessageReceiver;
 import cn.kduck.module.privatemessage.service.MessageUser;
@@ -11,14 +12,20 @@ import cn.kduck.module.privatemessage.service.PrivateMessage;
 import cn.kduck.module.privatemessage.service.PrivateMessageService;
 import cn.kduck.module.privatemessage.web.model.MessageReceiverModel;
 import cn.kduck.module.privatemessage.web.model.PrivateMessageModel;
+import cn.kduck.security.principal.AuthUser;
+import cn.kduck.security.principal.AuthUserHolder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Date;
 import java.util.List;
@@ -35,7 +42,7 @@ public class PrivateMessageController {
     @ApiOperation("添加站内信")
     @ApiJsonRequest({
 //            @ApiField(name="messageId",value="消息ID", paramType = "query"),
-            @ApiField(name="messateTitle",value="消息标题", paramType = "query"),
+            @ApiField(name="messageTitle",value="消息标题", paramType = "query"),
             @ApiField(name="messageContent",value="消息内容", paramType = "query"),
             @ApiField(name="receivers[].receiverId",value="接收对象Id", paramType = "query"),
             @ApiField(name="receivers[].receiverType",value="接收对象类型（MessageUser，MessageGroup）", paramType = "query"),
@@ -45,9 +52,13 @@ public class PrivateMessageController {
     public JsonObject addPrivateMessage(@RequestBody PrivateMessageModel messageModel){
 
         PrivateMessage message = new PrivateMessage();
-        message.setMessateTitle(messageModel.getMessateTitle());
+        message.setMessageTitle(messageModel.getMessageTitle());
         message.setMessageContent(messageModel.getMessageContent());
         message.setSendDate(new Date());
+
+        AuthUser authUser = AuthUserHolder.getAuthUser();
+        message.setSenderId(authUser.getUserId());
+        message.setSenderName(authUser.getUsername());
 
         MessageReceiverModel[] receivers = messageModel.getReceivers();
         MessageReceiver[] messageReceivers = new MessageReceiver[receivers.length];
@@ -69,6 +80,38 @@ public class PrivateMessageController {
             index++;
         }
         messageService.addPrivateMessage(message,messageReceivers);
+        return JsonObject.SUCCESS;
+    }
+
+    @PostMapping("/user/list")
+    @ApiOperation("获取当前用户的站内信")
+    public JsonObject listMessageByUser(@ApiIgnore Page page){
+        AuthUser authUser = AuthUserHolder.getAuthUser();
+        List<PrivateMessage> messageList = messageService.listPrivateMessageByUser(authUser.getUserId(), page);
+        return new JsonPageObject(page,messageList);
+    }
+
+    @GetMapping("/user/get")
+    @ApiOperation("获取当前用户指定messageId的站内信")
+    public JsonObject getMessageByUser(@RequestParam("messageId") String messageId){
+        AuthUser authUser = AuthUserHolder.getAuthUser();
+        PrivateMessage privateMessage = messageService.getPrivateMessageByUser(messageId, authUser.getUserId());
+        return new JsonObject(privateMessage);
+    }
+
+    @GetMapping("/user/unread/count")
+    @ApiOperation("获取当前用户未读消息数量")
+    public JsonObject updateMessageReadState(){
+        AuthUser authUser = AuthUserHolder.getAuthUser();
+        long count = messageService.countMessageUnread(authUser.getUserId());
+        return new JsonObject(count);
+    }
+
+    @PutMapping("/user/read")
+    @ApiOperation("更新当前用户指定消息的已读状态")
+    public JsonObject updateMessageReadState(@RequestParam("messageId") String messageId){
+        AuthUser authUser = AuthUserHolder.getAuthUser();
+        messageService.updateMessageReadState(messageId, authUser.getUserId());
         return JsonObject.SUCCESS;
     }
 }

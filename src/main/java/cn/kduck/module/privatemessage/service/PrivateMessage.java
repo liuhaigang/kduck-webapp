@@ -10,7 +10,7 @@ public class PrivateMessage extends ValueMap {
     /**消息ID*/
     public static final String MESSAGE_ID = "messageId";
     /**消息标题*/
-    public static final String MESSATE_TITLE = "messateTitle";
+    public static final String MESSAGE_TITLE = "messageTitle";
     /**消息内容*/
     public static final String MESSAGE_CONTENT = "messageContent";
     /**发送日期*/
@@ -49,10 +49,10 @@ public class PrivateMessage extends ValueMap {
     /**
      * 设置 消息标题
      *
-     * @param messateTitle 消息标题
+     * @param messageTitle 消息标题
      */
-    public void setMessateTitle(String messateTitle) {
-        super.setValue(MESSATE_TITLE, messateTitle);
+    public void setMessageTitle(String messageTitle) {
+        super.setValue(MESSAGE_TITLE, messageTitle);
     }
 
     /**
@@ -60,8 +60,8 @@ public class PrivateMessage extends ValueMap {
      *
      * @return 消息标题
      */
-    public String getMessateTitle() {
-        return super.getValueAsString(MESSATE_TITLE);
+    public String getMessageTitle() {
+        return super.getValueAsString(MESSAGE_TITLE);
     }
 
     /**

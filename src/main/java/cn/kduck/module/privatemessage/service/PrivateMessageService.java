@@ -25,7 +25,15 @@ public interface PrivateMessageService {
 
     PrivateMessage getPrivateMessage(String id);
 
+    PrivateMessage getPrivateMessageByUser(String messageId,String userId);
+
     List<PrivateMessage> listPrivateMessage(Page page);
 
     List<PrivateMessage> listPrivateMessageByUser(String userId,Page page);
+
+    void updateMessageReadState(String messageId,String userId);
+
+    long countMessageUnread(String userId);
+
+    void deleteUserMessage(String messageId,String userId);
 }

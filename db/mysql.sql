@@ -562,6 +562,93 @@ create table oauth_client_details (
 	PRIMARY KEY (client_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+
+
+--
+-- TABLE: k_work_calendar
+--
+
+CREATE TABLE k_work_calendar(
+    calendar_id      VARCHAR(50)     NOT NULL,
+    calendar_name    VARCHAR(200),
+    calendar_code    VARCHAR(100),
+    calendar_year    INT,
+    description      VARCHAR(500),
+    PRIMARY KEY (calendar_id)
+)ENGINE=INNODB
+;
+
+--
+-- TABLE: k_holiday_day
+--
+
+CREATE TABLE k_holiday_day(
+    holiday_id       VARCHAR(50)     NOT NULL,
+    calendar_id      VARCHAR(50)     NOT NULL,
+    holiday_name     VARCHAR(200),
+    holiday_type     INT,
+    description      VARCHAR(500),
+    holiday_date     DATE,
+    holiday_month    INT,
+    holiday_day      INT,
+    PRIMARY KEY (holiday_id)
+)ENGINE=INNODB
+;
+
+
+
+--
+-- TABLE: k_message_group
+--
+
+CREATE TABLE k_message_group(
+    group_id        VARCHAR(50)    NOT NULL,
+    message_id      VARCHAR(50)    NOT NULL,
+    relation_id     VARCHAR(50),
+    group_type      VARCHAR(50),
+    expired_date    DATETIME,
+    PRIMARY KEY (group_id)
+)ENGINE=INNODB
+;
+
+
+
+--
+-- TABLE: k_message_user
+--
+
+CREATE TABLE k_message_user(
+    message_user_id    VARCHAR(50)    NOT NULL,
+    message_id         VARCHAR(50),
+    user_id            VARCHAR(50),
+    is_read            INT,
+    is_delete          INT,
+    PRIMARY KEY (message_user_id)
+)ENGINE=INNODB
+;
+
+
+
+--
+-- TABLE: k_private_message
+--
+
+CREATE TABLE k_private_message(
+    message_id         VARCHAR(50)     NOT NULL,
+    message_title      VARCHAR(100),
+    message_content    VARCHAR(500),
+    send_date          DATETIME,
+    sender_id          VARCHAR(50),
+    sender_name        VARCHAR(100),
+    PRIMARY KEY (message_id)
+)ENGINE=INNODB
+;
+
+
+
+
+
 INSERT INTO `k_user`(`user_id`, `user_name`, `gender`) VALUES ('1', '管理员', 1);
 INSERT INTO `k_account`(`account_id`, `account_name`, `password`, `account_state`, `user_id`) VALUES ('1', 'admin', '$2a$10$xHP1ILUirEK8M53aLUIdeu1qM3UCYs8L8MgtUv7SaCaI8YBSr8HdG', 1, '1');
 

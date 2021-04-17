@@ -7,7 +7,7 @@ public class PrivateMessageModel {
     /**消息ID*/
     private String messageId;
     /**消息标题*/
-    private String messateTitle;
+    private String messageTitle;
     /**消息内容*/
     private String messageContent;
 
@@ -21,12 +21,12 @@ public class PrivateMessageModel {
         this.messageId = messageId;
     }
 
-    public String getMessateTitle() {
-        return messateTitle;
+    public String getMessageTitle() {
+        return messageTitle;
     }
 
-    public void setMessateTitle(String messateTitle) {
-        this.messateTitle = messateTitle;
+    public void setMessageTitle(String messageTitle) {
+        this.messageTitle = messageTitle;
     }
 
     public String getMessageContent() {

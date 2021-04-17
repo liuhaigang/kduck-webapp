@@ -20,7 +20,7 @@ public class MessageGroupQuery implements QueryCreator {
         BeanEntityDef entityDef = depository.getEntityDef(CODE_MESSAGE_GROUP);
 
         SelectBuilder selectBuilder = new SelectBuilder(entityDef,paramMap);
-        selectBuilder.where().and("EXPIRED_DATE", ConditionType.LESS_OR_EQUALS,"expiredDate");
+        selectBuilder.where().and("EXPIRED_DATE", ConditionType.GREATER_OR_EQUALS,"expiredDate");
         return selectBuilder.build();
     }
 }
