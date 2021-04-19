@@ -1,17 +1,13 @@
 package cn.kduck.module.workday.service;
 
-import cn.kduck.core.dao.query.QuerySupport;
-import cn.kduck.core.service.Page;
-import cn.kduck.core.service.ParamMap;
-import cn.kduck.module.workday.query.WorkCalendarQuery;
+import cn.kduck.module.workday.exception.WorkCalendarExistException;
 import cn.kduck.module.workday.service.orchestrator.HolidayDayOrchestrator;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
- * 注意：月份从0开始，日从1开始
+ * 注意：月份从1开始，日从1开始
  * @author LiuHG
  */
 public interface WorkCalendarService {
@@ -23,7 +19,7 @@ public interface WorkCalendarService {
      * 添加工作日历
      * @param calendar 工作日历对象
      */
-    void addWorkCalendar(WorkCalendar calendar);
+    void addWorkCalendar(WorkCalendar calendar) throws WorkCalendarExistException;
 
     /**
      * 工作日历修改，只能修改名称和描述。且不会影响已经生成的休息日信息
@@ -35,7 +31,7 @@ public interface WorkCalendarService {
 
     WorkCalendar getWorkCalendar(String calendarId);
 
-    List<WorkCalendar> listWorkCalendar(Page page);
+    List<WorkCalendar> listWorkCalendar();
 
     WorkCalendar getWorkCalendar(String code,int year);
 

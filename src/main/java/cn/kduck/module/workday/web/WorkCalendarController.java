@@ -1,19 +1,26 @@
 package cn.kduck.module.workday.web;
 
 
+import cn.kduck.core.service.Page;
 import cn.kduck.core.web.json.JsonObject;
 import cn.kduck.core.web.swagger.ApiField;
 import cn.kduck.core.web.swagger.ApiParamRequest;
+import cn.kduck.module.workday.exception.WorkCalendarExistException;
 import cn.kduck.module.workday.service.CalendarDay;
 import cn.kduck.module.workday.service.CalendarMonth;
 import cn.kduck.module.workday.service.WorkCalendar;
 import cn.kduck.module.workday.service.WorkCalendarService;
+import cn.kduck.module.workday.web.model.WorkCalendarModel;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/workDay")
@@ -23,7 +30,7 @@ public class WorkCalendarController {
     @Autowired
     private WorkCalendarService workCalendarService;
 
-    @PostMapping("/add")
+    @PostMapping("/calendar/add")
     @ApiOperation("新增工作日历")
     @ApiParamRequest({
             @ApiField(name="calendarName",value="日历名称", paramType = "query"),
@@ -32,11 +39,44 @@ public class WorkCalendarController {
             @ApiField(name="description",value="日历描述", paramType = "query"),
     })
     public JsonObject addWorkCalendar(WorkCalendar workCalendar){
-        workCalendarService.addWorkCalendar(workCalendar);
+        try {
+            workCalendarService.addWorkCalendar(workCalendar);
+        } catch (WorkCalendarExistException e) {
+            return new JsonObject(null,-1,"添加失败，工作日历已经存在");
+        }
         return JsonObject.SUCCESS;
     }
 
-    @PutMapping("/update")
+
+    @PostMapping("/calendar/list")
+    @ApiOperation("查询所有工作日历")
+    public JsonObject listWorkCalendar(){
+        List<WorkCalendar> workCalendarList = workCalendarService.listWorkCalendar();
+
+        List<WorkCalendarModel> resultList = new ArrayList();
+        String code = null;
+        WorkCalendarModel calendarModel = null;
+        for (WorkCalendar workCalendar : workCalendarList) {
+           if(!workCalendar.getCalendarCode().equals(code)){
+               code = workCalendar.getCalendarCode();
+               if(calendarModel != null){
+                   resultList.add(calendarModel);
+               }
+               calendarModel = new WorkCalendarModel();
+               calendarModel.setCode(code);
+           }
+            calendarModel.addWorkCalendar(workCalendar);
+        }
+
+        if(calendarModel != null){
+            resultList.add(calendarModel);
+        }
+
+        return new JsonObject(resultList);
+    }
+
+
+    @PutMapping("/calendar/update")
     @ApiOperation("更新工作日历")
     @ApiParamRequest({
             @ApiField(name="calendarId",value="日历ID", paramType = "query"),
@@ -48,7 +88,7 @@ public class WorkCalendarController {
         return JsonObject.SUCCESS;
     }
 
-    @GetMapping("/get")
+    @GetMapping("/calendar/get")
     @ApiOperation("查看工作日历信息（不含具体工作日信息）")
     @ApiParamRequest({
             @ApiField(name="calendarId",value="日历ID", paramType = "query"),

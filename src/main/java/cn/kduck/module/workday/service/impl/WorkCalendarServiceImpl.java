@@ -4,13 +4,17 @@ import cn.kduck.core.dao.query.QuerySupport;
 import cn.kduck.core.dao.sqlbuilder.ConditionBuilder.ConditionType;
 import cn.kduck.core.dao.sqlbuilder.DeleteBuilder;
 import cn.kduck.core.service.DefaultService;
-import cn.kduck.core.service.Page;
 import cn.kduck.core.service.ParamMap;
 import cn.kduck.core.service.ValueMap;
 import cn.kduck.core.utils.ConversionUtils;
+import cn.kduck.module.workday.exception.WorkCalendarExistException;
 import cn.kduck.module.workday.query.HolidayDayQuery;
 import cn.kduck.module.workday.query.WorkCalendarQuery;
-import cn.kduck.module.workday.service.*;
+import cn.kduck.module.workday.service.CalendarDay;
+import cn.kduck.module.workday.service.CalendarMonth;
+import cn.kduck.module.workday.service.HolidayDay;
+import cn.kduck.module.workday.service.WorkCalendar;
+import cn.kduck.module.workday.service.WorkCalendarService;
 import cn.kduck.module.workday.service.orchestrator.HolidayDayOrchestrator;
 import cn.kduck.module.workday.service.orchestrator.impl.DefaultHolidayDayOrchestrator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +39,7 @@ public class WorkCalendarServiceImpl extends DefaultService implements WorkCalen
     private HolidayDayOrchestrator holidayDayOrchestrator;
 
     @Override
-    public void addWorkCalendar(WorkCalendar calendar) {
+    public void addWorkCalendar(WorkCalendar calendar) throws WorkCalendarExistException {
         Assert.notNull(calendar,"工作日历对象不能为null");
         Assert.notNull(calendar.getCalendarCode(),"工作日历编码不能为null");
 
@@ -45,7 +49,10 @@ public class WorkCalendarServiceImpl extends DefaultService implements WorkCalen
         }
 
         if(existWorkCalendar(calendar.getCalendarCode(),calendar.getCalendarYear())){
-            throw new RuntimeException("日历编码已经存在：code=" + calendar.getCalendarCode()+",year=" + calendar.getCalendarYear());
+            String calendarCode = calendar.getCalendarCode();
+            Integer calendarYear = calendar.getCalendarYear();
+            throw new WorkCalendarExistException(calendarCode,calendarYear,
+                    "日历编码已经存在：code=" + calendarCode+",year=" + calendarYear);
         }
         super.add(CODE_WORK_CALENDAR,calendar);
 
@@ -71,7 +78,7 @@ public class WorkCalendarServiceImpl extends DefaultService implements WorkCalen
     }
 
     @Override
-    public List<WorkCalendar> listWorkCalendar(Page page) {
+    public List<WorkCalendar> listWorkCalendar() {
         QuerySupport query = super.getQuery(WorkCalendarQuery.class, ParamMap.create().toMap());
         return super.listForBean(query,WorkCalendar::new);
     }

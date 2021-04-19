@@ -17,7 +17,8 @@ public class WorkCalendarQuery implements QueryCreator {
     public QuerySupport createQuery(Map<String, Object> paramMap, BeanDefDepository depository) {
         BeanEntityDef entityDef = depository.getEntityDef(WorkCalendarService.CODE_WORK_CALENDAR);
         SelectBuilder sqlBuilder = new SelectBuilder(entityDef,paramMap);
-        sqlBuilder.where().and("CALENDAR_CODE", ConditionType.EQUALS,"calendarCode").and("CALENDAR_YEAR", ConditionType.EQUALS,"calendarYear");
+        sqlBuilder.where().and("CALENDAR_CODE", ConditionType.EQUALS,"calendarCode").and("CALENDAR_YEAR", ConditionType.EQUALS,"calendarYear")
+        .orderBy().asc("CALENDAR_CODE").desc("CALENDAR_YEAR");
         return sqlBuilder.build();
     }
 }
