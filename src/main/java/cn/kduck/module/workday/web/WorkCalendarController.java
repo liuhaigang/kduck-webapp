@@ -48,7 +48,7 @@ public class WorkCalendarController {
     }
 
 
-    @PostMapping("/calendar/list")
+    @GetMapping("/calendar/list")
     @ApiOperation("查询所有工作日历")
     public JsonObject listWorkCalendar(){
         List<WorkCalendar> workCalendarList = workCalendarService.listWorkCalendar();
@@ -63,7 +63,7 @@ public class WorkCalendarController {
                    resultList.add(calendarModel);
                }
                calendarModel = new WorkCalendarModel();
-               calendarModel.setCode(code);
+               calendarModel.setCalendarCode(code);
            }
             calendarModel.addWorkCalendar(workCalendar);
         }

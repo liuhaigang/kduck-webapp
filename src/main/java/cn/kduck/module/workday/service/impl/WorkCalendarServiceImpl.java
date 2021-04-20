@@ -151,6 +151,7 @@ public class WorkCalendarServiceImpl extends DefaultService implements WorkCalen
             for (HolidayDay holidayDay : holidayDays) {
                 if(holidayDay.getHolidayDay() == i && holidayDay.getHolidayMonth() == month) {
                     CalendarDay calendarDay = new CalendarDay(true, year, month, i);
+                    calendarDay.setHolidayId(holidayDay.getHolidayId());
                     calendarDay.setName(holidayDay.getHolidayName());
                     calendarMonth.addCalendarDay(calendarDay);
                     isHolidayDay = true;

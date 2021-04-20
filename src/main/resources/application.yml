@@ -18,8 +18,10 @@ kduck:
     enabled: true
   resource:
     enabled: true
+  websocket:
+    enabled: true
   security:
-    ignored: /welcome.html
+    ignored: /welcome.html,/kduck-websocket/**
     loginPage: /index.html
 
 server:

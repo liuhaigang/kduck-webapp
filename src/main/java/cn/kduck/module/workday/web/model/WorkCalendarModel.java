@@ -7,15 +7,15 @@ import java.util.List;
 
 public class WorkCalendarModel {
 
-    private String code;
+    private String calendarCode;
     private List<WorkCalendar> workCalendarList = new ArrayList<>();
 
-    public String getCode() {
-        return code;
+    public String getCalendarCode() {
+        return calendarCode;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setCalendarCode(String calendarCode) {
+        this.calendarCode = calendarCode;
     }
 
     public List<WorkCalendar> getWorkCalendarList() {

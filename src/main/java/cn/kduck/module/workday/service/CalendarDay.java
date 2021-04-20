@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class CalendarDay {
 
+    private String holidayId;
     private boolean holidayDay;
     private int holidayType;
     private String name;
@@ -84,5 +85,13 @@ public class CalendarDay {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getHolidayId() {
+        return holidayId;
+    }
+
+    public void setHolidayId(String holidayId) {
+        this.holidayId = holidayId;
     }
 }
