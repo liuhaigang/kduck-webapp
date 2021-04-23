@@ -164,4 +164,7 @@ public interface WorkCalendarService {
      */
     boolean isWorkDay(String calendarCode,Date date);
 
+    HolidayDay getHolidayDay(String holidayId);
+
+    void updateHolidayDay(HolidayDay holidayDay);
 }

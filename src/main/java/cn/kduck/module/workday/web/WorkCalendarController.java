@@ -1,26 +1,31 @@
 package cn.kduck.module.workday.web;
 
 
-import cn.kduck.core.service.Page;
 import cn.kduck.core.web.json.JsonObject;
 import cn.kduck.core.web.swagger.ApiField;
 import cn.kduck.core.web.swagger.ApiParamRequest;
 import cn.kduck.module.workday.exception.WorkCalendarExistException;
 import cn.kduck.module.workday.service.CalendarDay;
 import cn.kduck.module.workday.service.CalendarMonth;
+import cn.kduck.module.workday.service.HolidayDay;
 import cn.kduck.module.workday.service.WorkCalendar;
 import cn.kduck.module.workday.service.WorkCalendarService;
 import cn.kduck.module.workday.web.model.WorkCalendarModel;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/workDay")
@@ -96,6 +101,38 @@ public class WorkCalendarController {
     public JsonObject getWorkCalendar(String  calendarId){
         WorkCalendar workCalendar = workCalendarService.getWorkCalendar(calendarId);
         return new JsonObject(workCalendar);
+    }
+
+    @GetMapping("/get")
+    @ApiOperation("查看假日信息")
+    @ApiParamRequest({
+            @ApiField(name="holidayId",value="假期ID", paramType = "query")
+    })
+    public JsonObject getHolidayDay(@RequestParam("holidayId") String holidayId){
+        HolidayDay holidayDay = workCalendarService.getHolidayDay(holidayId);
+        return new JsonObject(holidayDay);
+    }
+
+    @PutMapping("/update")
+    @ApiOperation("更新假日信息")
+    @ApiParamRequest({
+            @ApiField(name="holidayId",value="假期ID", paramType = "query"),
+            @ApiField(name="holidayName",value="假期名称", paramType = "query"),
+            @ApiField(name="holidayType",value="假期类型", paramType = "query")
+    })
+    public JsonObject updateHolidayDay(@ApiIgnore HolidayDay holidayDay){
+        workCalendarService.updateHolidayDay(holidayDay);
+        return JsonObject.SUCCESS;
+    }
+
+    @DeleteMapping("/delete")
+    @ApiOperation("删除假日（设置为工作日）")
+    @ApiParamRequest({
+            @ApiField(name="holidayId",value="假期ID", paramType = "query"),
+    })
+    public JsonObject deleteHolidayDay(@RequestParam("holidayId") String holidayId){
+        workCalendarService.setWorkDay(new String[]{holidayId});
+        return JsonObject.SUCCESS;
     }
 
     @GetMapping("/get/byMonth")

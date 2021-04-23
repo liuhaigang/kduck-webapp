@@ -363,6 +363,17 @@ public class WorkCalendarServiceImpl extends DefaultService implements WorkCalen
         return valueMap == null;
     }
 
+    @Override
+    public HolidayDay getHolidayDay(String holidayId) {
+        return super.getForBean(CODE_HOLIDAY_DAY,holidayId,HolidayDay::new);
+    }
+
+    @Override
+    public void updateHolidayDay(HolidayDay holidayDay) {
+        super.update(CODE_HOLIDAY_DAY,holidayDay);
+    }
+
+
     public HolidayDayOrchestrator getHolidayDayOrchestrator() {
         if(holidayDayOrchestrator == null){
             holidayDayOrchestrator = new DefaultHolidayDayOrchestrator();
