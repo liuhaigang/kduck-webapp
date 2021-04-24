@@ -167,4 +167,6 @@ public interface WorkCalendarService {
     HolidayDay getHolidayDay(String holidayId);
 
     void updateHolidayDay(HolidayDay holidayDay);
+
+    void addHolidayDay(HolidayDay holidayDay);
 }

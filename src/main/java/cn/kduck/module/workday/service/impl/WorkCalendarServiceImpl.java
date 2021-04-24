@@ -103,7 +103,7 @@ public class WorkCalendarServiceImpl extends DefaultService implements WorkCalen
         int maxMonth = calendar.getActualMaximum(Calendar.MONTH);
         CalendarMonth[] calendarMonths = new CalendarMonth[maxMonth+1];
         for (int i = 0; i < maxMonth + 1; i++) {
-            calendarMonths[i] = getCalendarMonth(workCalendar,i);
+            calendarMonths[i] = getCalendarMonth(workCalendar,i+1);
         }
         return calendarMonths;
     }
@@ -137,7 +137,7 @@ public class WorkCalendarServiceImpl extends DefaultService implements WorkCalen
         int year = workCalendar.getCalendarYear();
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR,year);
-        calendar.set(Calendar.MONTH,month);
+        calendar.set(Calendar.MONTH,month-1);
 
         CalendarMonth calendarMonth = new CalendarMonth(year,month);
         int maxDayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -371,6 +371,11 @@ public class WorkCalendarServiceImpl extends DefaultService implements WorkCalen
     @Override
     public void updateHolidayDay(HolidayDay holidayDay) {
         super.update(CODE_HOLIDAY_DAY,holidayDay);
+    }
+
+    @Override
+    public void addHolidayDay(HolidayDay holidayDay) {
+        super.add(CODE_HOLIDAY_DAY,holidayDay);
     }
 
 
