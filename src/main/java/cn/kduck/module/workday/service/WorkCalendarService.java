@@ -20,6 +20,7 @@ public interface WorkCalendarService {
      * @param calendar 工作日历对象
      */
     void addWorkCalendar(WorkCalendar calendar) throws WorkCalendarExistException;
+    void addWorkCalendar(WorkCalendar calendar,String[] publicHolidayDays) throws WorkCalendarExistException;
 
     /**
      * 工作日历修改，只能修改名称和描述。且不会影响已经生成的休息日信息

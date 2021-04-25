@@ -14,6 +14,7 @@ import cn.kduck.module.workday.web.model.WorkCalendarModel;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,11 +42,16 @@ public class WorkCalendarController {
             @ApiField(name="calendarName",value="日历名称", paramType = "query"),
             @ApiField(name="calendarCode",value="日历编码", paramType = "query"),
             @ApiField(name="calendarYear",value="日历年份", paramType = "query"),
+            @ApiField(name="publicHoliday",value="公休日，逗号分隔，周日为1，周一为2，以此类推，周日为7", paramType = "query"),
             @ApiField(name="description",value="日历描述", paramType = "query"),
     })
-    public JsonObject addWorkCalendar(WorkCalendar workCalendar){
+    public JsonObject addWorkCalendar(WorkCalendar workCalendar,String publicHoliday){
+        String[] publicHolidayDays = null;
+        if(StringUtils.hasText(publicHoliday)){
+            publicHolidayDays = publicHoliday.split(",");
+        }
         try {
-            workCalendarService.addWorkCalendar(workCalendar);
+            workCalendarService.addWorkCalendar(workCalendar,publicHolidayDays);
         } catch (WorkCalendarExistException e) {
             return new JsonObject(null,-1,"添加失败，工作日历已经存在");
         }

@@ -40,6 +40,11 @@ public class WorkCalendarServiceImpl extends DefaultService implements WorkCalen
 
     @Override
     public void addWorkCalendar(WorkCalendar calendar) throws WorkCalendarExistException {
+        addWorkCalendar(calendar,null);
+    }
+
+    @Override
+    public void addWorkCalendar(WorkCalendar calendar, String[] publicHolidayDays) throws WorkCalendarExistException {
         Assert.notNull(calendar,"工作日历对象不能为null");
         Assert.notNull(calendar.getCalendarCode(),"工作日历编码不能为null");
 
@@ -56,7 +61,7 @@ public class WorkCalendarServiceImpl extends DefaultService implements WorkCalen
         }
         super.add(CODE_WORK_CALENDAR,calendar);
 
-        initWorkCalendar(calendar.getCalendarId(),getHolidayDayOrchestrator());
+        initWorkCalendar(calendar.getCalendarId(),getHolidayDayOrchestrator(publicHolidayDays));
     }
 
     @Override
@@ -391,9 +396,9 @@ public class WorkCalendarServiceImpl extends DefaultService implements WorkCalen
     }
 
 
-    public HolidayDayOrchestrator getHolidayDayOrchestrator() {
+    public HolidayDayOrchestrator getHolidayDayOrchestrator(String[] publicHolidayDays) {
         if(holidayDayOrchestrator == null){
-            holidayDayOrchestrator = new DefaultHolidayDayOrchestrator();
+            holidayDayOrchestrator = new DefaultHolidayDayOrchestrator(publicHolidayDays);
         }
         return holidayDayOrchestrator;
     }
