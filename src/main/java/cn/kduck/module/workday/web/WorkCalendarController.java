@@ -52,6 +52,20 @@ public class WorkCalendarController {
         return JsonObject.SUCCESS;
     }
 
+    @GetMapping("/calendar/code/list")
+    @ApiOperation("查询所有工作日历编码")
+    public JsonObject listWorkCalendarCode(){
+        List<WorkCalendar> workCalendarList = workCalendarService.listWorkCalendar();
+
+        List<String> resultList = new ArrayList();
+        for (WorkCalendar workCalendar : workCalendarList) {
+            String code = workCalendar.getCalendarCode();
+            if(!resultList.contains(code)){
+                resultList.add(code);
+            }
+        }
+        return new JsonObject(resultList);
+    }
 
     @GetMapping("/calendar/list")
     @ApiOperation("查询所有工作日历")
