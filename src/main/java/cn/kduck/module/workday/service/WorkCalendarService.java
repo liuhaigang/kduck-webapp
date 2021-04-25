@@ -33,6 +33,8 @@ public interface WorkCalendarService {
 
     List<WorkCalendar> listWorkCalendar();
 
+    List<WorkCalendar> listWorkCalendarByCode(String calendarCode);
+
     WorkCalendar getWorkCalendar(String code,int year);
 
     boolean existWorkCalendar(String code,int year);

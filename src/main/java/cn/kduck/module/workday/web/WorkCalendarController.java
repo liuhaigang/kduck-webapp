@@ -80,6 +80,13 @@ public class WorkCalendarController {
         return new JsonObject(resultList);
     }
 
+    @GetMapping("/calendar/byCalendarCode")
+    @ApiOperation("查询指定编码下的工作日历")
+    public JsonObject listWorkCalendarByCalendarCode(@RequestParam("calendarCode") String calendarCode){
+        List<WorkCalendar> workCalendarList = workCalendarService.listWorkCalendarByCode(calendarCode);
+        return new JsonObject(workCalendarList);
+    }
+
 
     @PutMapping("/calendar/update")
     @ApiOperation("更新工作日历")
@@ -116,8 +123,11 @@ public class WorkCalendarController {
     @PostMapping("/add")
     @ApiOperation("添加工作日为假日信息")
     @ApiParamRequest({
+            @ApiField(name="calendarId",value="日历ID", paramType = "query"),
             @ApiField(name="holidayName",value="假期名称", paramType = "query"),
-            @ApiField(name="holidayType",value="假期类型", paramType = "query")
+            @ApiField(name="holidayType",value="假期类型", paramType = "query"),
+            @ApiField(name="holidayMonth",value="月", paramType = "query"),
+            @ApiField(name="holidayDay",value="日", paramType = "query")
     })
     public JsonObject addHolidayDay(@ApiIgnore HolidayDay holidayDay){
         workCalendarService.addHolidayDay(holidayDay);

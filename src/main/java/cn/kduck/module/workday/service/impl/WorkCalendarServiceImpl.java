@@ -84,6 +84,13 @@ public class WorkCalendarServiceImpl extends DefaultService implements WorkCalen
     }
 
     @Override
+    public List<WorkCalendar> listWorkCalendarByCode(String calendarCode) {
+        Map<String, Object> paramMap = ParamMap.create("calendarCode", calendarCode).toMap();
+        QuerySupport query = super.getQuery(WorkCalendarQuery.class, paramMap);
+        return super.listForBean(query,WorkCalendar::new);
+    }
+
+    @Override
     public WorkCalendar getWorkCalendar(String code, int year) {
         Map<String, Object> paramMap = ParamMap.create().set("calendarCode",code).set("calendarYear",year).toMap();
         QuerySupport query = super.getQuery(WorkCalendarQuery.class, paramMap);
@@ -375,6 +382,11 @@ public class WorkCalendarServiceImpl extends DefaultService implements WorkCalen
 
     @Override
     public void addHolidayDay(HolidayDay holidayDay) {
+        Assert.notNull(holidayDay.getCalendarId(),"添加假日时必须提供日历ID属性值：calendarId");
+        WorkCalendar workCalendar = super.getForBean(CODE_WORK_CALENDAR, holidayDay.getCalendarId(),WorkCalendar::new);
+        String dateStr = workCalendar.getCalendarYear() + "-" + holidayDay.getHolidayMonth() + "-" + holidayDay.getHolidayDay();
+        Date holidayDate = ConversionUtils.convert(dateStr, Date.class);
+        holidayDay.setHolidayDate(holidayDate);
         super.add(CODE_HOLIDAY_DAY,holidayDay);
     }
 
