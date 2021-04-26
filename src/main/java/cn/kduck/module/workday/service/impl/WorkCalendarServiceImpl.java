@@ -74,6 +74,7 @@ public class WorkCalendarServiceImpl extends DefaultService implements WorkCalen
     @Override
     public void deleteWorkCalendar(String[] ids) {
         //TODO 判断不允许删除默认日历
+        super.delete(CODE_HOLIDAY_DAY,"calendarId",ids);
         super.delete(CODE_WORK_CALENDAR,ids);
     }
 

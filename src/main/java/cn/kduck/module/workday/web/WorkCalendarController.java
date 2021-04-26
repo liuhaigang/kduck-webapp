@@ -120,6 +120,16 @@ public class WorkCalendarController {
         return JsonObject.SUCCESS;
     }
 
+    @DeleteMapping("/calendar/delete")
+    @ApiOperation("删除工作日历")
+    @ApiParamRequest({
+            @ApiField(name="calendarId",value="日历ID", paramType = "query"),
+    })
+    public JsonObject deleteWorkCalendar(@RequestParam("calendarId") String calendarId){
+        workCalendarService.deleteWorkCalendar(new String[]{calendarId});
+        return JsonObject.SUCCESS;
+    }
+
     @GetMapping("/calendar/get")
     @ApiOperation("查看工作日历信息（不含具体工作日信息）")
     @ApiParamRequest({
