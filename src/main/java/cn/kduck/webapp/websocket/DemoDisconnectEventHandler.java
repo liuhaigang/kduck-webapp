@@ -1,6 +1,5 @@
 package cn.kduck.webapp.websocket;
 
-import cn.kduck.core.service.ParamMap;
 import cn.kduck.core.web.json.JsonObject;
 import cn.kduck.core.web.websocket.DisconnectEventHandler;
 import cn.kduck.webapp.security.Kuser;
@@ -11,8 +10,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.stereotype.Component;
 
 import java.security.Principal;
-import java.util.Date;
-import java.util.Map;
 
 @Component
 public class DemoDisconnectEventHandler implements DisconnectEventHandler {

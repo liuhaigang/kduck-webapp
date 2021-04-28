@@ -14,6 +14,7 @@ import org.springframework.messaging.simp.user.SimpUser;
 import org.springframework.messaging.simp.user.SimpUserRegistry;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.HtmlUtils;
@@ -24,6 +25,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * SimpleBrokerMessageHandler
+ * MessageBuilder
+ */
 @RestController
 public class DemoWebSocketController {
 
@@ -33,33 +38,31 @@ public class DemoWebSocketController {
     @Autowired
     private SimpUserRegistry userRegistry;
 
-    @GetMapping(path="/sendToUser")
-    public void sendToUser(Principal principal) {
-        String text = "[" + template + "]:服务端主动发送消息！！";
-//        SimpUser lhg = userRegistry.getUser(principal.getName());
-//        WsUser wsUser = (WsUser) lhg.getPrincipal();
-        this.template.convertAndSendToUser(principal.getName(),"/topic/lhg", "主动单独推送给用户的消息");
+    @PostMapping(path="/sendToUser")
+    public void sendToUser(UserMessage message,Principal principal) {
+        UsernamePasswordAuthenticationToken userToken = (UsernamePasswordAuthenticationToken)principal;
+        Kuser user = (Kuser)userToken.getPrincipal();
+        message.setFromUser(user.getDisplayName());
+
+        this.template.convertAndSendToUser(message.getToUser(),"/topic/privateMessage", new JsonObject(message));
     }
 
-    @MessageMapping("/broadcast")
-    @SendTo("/topic/broadcast")
-    public JsonObject broadcast(UserMessage message, Principal principal) throws Exception {
+    @MessageMapping("/message")
+    @SendTo("/topic/message")
+    public JsonObject message(UserMessage message, Principal principal) throws Exception {
         UsernamePasswordAuthenticationToken userToken = (UsernamePasswordAuthenticationToken)principal;
         Kuser user = (Kuser)userToken.getPrincipal();
         message.setFromUser(user.getDisplayName());
         return new JsonObject(message);
     }
 
-    @MessageMapping("/toUser")
-    @SendToUser("/topic/toUser")
-    public JsonObject toUser(String message, Principal principal) throws Exception {
-        return new JsonObject("【来自服务器的回应】收到了你的消息：" + HtmlUtils.htmlEscape(message));
-    }
-
-    @MessageMapping("/refresh")
-    @SendTo("/topic/refresh")
-    public JsonObject refresh(Map dataMap, Principal principal) throws Exception {
-        return new JsonObject(dataMap);
+    @MessageMapping("/privateMessage")
+    @SendToUser("/topic/privateMessage")
+    public JsonObject privateMessage(UserMessage message, Principal principal) throws Exception {
+        UsernamePasswordAuthenticationToken userToken = (UsernamePasswordAuthenticationToken)principal;
+        Kuser user = (Kuser)userToken.getPrincipal();
+        message.setFromUser(user.getDisplayName());
+        return new JsonObject(message);
     }
 
     @GetMapping("/onlineUser")
