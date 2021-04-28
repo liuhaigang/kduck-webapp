@@ -28,6 +28,6 @@ public class DemoDisconnectEventHandler implements DisconnectEventHandler {
         UserMessage userMessage = new UserMessage();
         userMessage.setMessageType(MessageType.DISCONNECT);
         userMessage.setFromUser(user.getDisplayName());
-        template.convertAndSend("/topic/broadcast",new JsonObject(userMessage));
+        template.convertAndSend("/topic/message",new JsonObject(userMessage));
     }
 }
