@@ -652,10 +652,10 @@ CREATE TABLE k_private_message(
 INSERT INTO `k_user`(`user_id`, `user_name`, `gender`) VALUES ('1', '管理员', 1);
 INSERT INTO `k_account`(`account_id`, `account_name`, `password`, `account_state`, `user_id`) VALUES ('1', 'admin', '$2a$10$xHP1ILUirEK8M53aLUIdeu1qM3UCYs8L8MgtUv7SaCaI8YBSr8HdG', 1, '1');
 
-INSERT INTO `kduck`.`k_role`(`role_id`, `role_name`, `role_code`, `role_type`) VALUES ('1', '管理员', 'CODE_ADMIN', NULL);
-INSERT INTO `kduck`.`k_role_object`(`object_id`, `role_id`, `role_object`, `object_type`) VALUES ('1', '1', 1, 1);
+INSERT INTO `k_role`(`role_id`, `role_name`, `role_code`, `role_type`) VALUES ('1', '管理员', 'CODE_ADMIN', NULL);
+INSERT INTO `k_role_object`(`object_id`, `role_id`, `role_object`, `object_type`) VALUES ('1', '1', 1, 1);
 
 INSERT INTO `k_menu`(`menu_id`, `parent_id`, `menu_name`, `menu_code`, `order_num`) VALUES ('-1', '-1', '菜单管理', 'ROOT', 0);
 INSERT INTO `k_organization`(`org_id`, `parent_id`, `org_name`, `org_code`, `short_name`, `data_path`, `order_num`) VALUES ('-1', '-1', '组织机构', 'ROOT', '组织机构', '/', 0);
 
-INSERT INTO `kduck`.`k_hierarchical_authorize`(`authorize_id`, `org_id`, `user_id`) VALUES ('1', '-1', '1');
+INSERT INTO `k_hierarchical_authorize`(`authorize_id`, `org_id`, `user_id`) VALUES ('1', '-1', '1');

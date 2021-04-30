@@ -28,7 +28,7 @@ public class UserAccountQuery implements QueryCreator {
         SelectBuilder sqlBuilder = new SelectBuilder(paramMap);
         sqlBuilder.bindFields("u",depository.getFieldDefList(UserService.CODE_USER))
                 .bindFields("a", BeanDefUtils.includeField(depository.getFieldDefList(AccountService.CODE_ACCOUNT), Account.ACCOUNT_ID,Account.ACCOUNT_NAME,Account.ACCOUNT_STATE,Account.EXPIRED_DATE));
-        sqlBuilder.from("u", userDef).leftJoin("a", accountDef)
+        sqlBuilder.from("u", userDef).leftJoinOn("a", accountDef,"userId")
                 .where()
                 .and("u.USER_NAME", ConditionType.CONTAINS,"userName")
                 .and("u.GENDER",ConditionType.EQUALS,"gender");

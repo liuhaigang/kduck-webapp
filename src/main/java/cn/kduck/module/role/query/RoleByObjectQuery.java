@@ -26,7 +26,7 @@ public class RoleByObjectQuery implements QueryCreator {
         SelectBuilder queryBuilder = new SelectBuilder(paramMap,true);
         queryBuilder.bindFields("r", depository.getFieldDefList(RoleServiceImpl.CODE_ROLE));
 
-        queryBuilder.from("r",roleDef).innerJoin("ro",roleObjectDef).where().
+        queryBuilder.from("r",roleDef).innerJoinOn("ro",roleObjectDef,"roleId").where().
                 and("ro.ROLE_OBJECT", ConditionType.EQUALS, "roleObject").
                 and("ro.OBJECT_TYPE", ConditionType.EQUALS, "objectType");
         return queryBuilder.build();

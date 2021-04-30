@@ -26,7 +26,7 @@ public class ResourcQuery implements QueryCreator {
         BeanEntityDef resOptDef = depository.getEntityDef(ResourceService.CODE_RESOURCE_OPERATE);
 
         SelectBuilder queryBuilder = new SelectBuilder(paramMap);
-        queryBuilder.from("res",resDef).innerJoin("ro",resOptDef).where().and("ro.IS_ENABLE", ConditionType.EQUALS,"${1}")
+        queryBuilder.from("res",resDef).innerJoinOn("ro",resOptDef,"resourceId").where().and("ro.IS_ENABLE", ConditionType.EQUALS,"${1}")
                 .orderBy().asc("res.RESOURCE_NAME");
 
         queryBuilder.bindFields("res",depository.getFieldDefList(ResourceServiceImpl.CODE_RESOURCE));
