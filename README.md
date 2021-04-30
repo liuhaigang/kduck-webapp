@@ -19,6 +19,18 @@
 
 ## 软件截图
 
-![输入图片说明](https://images.gitee.com/uploads/images/2021/0110/233122_7b35d6aa_403814.png "登录.png")
+-  **登录界面** 
 
-![输入图片说明](https://images.gitee.com/uploads/images/2021/0110/233305_c759c5a8_403814.png "主界面.png")
+![登录界面](https://images.gitee.com/uploads/images/2021/0110/233122_7b35d6aa_403814.png "登录.png")
+
+-  **主界面** 
+
+![主界面](https://images.gitee.com/uploads/images/2021/0429/094307_c92823c0_403814.png "屏幕截图.png")
+
+-  **用户管理**
+
+![用户管理](https://images.gitee.com/uploads/images/2021/0429/094536_f3bff2b3_403814.png "屏幕截图.png")
+ 
+-  **用户权限查看**
+
+![用户权限查看](https://images.gitee.com/uploads/images/2021/0429/094613_1f137c6d_403814.png "屏幕截图.png")
