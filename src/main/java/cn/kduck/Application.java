@@ -21,13 +21,7 @@ import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.util.UUID;
-
 @SpringBootApplication
-//@ComponentScan({"com.goldgov.kduck","com.goldgov.demo"})
 public class Application extends SpringBootServletInitializer {
 
     @Autowired
@@ -66,36 +60,6 @@ public class Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Application.class, args);
-
-        /**
-         * CREATE TABLE `demo` (
-         *   `demo_id` varchar(50) DEFAULT NULL,
-         *   `demo_name` varchar(255) DEFAULT NULL,
-         *   `demo_age` int(11) DEFAULT NULL,
-         *   `demo_date` datetime DEFAULT NULL
-         * ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
-         */
-//        Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/kduck?useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=Asia/Shanghai", "liuhg", "gang317");
-
-//        PreparedStatement preparedStatement = connection.prepareStatement("insert into demo (demo_id,demo_name,demo_age,demo_date)values(?,?,?,?)");
-//        PreparedStatement preparedStatement = connection.prepareStatement("update demo set demo_name=? where demo_id=?");
-
-//        for (int i = 0; i < 10; i++) {
-//            preparedStatement.setString(1, "id_"+i);
-//            preparedStatement.setString(2,"text_"+i);
-//            preparedStatement.setInt(3,i+1);
-//            preparedStatement.setDate(4,new java.sql.Date(System.currentTimeMillis()));
-
-
-//            preparedStatement.setString(1,"modify_"+i);
-//            preparedStatement.setString(2, "id_"+i);
-//            preparedStatement.addBatch();
-//        }
-
-//        preparedStatement.executeBatch();
-//        preparedStatement.close();
-//        connection.close();
-
     }
 
     @Bean

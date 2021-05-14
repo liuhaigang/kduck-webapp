@@ -13,6 +13,8 @@ public interface PrivateMessageService {
     String CODE_MESSAGE_GROUP = "K_MESSAGE_GROUP";
     String CODE_MESSAGE_USER = "K_MESSAGE_USER";
 
+    String EVENT_PRIVATE_MESSAGE_ADD = "EVENT_PRIVATE_MESSAGE_ADD ";
+
     void addPrivateMessage(PrivateMessage privateMessage,MessageReceiver[] receiver);
 
     void addMessageReceiver(String messageId,MessageReceiver[] receiver);

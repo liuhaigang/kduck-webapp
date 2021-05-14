@@ -1,6 +1,8 @@
 package cn.kduck.module.privatemessage.service.impl;
 
 import cn.kduck.core.dao.query.QuerySupport;
+import cn.kduck.core.event.Event;
+import cn.kduck.core.event.EventPublisher;
 import cn.kduck.core.service.DefaultService;
 import cn.kduck.core.service.Page;
 import cn.kduck.core.service.ParamMap;
@@ -29,12 +31,17 @@ public class PrivateMessageServiceImpl extends DefaultService implements Private
     @Autowired(required = false)
     private List<MessageGroupProvider> providerList;
 
+    @Autowired
+    private EventPublisher eventPublisher;
+
     @Override
     @Transactional
     public void addPrivateMessage(PrivateMessage privateMessage, MessageReceiver[] receiver) {
         super.add(CODE_PRIVATE_MESSAGE,privateMessage);
 
         addMessageReceiver(privateMessage.getMessageId(),receiver);
+
+        eventPublisher.publish(new Event(EVENT_PRIVATE_MESSAGE_ADD,privateMessage));
     }
 
     @Override
@@ -76,7 +83,7 @@ public class PrivateMessageServiceImpl extends DefaultService implements Private
 
     @Override
     public void deleteMessageReceiver(String messageId, MessageReceiver[] receiver) {
-
+//        super.delete();
     }
 
     @Override
