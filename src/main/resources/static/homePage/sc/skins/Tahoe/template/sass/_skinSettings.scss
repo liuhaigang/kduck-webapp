@@ -560,7 +560,7 @@ $listGrid_dragTracker_border: $standard_border_width dotted $standard_border_col
 $listGrid_headerBar_bgColor: $standard_header_bgColor;
 $listGrid_headerBar_bottom_border: none;
 $listGrid_headerBar_gradient_color: #b6bdc9;
-$listGrid_headerBar_gradient: linear-gradient(top, $standard_bgColor 0%, hsl(0, 0%, 84%) 96%, $listGrid_headerBar_gradient_color 96%, $listGrid_headerBar_gradient_color 100%);
+$listGrid_headerBar_gradient: none;
 // HeaderButton
 $listGrid_headerButton_color: $standard_header_color;
 $listGrid_headerButton_bgColor: $standard_header_bgColor;
@@ -580,7 +580,7 @@ $listGrid_headerSpan_border: $standard_border_width $standard_border_style $list
 // Cells...
 $listGrid_cell_paddingLeft: 3px;
 $listGrid_cell_border: none;
-$listGrid_row_border: none;
+$listGrid_row_border: $standard_transparent_border;
 $listGrid_cell_color: adjust-color($standard_color,$red:23,$green:23,$blue:23);
 $listGrid_cell_bgColor: $standard_widget_bgColor;
 $listGrid_cell_dark_bgColor: adjust-color($listGrid_cell_bgColor,$red:-5,$green:-5,$blue:-5);
@@ -603,9 +603,9 @@ $listGrid_summaryCell_color: adjust-color($listGrid_headerButton_bgColor,$red:-7
 $listGrid_summaryCell_bgColor: adjust-color($listGrid_headerButton_bgColor,$red:160,$green:79,$blue:28);
 $listGrid_summaryCell_border_color: adjust-color($listGrid_headerButton_bgColor,$red:-71,$green:-83,$blue:-82);
 $listGrid_summaryCell_border: $standard_border_width $standard_border_style $listGrid_summaryCell_border_color;
-$listGrid_summaryCell_disabled_border: $standard_border_width $standard_border_style $listGrid_cell_disabled_bgColor;
+$listGrid_summaryCell_disabled_border: $standard_border_width $standard_border_style $listGrid_border_color;
 $listGrid_summaryCell_dark_color: hsl(0, 0%, 34.5%);
-$listGrid_summaryCell_disabled_bgColor: $listGrid_summaryCell_bgColor;
+$listGrid_summaryCell_disabled_bgColor: $listGrid_cell_disabled_bgColor;
 // Header nodes in grouped grids
 $listGrid_groupNode_font: $listGrid_cell_font;
 $listGrid_groupNode_font_size: 12.5px;

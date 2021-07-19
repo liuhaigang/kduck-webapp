@@ -2656,22 +2656,6 @@ a:visited {
 .nativeSelectItemPendingDisabledRTL,
 .nativeSelectItemPendingError,
 .nativeSelectItemPendingErrorRTL,
-.staticTextItem,
-.staticTextItemRTL,
-.staticTextItemFocused,
-.staticTextItemFocusedRTL,
-.staticTextItemDisabled,
-.staticTextItemDisabledRTL,
-.staticTextItemError,
-.staticTextItemErrorRTL,
-.staticTextItemPending,
-.staticTextItemPendingRTL,
-.staticTextItemPendingFocused,
-.staticTextItemPendingFocusedRTL,
-.staticTextItemPendingDisabled,
-.staticTextItemPendingDisabledRTL,
-.staticTextItemPendingError,
-.staticTextItemPendingErrorRTL,
 .uploadItem,
 .uploadItemRTL,
 .uploadItemFocused,
@@ -2695,7 +2679,44 @@ a:visited {
   background-color: transparent;
   color: #282828;
   font-family: RobotoLight;
-  font-size: 11px;
+  font-size: 12.58px;
+}
+
+.staticTextItem,
+.staticTextItemRTL,
+.staticTextItemOver,
+.staticTextItemOverRTL,
+.staticTextItemFocused,
+.staticTextItemFocusedRTL,
+.staticTextItemFocusedOver,
+.staticTextItemFocusedOverRTL,
+.staticTextItemDisabled,
+.staticTextItemDisabledRTL,
+.staticTextItemError,
+.staticTextItemErrorRTL,
+.staticTextItemErrorOver,
+.staticTextItemErrorOverRTL,
+.staticTextItemErrorFocused,
+.staticTextItemErrorFocusedRTL,
+.staticTextItemErrorFocusedOver,
+.staticTextItemErrorFocusedOverRTL,
+.staticTextItemPending,
+.staticTextItemPendingRTL,
+.staticTextItemPendingOver,
+.staticTextItemPendingOverRTL,
+.staticTextItemPendingFocused,
+.staticTextItemPendingFocusedRTL,
+.staticTextItemPendingFocusedOver,
+.staticTextItemPendingFocusedOverRTL,
+.staticTextItemPendingDisabled,
+.staticTextItemPendingDisabledRTL,
+.staticTextItemPendingError,
+.staticTextItemPendingErrorRTL {
+  background-color: transparent;
+  border: 1px solid transparent;
+  color: #282828;
+  font-family: RobotoLight;
+  font-size: 12.58px;
 }
 
 .pickListCell,
@@ -4819,7 +4840,7 @@ option:checked {
   color: #3f3f3f;
   padding-left: 3px;
   border: none;
-  border-bottom: none;
+  border-bottom: 1px solid transparent;
   border-right: none;
   text-overflow: ellipsis;
   cursor: not-allowed;
@@ -4832,7 +4853,7 @@ option:checked {
   color: #b8b8b8;
   padding-left: 3px;
   border: none;
-  border-bottom: none;
+  border-bottom: 1px solid transparent;
   border-right: none;
   text-overflow: ellipsis;
   cursor: not-allowed;
@@ -5863,17 +5884,29 @@ option:checked {
   background-repeat: repeat-x;
   background-position: bottom left;
   background-attachment: scroll;
-  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIvPjxzdG9wIG9mZnNldD0iOTYlIiBzdG9wLWNvbG9yPSIjZDZkNmQ2Ii8+PHN0b3Agb2Zmc2V0PSI5NiUiIHN0b3AtY29sb3I9IiNiNmJkYzkiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNiNmJkYzkiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
-  background-size: 100%;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(96%, #d6d6d6), color-stop(96%, #b6bdc9), color-stop(100%, #b6bdc9));
-  background-image: -moz-linear-gradient(top, #ffffff 0%, #d6d6d6 96%, #b6bdc9 96%, #b6bdc9 100%);
-  background-image: -webkit-linear-gradient(top, #ffffff 0%, #d6d6d6 96%, #b6bdc9 96%, #b6bdc9 100%);
-  background-image: linear-gradient(to bottom, #ffffff 0%, #d6d6d6 96%, #b6bdc9 96%, #b6bdc9 100%);
+  background-image: none;
   border-bottom: none;
+}
+
+.gridActionButton,
+.gridActionButtonOver,
+.gridActionButtonDisabled {
+  color: #282828;
+  background-color: transparent;
+  border: 1px solid #d0d0d0;
+}
+
+.gridActionButtonDisabled {
+  color: #ababab;
+  background-color: #e2e2e2;
 }
 
 .gridBody {
   background-color: #ffffff;
+}
+
+.gridBodyDisabled {
+  background-color: #ededed;
 }
 
 .alternateGridBody {
@@ -5908,14 +5941,24 @@ option:checked {
   pointer-events: none;
 }
 
+.listTableDisabled {
+  background-color: #ededed;
+}
+
 /* recordEditor */
+.recordEditorCell,
 .recordEditorCellDark,
-.recordEditorCell {
+.recordEditorCellDisabled {
   line-height: 22px;
   background-color: #ffffff;
   color: #282828;
   font-family: RobotoLight;
   font-size: 11px;
+}
+
+.recordEditorCellDisabled {
+  background-color: #dadada;
+  color: #ababab;
 }
 
 /* operatorIcon in ListGrid filterEditor */
@@ -6335,8 +6378,6 @@ some LG header-titles to be vertically offset from other headers */
 .cellPendingSelectedOverDark,
 .cellDisabled,
 .cellDisabledDark,
-.gridSummaryCell,
-.gridSummaryCellDisabled,
 .recordSummaryCell,
 .recordSummaryCellDark,
 .recordSummaryCellOver,
@@ -6368,7 +6409,7 @@ some LG header-titles to be vertically offset from other headers */
   color: #3f3f3f;
   padding-left: 3px;
   border: none;
-  border-bottom: none;
+  border-bottom: 1px solid transparent;
   border-right: none;
   text-overflow: ellipsis;
 }
@@ -6388,14 +6429,6 @@ some LG header-titles to be vertically offset from other headers */
   background-color: #fafafa;
 }
 
-.gridSummaryCell,
-.gridSummaryCellDisabled {
-  background-color: #e7f6ff;
-  border: none;
-  border-bottom: 1px solid #005491;
-  border-top: 1px solid #005491;
-}
-
 .cellOver,
 .cellOverDark,
 .cellDeselectedOver,
@@ -6405,7 +6438,7 @@ some LG header-titles to be vertically offset from other headers */
 .recordSummaryCellOverDark {
   background-color: #b6e3ff;
   color: #3f3f3f;
-  border-bottom: none;
+  border-bottom: 1px solid transparent;
 }
 
 .cellSelected,
@@ -6430,17 +6463,48 @@ some LG header-titles to be vertically offset from other headers */
   color: white;
 }
 
+/* Grid Summary cells */
 .gridSummaryCell,
-.gridSummaryCellDisabled {
-  font-weight: bold;
+.gridSummaryCellDark,
+.gridSummaryCellAltCol,
+.gridSummaryCellDisabled,
+.gridSummaryCellDisabledDark,
+.gridSummaryCellDisabledAltCol {
   color: #005491;
+  background-color: #e7f6ff;
+  font-size: 12.5px;
+  font-family: calibri;
+  font-weight: bold;
+  border: none;
+  border-bottom: 1px solid #005491;
+  border-top: 1px solid #005491;
+  padding-left: 3px;
+  text-overflow: ellipsis;
 }
 
+/* Grid Summary Disabled */
+.gridSummaryCellDisabled,
+.gridSummaryCellDisabledDark,
+.gridSummaryCellDisabledAltCol {
+  color: #b8b8b8;
+  background-color: #ededed;
+  border-bottom: 1px solid #d0d0d0;
+  border-top: 1px solid #d0d0d0;
+  cursor: not-allowed;
+}
+
+/* Grid Summary Dark */
+.gridSummaryCellDark,
+.gridSummaryCellDisabledDark {
+  color: #585858;
+}
+
+/* end Grid Summary */
 .cellDisabled,
 .cellDisabledDark,
-.gridSummaryCellDisabled,
 .specialColDisabled,
 .recordSummaryCellDisabled,
+.recordSummaryCellDisabledAltCol,
 .recordSummaryCellDisabledDark {
   background-color: #ededed;
   cursor: not-allowed;
@@ -6480,7 +6544,7 @@ some LG header-titles to be vertically offset from other headers */
   padding-left: 3px;
   text-overflow: ellipsis;
   border: none;
-  border-bottom: none;
+  border-bottom: 1px solid transparent;
   border-right: none;
 }
 
@@ -6563,38 +6627,16 @@ some LG header-titles to be vertically offset from other headers */
   box-shadow: 0 0 5px 0 #5fbaf2;
 }
 
-/* ListGrid summary Dark*/
-.gridSummaryCellAltCol,
-.gridSummaryCellAltColDisabled,
-.gridSummaryCellDark,
-.gridSummaryCellDisabledDark {
-  font-size: 12.5px;
-  font-family: calibri;
-  font-weight: bold;
-  text-overflow: ellipsis;
-  background-color: #e7f6ff;
-  border-bottom: 1px solid #005491;
-  border-top: 1px solid #005491;
-  color: #585858;
-}
-
-.gridSummaryCellAltColDisabled,
-.gridSummaryCellDisabledDark {
-  background-color: #ededed;
-  border-bottom: 1px solid #ededed;
-  border-top: 1px solid #ededed;
-  cursor: not-allowed;
-  color: #b8b8b8;
-}
-
-.gridSummaryCellAltCol {
-  font-weight: bold;
-  color: #005491;
-}
-
 /* for grouping */
 .groupNode,
-.groupNodeOver {
+.groupNodeDark,
+.groupNodeAltCol,
+.groupNodeOver,
+.groupNodeOverDark,
+.groupNodeOverAltCol,
+.groupNodeDisabled,
+.groupNodeDisabledDark,
+.groupNodeDisabledAltCol {
   background-color: #ffffff;
   border: none;
   border-bottom: 1px solid #8c8c8c;
@@ -6604,6 +6646,14 @@ some LG header-titles to be vertically offset from other headers */
   font-size: 12.5px;
   padding: 1px 1px 1px 3px;
   text-overflow: ellipsis;
+}
+
+.groupNodeDisabled,
+.groupNodeDisabledDark,
+.groupNodeDisabledAltCol {
+  background-color: #ededed;
+  cursor: not-allowed;
+  color: #b8b8b8;
 }
 
 /*Tree styling*/
@@ -6691,7 +6741,7 @@ some LG header-titles to be vertically offset from other headers */
   padding-left: 3px;
   text-overflow: ellipsis;
   border: none;
-  border-bottom: none;
+  border-bottom: 1px solid transparent;
 }
 
 .treeCellDisabledAltCol,
@@ -7916,8 +7966,14 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 }
 
 /*============================================================
-	Calendar
+    Calendar
 ============================================================*/
+/* Calendar headerBar */
+.calendarHeaderBar {
+  background-color: #47a7e3;
+  border-right: 1px solid #ffffff;
+}
+
 /* Calendar date cells */
 .calendar,
 .calendarOver,
@@ -9188,15 +9244,22 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 
 .sampleTypeLabelAnchorTahoe,
 .sampleTypeLabelAnchorTahoeRTL,
+.sampleTypeLabelAnchorTahoeOver,
+.sampleTypeLabelAnchorTahoeOverRTL,
 .sampleTypeLabelAnchorTahoeFocused,
 .sampleTypeLabelAnchorTahoeFocusedRTL,
+.sampleTypeLabelAnchorTahoeFocusedOver,
+.sampleTypeLabelAnchorTahoeFocusedOverRTL,
 .sampleTypeLabelAnchorTahoeDisabled,
 .sampleTypeLabelAnchorTahoeDisabledRTL,
 .sampleTypeLabelAnchorTahoeError,
-.sampleTypeLabelAnchorTahoeErrorRTL {
+.sampleTypeLabelAnchorTahoeErrorRTL,
+.sampleTypeLabelAnchorTahoeErrorOver,
+.sampleTypeLabelAnchorTahoeErrorOverRTL {
   color: #282828;
   font-family: RobotoLight;
-  font-size: 11px;
+  font-size: 12.58px;
+  vertical-align: middle;
   text-decoration: none;
 }
 

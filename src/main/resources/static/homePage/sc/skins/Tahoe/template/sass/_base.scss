@@ -469,7 +469,7 @@ $listGrid_dragTracker_border: $standard_border_width dotted $standard_border_col
 $listGrid_headerBar_bgColor: $standard_header_bgColor !default;
 $listGrid_headerBar_bottom_border: none !default;
 $listGrid_headerBar_gradient_color: #b6bdc9 !default;
-$listGrid_headerBar_gradient: linear-gradient(top, $standard_bgColor 0%, hsl(0, 0%, 84%) 96%, $listGrid_headerBar_gradient_color 96%, $listGrid_headerBar_gradient_color 100%) !default;
+$listGrid_headerBar_gradient: none !default;
 // HeaderButton
 $listGrid_headerButton_color: $standard_header_color !default;
 $listGrid_headerButton_bgColor: $standard_header_bgColor !default;
@@ -512,7 +512,7 @@ $listGrid_summaryCell_color: adjust-color($listGrid_headerButton_bgColor,$red:-7
 $listGrid_summaryCell_bgColor: adjust-color($listGrid_headerButton_bgColor,$red:160,$green:79,$blue:28) !default;
 $listGrid_summaryCell_border_color: adjust-color($listGrid_headerButton_bgColor,$red:-71,$green:-83,$blue:-82) !default;
 $listGrid_summaryCell_border: $standard_border_width $standard_border_style $listGrid_summaryCell_border_color !default;
-$listGrid_summaryCell_disabled_border: $standard_border_width $standard_border_style $listGrid_cell_disabled_bgColor !default;
+$listGrid_summaryCell_disabled_border: $standard_border_width $standard_border_style $listGrid_summaryCell_border_color !default;
 $listGrid_summaryCell_dark_color: hsl(0, 0%, 34.5%) !default;
 $listGrid_summaryCell_disabled_bgColor: $listGrid_summaryCell_bgColor !default;
 // Header nodes in grouped grids
@@ -2880,23 +2880,6 @@ a:visited { color: $link_visited_color;}
 .nativeSelectItemPendingError,
 .nativeSelectItemPendingErrorRTL,
 
-.staticTextItem,
-.staticTextItemRTL,
-.staticTextItemFocused,
-.staticTextItemFocusedRTL,
-.staticTextItemDisabled,
-.staticTextItemDisabledRTL,
-.staticTextItemError,
-.staticTextItemErrorRTL,
-.staticTextItemPending,
-.staticTextItemPendingRTL,
-.staticTextItemPendingFocused,
-.staticTextItemPendingFocusedRTL,
-.staticTextItemPendingDisabled,
-.staticTextItemPendingDisabledRTL,
-.staticTextItemPendingError,
-.staticTextItemPendingErrorRTL,
-
 .uploadItem,
 .uploadItemRTL,
 .uploadItemFocused,
@@ -2920,8 +2903,48 @@ a:visited { color: $link_visited_color;}
     background-color: transparent;
     color: $formItem_color;
     font: {
-        family: $primary_font;
-        size: $standard_font_size;
+        family: $formItem_font;
+        size: $formItem_font_size;
+    }
+}
+
+.staticTextItem,
+.staticTextItemRTL,
+.staticTextItemOver,
+.staticTextItemOverRTL,
+.staticTextItemFocused,
+.staticTextItemFocusedRTL,
+.staticTextItemFocusedOver,
+.staticTextItemFocusedOverRTL,
+.staticTextItemDisabled,
+.staticTextItemDisabledRTL,
+.staticTextItemError,
+.staticTextItemErrorRTL,
+.staticTextItemErrorOver,
+.staticTextItemErrorOverRTL,
+.staticTextItemErrorFocused,
+.staticTextItemErrorFocusedRTL,
+.staticTextItemErrorFocusedOver,
+.staticTextItemErrorFocusedOverRTL,
+.staticTextItemPending,
+.staticTextItemPendingRTL,
+.staticTextItemPendingOver,
+.staticTextItemPendingOverRTL,
+.staticTextItemPendingFocused,
+.staticTextItemPendingFocusedRTL,
+.staticTextItemPendingFocusedOver,
+.staticTextItemPendingFocusedOverRTL,
+.staticTextItemPendingDisabled,
+.staticTextItemPendingDisabledRTL,
+.staticTextItemPendingError,
+.staticTextItemPendingErrorRTL {
+    background-color: transparent;
+    //padding: $formItem_padding;
+    border: $standard_transparent_border;
+    color: $formItem_color;
+    font: {
+        family: $formItem_font;
+        size: $formItem_font_size;
     }
 }
 
@@ -5663,8 +5686,24 @@ option:checked {
     border-bottom: $listGrid_headerBar_bottom_border;
 }
 
+.gridActionButton,
+.gridActionButtonOver,
+.gridActionButtonDisabled {
+    color: $formItem_color;
+    background-color: transparent;
+    border: $listGrid_border;
+}
+
+.gridActionButtonDisabled {
+    color: $formItem_disabled_color;
+    background-color: $formItem_disabled_bgColor;
+}
+
 .gridBody {
     background-color: $listGrid_body_bgColor;
+}
+.gridBodyDisabled {
+    background-color: $listGrid_cell_disabled_bgColor;
 }
 
 .alternateGridBody {
@@ -5705,10 +5744,14 @@ option:checked {
 
 .listTable {
 }
+.listTableDisabled {
+    background-color: $listGrid_cell_disabled_bgColor;
+}
 
 /* recordEditor */
+.recordEditorCell,
 .recordEditorCellDark,
-.recordEditorCell {
+.recordEditorCellDisabled {
     line-height: 22px;
     background-color: $standard_bgColor;
     color: $standard_color; 
@@ -5716,6 +5759,10 @@ option:checked {
         family: $primary_font; 
         size: $standard_font_size; 
     }
+}
+.recordEditorCellDisabled {
+    background-color: $listGrid_headerButton_disabled_bgColor;
+    color: $listGrid_headerButton_disabled_color; 
 }
 
 /* operatorIcon in ListGrid filterEditor */
@@ -6128,8 +6175,6 @@ some LG header-titles to be vertically offset from other headers */
 .cellPendingSelectedOverDark,
 .cellDisabled,
 .cellDisabledDark,
-.gridSummaryCell,
-.gridSummaryCellDisabled,
 .recordSummaryCell,
 .recordSummaryCellDark,
 .recordSummaryCellOver,
@@ -6183,14 +6228,6 @@ some LG header-titles to be vertically offset from other headers */
     background-color: $listGrid_cell_dark_bgColor;
 }
 
-.gridSummaryCell,
-.gridSummaryCellDisabled {
-    background-color: $listGrid_summaryCell_bgColor;
-    border: none;
-    border-bottom: $listGrid_summaryCell_border;
-    border-top: $listGrid_summaryCell_border; 
-}
-
 .cellOver,
 .cellOverDark,
 .cellDeselectedOver,
@@ -6227,17 +6264,51 @@ some LG header-titles to be vertically offset from other headers */
 //    border-bottom: $listGrid_cell_selected_over_border;
 }
 
+/* Grid Summary cells */
 .gridSummaryCell,
-.gridSummaryCellDisabled {
-    font-weight: $listGrid_summaryCell_fontWeight;
+.gridSummaryCellDark,
+.gridSummaryCellAltCol,
+.gridSummaryCellDisabled,
+.gridSummaryCellDisabledDark,
+.gridSummaryCellDisabledAltCol {
     color: $listGrid_summaryCell_color;
+    background-color: $listGrid_summaryCell_bgColor;
+    font: {
+        size: $listGrid_summaryCell_font_size;
+        family: $listGrid_cell_font;
+        weight: $listGrid_summaryCell_fontWeight;
+    }
+    border: none;
+    border-bottom: $listGrid_summaryCell_border;
+    border-top: $listGrid_summaryCell_border; 
+    padding-left: $listGrid_cell_paddingLeft;
+    text-overflow: ellipsis;
 }
+
+/* Grid Summary Disabled */
+.gridSummaryCellDisabled,
+.gridSummaryCellDisabledDark,
+.gridSummaryCellDisabledAltCol {
+    color: $listGrid_cell_disabled_color;
+    background-color: $listGrid_cell_disabled_bgColor;
+    border-bottom: $listGrid_summaryCell_disabled_border;
+    border-top: $listGrid_summaryCell_disabled_border;
+    cursor: not-allowed;
+}
+
+/* Grid Summary Dark */
+.gridSummaryCellDark,
+.gridSummaryCellDisabledDark {
+    color: $listGrid_summaryCell_dark_color;
+}
+
+/* end Grid Summary */
 
 .cellDisabled,
 .cellDisabledDark,
-.gridSummaryCellDisabled,
 .specialColDisabled,
 .recordSummaryCellDisabled,
+.recordSummaryCellDisabledAltCol,
 .recordSummaryCellDisabledDark {
     background-color: $listGrid_cell_disabled_bgColor;
     cursor: not-allowed;
@@ -6354,40 +6425,17 @@ some LG header-titles to be vertically offset from other headers */
 }
 
 
-/* ListGrid summary Dark*/
-.gridSummaryCellAltCol,
-.gridSummaryCellAltColDisabled,
-.gridSummaryCellDark,
-.gridSummaryCellDisabledDark {
-    font: {
-        size: $listGrid_summaryCell_font_size;
-        family: $listGrid_cell_font;
-        weight: $listGrid_summaryCell_fontWeight;
-    }
-    text-overflow: ellipsis;
-    background-color: $listGrid_summaryCell_disabled_bgColor;
-    border-bottom: $listGrid_summaryCell_border;
-    border-top: $listGrid_summaryCell_border; 
-    color: $listGrid_summaryCell_dark_color;
-    //color: $listGrid_summaryCell_color;
-}
-.gridSummaryCellAltColDisabled,
-.gridSummaryCellDisabledDark {
-    background-color: $listGrid_cell_disabled_bgColor;
-    border-bottom: $listGrid_summaryCell_disabled_border;
-    border-top: $listGrid_summaryCell_disabled_border;
-    cursor: not-allowed;
-    color: $listGrid_cell_disabled_color;
-}
-
-.gridSummaryCellAltCol {
-    font-weight: $listGrid_summaryCell_fontWeight;
-    color: $listGrid_summaryCell_color;
-}
 
 /* for grouping */
 .groupNode,
-.groupNodeOver {
+.groupNodeDark,
+.groupNodeAltCol,
+.groupNodeOver,
+.groupNodeOverDark,
+.groupNodeOverAltCol,
+.groupNodeDisabled,
+.groupNodeDisabledDark,
+.groupNodeDisabledAltCol {
     background-color: $listGrid_groupNode_bgColor;
     border: none;
     border-bottom: $listGrid_groupNode_border;
@@ -6401,6 +6449,14 @@ some LG header-titles to be vertically offset from other headers */
     }
     padding: $listGrid_groupNode_padding;
     text-overflow: ellipsis;
+}
+
+.groupNodeDisabled,
+.groupNodeDisabledDark,
+.groupNodeDisabledAltCol {
+    background-color: $listGrid_cell_disabled_bgColor;
+    cursor: not-allowed;
+    color: $listGrid_cell_disabled_color;
 }
 
 /*Tree styling*/
@@ -7506,8 +7562,14 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 }
 
 /*============================================================
-	Calendar
+    Calendar
 ============================================================*/
+/* Calendar headerBar */
+.calendarHeaderBar {
+    background-color: $listGrid_headerBar_bgColor;
+    border-right: $listGrid_headerSpan_border;
+}
+
 /* Calendar date cells */
 .calendar,
 .calendarOver,

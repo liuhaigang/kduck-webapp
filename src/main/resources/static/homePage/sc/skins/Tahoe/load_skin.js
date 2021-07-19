@@ -839,6 +839,8 @@ with (theWindow) {
             groupIcon:"[SKINIMG]/ListGrid/group.png",
             groupIconPadding:7,
             groupLeadingIndent:10,
+            groupNodeStyle: null,
+            groupNodeBaseStyle: "groupNode",
             showHeaderShadow:false,
             headerBarStyle: "headerBar",
             headerBackgroundColor:null,
@@ -901,8 +903,8 @@ with (theWindow) {
     }
 
     if (isc.RecordEditor) {
-        isc.RecordEditor.changeDefaults("actionButtonDefaults", {
-            border:"1px solid #b8b8b8"
+        isc.RecordEditor.addProperties({
+            actionButtonStyle: "gridActionButton"
         });
         isc.RecordEditor.changeDefaults("editFormDefaults", {
             // Enable auto-child pattern customization of FormItems on the edit form.
@@ -971,6 +973,7 @@ with (theWindow) {
 
     if (isc.CheckboxItem) {
         isc.CheckboxItem.addProperties({
+            height: 22,
             valueIconWidth: 22,
             valueIconHeight: 22,
             showValueIconOver: true,
@@ -1678,13 +1681,21 @@ with (theWindow) {
             layoutBottomMargin:10
         });
 
-        isc.EventWindow.changeDefaults("resizerDefaults", {
-            src:"[SKIN]/Window/v_resizer.png"
-        });
-        isc.TimelineWindow.changeDefaults("resizerDefaults", {
-            src:"[SKIN]/Window/h_resizer.png"
-        })
-
+        if (isc.EventWindow) {
+            isc.EventWindow.changeDefaults("resizerDefaults", {
+                src:"[SKIN]/Window/v_resizer.png"
+            });
+        }
+        if (isc.TimelineWindow) {
+            isc.TimelineWindow.changeDefaults("resizerDefaults", {
+                src:"[SKIN]/Window/h_resizer.png"
+            })
+        }
+        if (isc.CalendarView) {
+            isc.CalendarView.addProperties({
+                headerBarStyle: "calendarHeaderBar"
+            });
+        }
     }
 
     //----------------------------------------

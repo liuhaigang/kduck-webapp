@@ -446,6 +446,7 @@
   --isc-listGrid_headerBar_bgColor: var(--isc-standard_header_bgColor);
   --isc-listGrid_headerBar_bottom_border: none;
   --isc-listGrid_headerBar_gradient_color: #b6bdc9;
+  --isc-listGrid_headerBar_gradient: none;
   --isc-listGrid_headerButton_color: var(--isc-standard_header_color);
   --isc-listGrid_headerButton_bgColor: var(--isc-standard_header_bgColor);
   --isc-listGrid_headerButton_border: none;
@@ -463,7 +464,7 @@
   --isc-listGrid_headerSpan_border: var(--isc-standard_border_width) var(--isc-standard_border_style) var(--isc-listGrid_headerSpan_border_color);
   --isc-listGrid_cell_paddingLeft: 3px;
   --isc-listGrid_cell_border: none;
-  --isc-listGrid_row_border: none;
+  --isc-listGrid_row_border: var(--isc-standard_transparent_border);
   --isc-listGrid_cell_color: #3f3f3f;
   --isc-listGrid_cell_bgColor: var(--isc-standard_widget_bgColor);
   --isc-listGrid_cell_dark_bgColor: #fafafa;
@@ -485,9 +486,9 @@
   --isc-listGrid_summaryCell_bgColor: #e7f6ff;
   --isc-listGrid_summaryCell_border_color: #005491;
   --isc-listGrid_summaryCell_border: var(--isc-standard_border_width) var(--isc-standard_border_style) var(--isc-listGrid_summaryCell_border_color);
-  --isc-listGrid_summaryCell_disabled_border: var(--isc-standard_border_width) var(--isc-standard_border_style) var(--isc-listGrid_cell_disabled_bgColor);
+  --isc-listGrid_summaryCell_disabled_border: var(--isc-standard_border_width) var(--isc-standard_border_style) var(--isc-listGrid_border_color);
   --isc-listGrid_summaryCell_dark_color: #585858;
-  --isc-listGrid_summaryCell_disabled_bgColor: var(--isc-listGrid_summaryCell_bgColor);
+  --isc-listGrid_summaryCell_disabled_bgColor: var(--isc-listGrid_cell_disabled_bgColor);
   --isc-listGrid_groupNode_font: var(--isc-listGrid_cell_font);
   --isc-listGrid_groupNode_font_size: 12.5px;
   --isc-listGrid_groupNode_fontWeight: bold;
@@ -3528,22 +3529,6 @@ a:visited {
 .nativeSelectItemPendingDisabledRTL,
 .nativeSelectItemPendingError,
 .nativeSelectItemPendingErrorRTL,
-.staticTextItem,
-.staticTextItemRTL,
-.staticTextItemFocused,
-.staticTextItemFocusedRTL,
-.staticTextItemDisabled,
-.staticTextItemDisabledRTL,
-.staticTextItemError,
-.staticTextItemErrorRTL,
-.staticTextItemPending,
-.staticTextItemPendingRTL,
-.staticTextItemPendingFocused,
-.staticTextItemPendingFocusedRTL,
-.staticTextItemPendingDisabled,
-.staticTextItemPendingDisabledRTL,
-.staticTextItemPendingError,
-.staticTextItemPendingErrorRTL,
 .uploadItem,
 .uploadItemRTL,
 .uploadItemFocused,
@@ -3566,8 +3551,45 @@ a:visited {
 .uploadItemDisabledHintRTL {
   background-color: transparent;
   color: var(--isc-formItem_color);
-  font-family: var(--isc-primary_font);
-  font-size: var(--isc-standard_font_size);
+  font-family: var(--isc-formItem_font);
+  font-size: var(--isc-formItem_font_size);
+}
+
+.staticTextItem,
+.staticTextItemRTL,
+.staticTextItemOver,
+.staticTextItemOverRTL,
+.staticTextItemFocused,
+.staticTextItemFocusedRTL,
+.staticTextItemFocusedOver,
+.staticTextItemFocusedOverRTL,
+.staticTextItemDisabled,
+.staticTextItemDisabledRTL,
+.staticTextItemError,
+.staticTextItemErrorRTL,
+.staticTextItemErrorOver,
+.staticTextItemErrorOverRTL,
+.staticTextItemErrorFocused,
+.staticTextItemErrorFocusedRTL,
+.staticTextItemErrorFocusedOver,
+.staticTextItemErrorFocusedOverRTL,
+.staticTextItemPending,
+.staticTextItemPendingRTL,
+.staticTextItemPendingOver,
+.staticTextItemPendingOverRTL,
+.staticTextItemPendingFocused,
+.staticTextItemPendingFocusedRTL,
+.staticTextItemPendingFocusedOver,
+.staticTextItemPendingFocusedOverRTL,
+.staticTextItemPendingDisabled,
+.staticTextItemPendingDisabledRTL,
+.staticTextItemPendingError,
+.staticTextItemPendingErrorRTL {
+  background-color: transparent;
+  border: var(--isc-standard_transparent_border);
+  color: var(--isc-formItem_color);
+  font-family: var(--isc-formItem_font);
+  font-size: var(--isc-formItem_font_size);
 }
 
 .pickListCell,
@@ -6735,17 +6757,29 @@ option:checked {
   background-repeat: repeat-x;
   background-position: bottom left;
   background-attachment: scroll;
-  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIvPjxzdG9wIG9mZnNldD0iOTYlIiBzdG9wLWNvbG9yPSIjZDZkNmQ2Ii8+PHN0b3Agb2Zmc2V0PSI5NiUiIHN0b3AtY29sb3I9IiNiNmJkYzkiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNiNmJkYzkiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
-  background-size: 100%;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(96%, #d6d6d6), color-stop(96%, #b6bdc9), color-stop(100%, #b6bdc9));
-  background-image: -moz-linear-gradient(top, #ffffff 0%, #d6d6d6 96%, #b6bdc9 96%, #b6bdc9 100%);
-  background-image: -webkit-linear-gradient(top, #ffffff 0%, #d6d6d6 96%, #b6bdc9 96%, #b6bdc9 100%);
-  background-image: linear-gradient(to bottom, #ffffff 0%, #d6d6d6 96%, #b6bdc9 96%, #b6bdc9 100%);
+  background-image: none;
   border-bottom: var(--isc-listGrid_headerBar_bottom_border);
+}
+
+.gridActionButton,
+.gridActionButtonOver,
+.gridActionButtonDisabled {
+  color: var(--isc-formItem_color);
+  background-color: transparent;
+  border: var(--isc-listGrid_border);
+}
+
+.gridActionButtonDisabled {
+  color: var(--isc-formItem_disabled_color);
+  background-color: var(--isc-formItem_disabled_bgColor);
 }
 
 .gridBody {
   background-color: var(--isc-listGrid_body_bgColor);
+}
+
+.gridBodyDisabled {
+  background-color: var(--isc-listGrid_cell_disabled_bgColor);
 }
 
 .alternateGridBody {
@@ -6780,14 +6814,24 @@ option:checked {
   pointer-events: none;
 }
 
+.listTableDisabled {
+  background-color: var(--isc-listGrid_cell_disabled_bgColor);
+}
+
 /* recordEditor */
+.recordEditorCell,
 .recordEditorCellDark,
-.recordEditorCell {
+.recordEditorCellDisabled {
   line-height: 22px;
   background-color: var(--isc-standard_bgColor);
   color: var(--isc-standard_color);
   font-family: var(--isc-primary_font);
   font-size: var(--isc-standard_font_size);
+}
+
+.recordEditorCellDisabled {
+  background-color: var(--isc-listGrid_headerButton_disabled_bgColor);
+  color: var(--isc-listGrid_headerButton_disabled_color);
 }
 
 /* operatorIcon in ListGrid filterEditor */
@@ -7207,8 +7251,6 @@ some LG header-titles to be vertically offset from other headers */
 .cellPendingSelectedOverDark,
 .cellDisabled,
 .cellDisabledDark,
-.gridSummaryCell,
-.gridSummaryCellDisabled,
 .recordSummaryCell,
 .recordSummaryCellDark,
 .recordSummaryCellOver,
@@ -7260,14 +7302,6 @@ some LG header-titles to be vertically offset from other headers */
   background-color: var(--isc-listGrid_cell_dark_bgColor);
 }
 
-.gridSummaryCell,
-.gridSummaryCellDisabled {
-  background-color: var(--isc-listGrid_summaryCell_bgColor);
-  border: none;
-  border-bottom: var(--isc-listGrid_summaryCell_border);
-  border-top: var(--isc-listGrid_summaryCell_border);
-}
-
 .cellOver,
 .cellOverDark,
 .cellDeselectedOver,
@@ -7302,17 +7336,48 @@ some LG header-titles to be vertically offset from other headers */
   color: var(--isc-listGrid_cell_selected_color);
 }
 
+/* Grid Summary cells */
 .gridSummaryCell,
-.gridSummaryCellDisabled {
-  font-weight: var(--isc-listGrid_summaryCell_fontWeight);
+.gridSummaryCellDark,
+.gridSummaryCellAltCol,
+.gridSummaryCellDisabled,
+.gridSummaryCellDisabledDark,
+.gridSummaryCellDisabledAltCol {
   color: var(--isc-listGrid_summaryCell_color);
+  background-color: var(--isc-listGrid_summaryCell_bgColor);
+  font-size: var(--isc-listGrid_summaryCell_font_size);
+  font-family: var(--isc-listGrid_cell_font);
+  font-weight: var(--isc-listGrid_summaryCell_fontWeight);
+  border: none;
+  border-bottom: var(--isc-listGrid_summaryCell_border);
+  border-top: var(--isc-listGrid_summaryCell_border);
+  padding-left: var(--isc-listGrid_cell_paddingLeft);
+  text-overflow: ellipsis;
 }
 
+/* Grid Summary Disabled */
+.gridSummaryCellDisabled,
+.gridSummaryCellDisabledDark,
+.gridSummaryCellDisabledAltCol {
+  color: var(--isc-listGrid_cell_disabled_color);
+  background-color: var(--isc-listGrid_cell_disabled_bgColor);
+  border-bottom: var(--isc-listGrid_summaryCell_disabled_border);
+  border-top: var(--isc-listGrid_summaryCell_disabled_border);
+  cursor: not-allowed;
+}
+
+/* Grid Summary Dark */
+.gridSummaryCellDark,
+.gridSummaryCellDisabledDark {
+  color: var(--isc-listGrid_summaryCell_dark_color);
+}
+
+/* end Grid Summary */
 .cellDisabled,
 .cellDisabledDark,
-.gridSummaryCellDisabled,
 .specialColDisabled,
 .recordSummaryCellDisabled,
+.recordSummaryCellDisabledAltCol,
 .recordSummaryCellDisabledDark {
   background-color: var(--isc-listGrid_cell_disabled_bgColor);
   cursor: not-allowed;
@@ -7435,38 +7500,16 @@ some LG header-titles to be vertically offset from other headers */
   box-shadow: var(--isc-cubeGrid_cell_selected_over_glow);
 }
 
-/* ListGrid summary Dark*/
-.gridSummaryCellAltCol,
-.gridSummaryCellAltColDisabled,
-.gridSummaryCellDark,
-.gridSummaryCellDisabledDark {
-  font-size: var(--isc-listGrid_summaryCell_font_size);
-  font-family: var(--isc-listGrid_cell_font);
-  font-weight: var(--isc-listGrid_summaryCell_fontWeight);
-  text-overflow: ellipsis;
-  background-color: var(--isc-listGrid_summaryCell_disabled_bgColor);
-  border-bottom: var(--isc-listGrid_summaryCell_border);
-  border-top: var(--isc-listGrid_summaryCell_border);
-  color: var(--isc-listGrid_summaryCell_dark_color);
-}
-
-.gridSummaryCellAltColDisabled,
-.gridSummaryCellDisabledDark {
-  background-color: var(--isc-listGrid_cell_disabled_bgColor);
-  border-bottom: var(--isc-listGrid_summaryCell_disabled_border);
-  border-top: var(--isc-listGrid_summaryCell_disabled_border);
-  cursor: not-allowed;
-  color: var(--isc-listGrid_cell_disabled_color);
-}
-
-.gridSummaryCellAltCol {
-  font-weight: var(--isc-listGrid_summaryCell_fontWeight);
-  color: var(--isc-listGrid_summaryCell_color);
-}
-
 /* for grouping */
 .groupNode,
-.groupNodeOver {
+.groupNodeDark,
+.groupNodeAltCol,
+.groupNodeOver,
+.groupNodeOverDark,
+.groupNodeOverAltCol,
+.groupNodeDisabled,
+.groupNodeDisabledDark,
+.groupNodeDisabledAltCol {
   background-color: var(--isc-listGrid_groupNode_bgColor);
   border: none;
   border-bottom: var(--isc-listGrid_groupNode_border);
@@ -7476,6 +7519,14 @@ some LG header-titles to be vertically offset from other headers */
   font-size: var(--isc-listGrid_groupNode_font_size);
   padding: var(--isc-listGrid_groupNode_padding);
   text-overflow: ellipsis;
+}
+
+.groupNodeDisabled,
+.groupNodeDisabledDark,
+.groupNodeDisabledAltCol {
+  background-color: var(--isc-listGrid_cell_disabled_bgColor);
+  cursor: not-allowed;
+  color: var(--isc-listGrid_cell_disabled_color);
 }
 
 /*Tree styling*/
@@ -8783,8 +8834,14 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 }
 
 /*============================================================
-	Calendar
+    Calendar
 ============================================================*/
+/* Calendar headerBar */
+.calendarHeaderBar {
+  background-color: var(--isc-listGrid_headerBar_bgColor);
+  border-right: var(--isc-listGrid_headerSpan_border);
+}
+
 /* Calendar date cells */
 .calendar,
 .calendarOver,
@@ -10055,15 +10112,22 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 
 .sampleTypeLabelAnchorTahoe,
 .sampleTypeLabelAnchorTahoeRTL,
+.sampleTypeLabelAnchorTahoeOver,
+.sampleTypeLabelAnchorTahoeOverRTL,
 .sampleTypeLabelAnchorTahoeFocused,
 .sampleTypeLabelAnchorTahoeFocusedRTL,
+.sampleTypeLabelAnchorTahoeFocusedOver,
+.sampleTypeLabelAnchorTahoeFocusedOverRTL,
 .sampleTypeLabelAnchorTahoeDisabled,
 .sampleTypeLabelAnchorTahoeDisabledRTL,
 .sampleTypeLabelAnchorTahoeError,
-.sampleTypeLabelAnchorTahoeErrorRTL {
+.sampleTypeLabelAnchorTahoeErrorRTL,
+.sampleTypeLabelAnchorTahoeErrorOver,
+.sampleTypeLabelAnchorTahoeErrorOverRTL {
   color: #282828;
   font-family: RobotoLight;
-  font-size: 11px;
+  font-size: 12.58px;
+  vertical-align: middle;
   text-decoration: none;
 }
 
