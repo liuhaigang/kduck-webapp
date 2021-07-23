@@ -79,7 +79,7 @@ public class Application extends SpringBootServletInitializer {
                 //页面标题
                 .title("K-Duck Demo")
                 //创建人
-                .contact(new Contact("LiuHG", "http://www.software4j.com", ""))
+                .contact(new Contact("LiuHG", "http://www.kduck.cn", ""))
                 //版本号
                 .version("1.0")
                 //描述
