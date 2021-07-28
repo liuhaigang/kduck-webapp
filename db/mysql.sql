@@ -163,7 +163,7 @@ CREATE TABLE k_hierarchical_authorize(
     org_id               VARCHAR(50),
     user_id              VARCHAR(50),
     create_time          DATETIME,
-    PRIMARY KEY (authorize_user_id)
+    PRIMARY KEY (authorize_id)
 )ENGINE=INNODB
 ;
 
