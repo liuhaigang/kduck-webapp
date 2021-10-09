@@ -8,7 +8,11 @@ public interface WorkFlowService {
 
     List<DeploymentInfo> listDeployment(Page page);
 
+    List<ProcessDefinitionInfo> listProcessDefinition();
+
     List<ProcessInstanceInfo> listProcessInstance(String deploymentId, Page page);
 
     List<ActivityInstanceInfo> listFinishedActivity(String processInstanceId);
+
+
 }

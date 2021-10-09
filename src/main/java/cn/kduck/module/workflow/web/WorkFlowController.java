@@ -5,6 +5,7 @@ import cn.kduck.core.web.json.JsonObject;
 import cn.kduck.core.web.json.JsonPageObject;
 import cn.kduck.module.workflow.service.ActivityInstanceInfo;
 import cn.kduck.module.workflow.service.DeploymentInfo;
+import cn.kduck.module.workflow.service.ProcessDefinitionInfo;
 import cn.kduck.module.workflow.service.ProcessInstanceInfo;
 import cn.kduck.module.workflow.service.WorkFlowService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,12 @@ public class WorkFlowController {
     public JsonObject listDeployment(Page page){
         List<DeploymentInfo> deploymentList = workFlowService.listDeployment(page);
         return new JsonPageObject(page,deploymentList);
+    }
+
+    @GetMapping("/processDefinition/list")
+    public JsonObject listProcessDefinition(){
+        List<ProcessDefinitionInfo> processDefinitionList = workFlowService.listProcessDefinition();
+        return new JsonObject(processDefinitionList);
     }
 
     @GetMapping("/processInstance/list")

@@ -7,6 +7,7 @@ import cn.kduck.flow.client.commons.dto.Count;
 import cn.kduck.flow.client.commons.dto.Sort;
 import cn.kduck.flow.client.definition.BpmProcessDefinitionService;
 import cn.kduck.flow.client.definition.dto.ProcessDefinition;
+import cn.kduck.flow.client.definition.dto.ProcessDefinitionQuery;
 import cn.kduck.flow.client.deployment.BpmDeploymentService;
 import cn.kduck.flow.client.deployment.dto.Deployment;
 import cn.kduck.flow.client.deployment.dto.DeploymentQuery;
@@ -19,8 +20,10 @@ import cn.kduck.flow.client.process.dto.ProcessInstance;
 import cn.kduck.flow.client.process.dto.ProcessInstanceQuery;
 import cn.kduck.module.workflow.service.ActivityInstanceInfo;
 import cn.kduck.module.workflow.service.DeploymentInfo;
+import cn.kduck.module.workflow.service.ProcessDefinitionInfo;
 import cn.kduck.module.workflow.service.ProcessInstanceInfo;
 import cn.kduck.module.workflow.service.WorkFlowService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -68,6 +71,25 @@ public class WorkFlowServiceImpl implements WorkFlowService {
             deploymentInfos.add(deploymentInfo);
         }
         return deploymentInfos;
+    }
+
+    @Override
+    public List<ProcessDefinitionInfo> listProcessDefinition() {
+        BpmProcessDefinitionService processDefinitionService = bpmServiceFactory.getService(BpmProcessDefinitionService.class);
+
+        ProcessDefinitionQuery query = new ProcessDefinitionQuery();
+
+        Count count = processDefinitionService.countProcessDefinition(query);
+
+        ProcessDefinition[] processDefinitions = processDefinitionService.listProcessDefinition(query, 0, count.getCount());
+        List<ProcessDefinitionInfo> processInstanceInfoList = new ArrayList<>(count.getCount());
+//       TODO 合并相同key的流程定义
+        for (ProcessDefinition processDefinition : processDefinitions) {
+            ProcessDefinitionInfo processDefinitionInfo = new ProcessDefinitionInfo();
+            BeanUtils.copyProperties(processDefinition,processDefinitionInfo);
+            processInstanceInfoList.add(processDefinitionInfo);
+        }
+        return processInstanceInfoList;
     }
 
     @Override
