@@ -21,8 +21,10 @@ kduck:
   websocket:
     enabled: true
   security:
-    ignored: /welcome.html
+    ignored: /welcome.html,/*.xml
     loginPage: /index.html
+  flow:
+    baseUrl: http://127.0.0.1:8088/kduck-engine-rest
 
 server:
   port: 8000

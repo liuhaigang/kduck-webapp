@@ -74,7 +74,8 @@ public class LobTestController {
         if(valueMap == null ){
             throw new RuntimeException("指定的数据不存在："+id);
         }
-
+        response.setContentType("application/png");
         ServletOutputStream outputStream = response.getOutputStream();
+        outputStream.write((byte[]) valueMap.get("demoBlob"));
     }
 }
