@@ -5,9 +5,11 @@ import cn.kduck.core.service.Page.PageUtils;
 import cn.kduck.flow.client.BpmServiceFactory;
 import cn.kduck.flow.client.commons.dto.Count;
 import cn.kduck.flow.client.commons.dto.Sort;
+import cn.kduck.flow.client.commons.dto.Sort.SortOrderProperty;
 import cn.kduck.flow.client.definition.BpmProcessDefinitionService;
 import cn.kduck.flow.client.definition.dto.ProcessDefinition;
 import cn.kduck.flow.client.definition.dto.ProcessDefinitionQuery;
+import cn.kduck.flow.client.definition.dto.ProcessDefinitionSoryBy;
 import cn.kduck.flow.client.deployment.BpmDeploymentService;
 import cn.kduck.flow.client.deployment.dto.Deployment;
 import cn.kduck.flow.client.deployment.dto.DeploymentQuery;
@@ -30,8 +32,12 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class WorkFlowServiceImpl implements WorkFlowService {
@@ -74,22 +80,51 @@ public class WorkFlowServiceImpl implements WorkFlowService {
     }
 
     @Override
-    public List<ProcessDefinitionInfo> listProcessDefinition() {
+    public Map<String,List<ProcessDefinitionInfo>> listProcessDefinition() {
         BpmProcessDefinitionService processDefinitionService = bpmServiceFactory.getService(BpmProcessDefinitionService.class);
 
         ProcessDefinitionQuery query = new ProcessDefinitionQuery();
-
+        query.setSortBy(ProcessDefinitionSoryBy.key.toString());
+        query.setSortOrder(SortOrderProperty.asc);
         Count count = processDefinitionService.countProcessDefinition(query);
 
-        ProcessDefinition[] processDefinitions = processDefinitionService.listProcessDefinition(query, 0, count.getCount());
-        List<ProcessDefinitionInfo> processInstanceInfoList = new ArrayList<>(count.getCount());
+        ProcessDefinition[] processDefinitions = processDefinitionService.listProcessDefinition(query, 0, 100);
+//        List<ProcessDefinitionInfo> processInstanceInfoList = new ArrayList<>(count.getCount());
+        Map<String,List<ProcessDefinitionInfo>> result = new HashMap<>();
 //       TODO 合并相同key的流程定义
+
+        Comparator<ProcessDefinitionInfo> comparator = (o1, o2) -> {
+            int version1 = o1.getVersion();
+            int version2 = o2.getVersion();
+
+            return version2 - version1;
+        };
+
+        List<ProcessDefinitionInfo> processInstanceInfoList = null;
+        String processDefinitionKey = null;
+        String key = null;
         for (ProcessDefinition processDefinition : processDefinitions) {
+            key = processDefinition.getKey();
+            if(!key.equals(processDefinitionKey)){
+                if(processDefinitionKey != null ){
+                    Collections.sort(processInstanceInfoList,comparator);
+                    result.put(processDefinitionKey,processInstanceInfoList);
+                }
+                processInstanceInfoList = new ArrayList<>();
+                processDefinitionKey = key;
+            }
+
             ProcessDefinitionInfo processDefinitionInfo = new ProcessDefinitionInfo();
             BeanUtils.copyProperties(processDefinition,processDefinitionInfo);
+            processDefinitionInfo.setProcessDefinitionId(processDefinition.getId());
             processInstanceInfoList.add(processDefinitionInfo);
         }
-        return processInstanceInfoList;
+
+        if(key != null){
+            Collections.sort(processInstanceInfoList,comparator);
+            result.put(key,processInstanceInfoList);
+        }
+        return result;
     }
 
     @Override

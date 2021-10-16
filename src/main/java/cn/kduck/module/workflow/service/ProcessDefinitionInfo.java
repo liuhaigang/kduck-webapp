@@ -2,7 +2,7 @@ package cn.kduck.module.workflow.service;
 
 public class ProcessDefinitionInfo {
 
-    private String id;
+    private String processDefinitionId;
     private String key;
     private String category;
     private String description;
@@ -17,12 +17,12 @@ public class ProcessDefinitionInfo {
     private Integer historyTimeToLive;
     private boolean isStartableInTasklist;
 
-    public String getId() {
-        return id;
+    public String getProcessDefinitionId() {
+        return processDefinitionId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setProcessDefinitionId(String processDefinitionId) {
+        this.processDefinitionId = processDefinitionId;
     }
 
     public String getKey() {

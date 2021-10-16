@@ -8,13 +8,17 @@ import cn.kduck.module.workflow.service.DeploymentInfo;
 import cn.kduck.module.workflow.service.ProcessDefinitionInfo;
 import cn.kduck.module.workflow.service.ProcessInstanceInfo;
 import cn.kduck.module.workflow.service.WorkFlowService;
+import cn.kduck.module.workflow.web.model.ProcessDefinitionModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 @RestController
 @RequestMapping("/workflow")
@@ -29,10 +33,40 @@ public class WorkFlowController {
         return new JsonPageObject(page,deploymentList);
     }
 
+    @GetMapping("/processDefinition/get")
+    public JsonObject getProcessDefinition(@RequestParam("key") String key,@RequestParam("version") Integer version){
+        Map<String, List<ProcessDefinitionInfo>> processDefinitionMapList = workFlowService.listProcessDefinition();
+
+        List<ProcessDefinitionInfo> processDefinitionInfoList = processDefinitionMapList.get(key);
+        for (ProcessDefinitionInfo processDefinitionInfo : processDefinitionInfoList) {
+            if(processDefinitionInfo.getVersion() == version.intValue()){
+                return new JsonObject(processDefinitionInfo);
+            }
+        }
+        JsonObject errorJsonObject = new JsonObject();
+        errorJsonObject.setMessage("未匹配到对应的流程定义对象");
+        errorJsonObject.setCode(-1);
+        return errorJsonObject;
+    }
+
     @GetMapping("/processDefinition/list")
     public JsonObject listProcessDefinition(){
-        List<ProcessDefinitionInfo> processDefinitionList = workFlowService.listProcessDefinition();
-        return new JsonObject(processDefinitionList);
+        Map<String, List<ProcessDefinitionInfo>> processDefinitionMapList = workFlowService.listProcessDefinition();
+
+        List<ProcessDefinitionModel> modelList = new ArrayList<>();
+        for (Entry<String, List<ProcessDefinitionInfo>> processDefinitionEntry : processDefinitionMapList.entrySet()) {
+            List<ProcessDefinitionInfo> pdList = processDefinitionEntry.getValue();
+            ProcessDefinitionModel processDefinitionModel = null;
+            for (ProcessDefinitionInfo processDefinitionInfo : pdList) {
+                if(processDefinitionModel == null){
+                    processDefinitionModel = new ProcessDefinitionModel(processDefinitionInfo);
+                    modelList.add(processDefinitionModel);
+                }
+                processDefinitionModel.addVersion(processDefinitionInfo.getVersion());
+
+            }
+        }
+        return new JsonObject(modelList);
     }
 
     @GetMapping("/processInstance/list")
