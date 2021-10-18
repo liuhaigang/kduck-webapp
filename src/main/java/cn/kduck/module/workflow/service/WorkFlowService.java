@@ -16,4 +16,7 @@ public interface WorkFlowService {
     List<ActivityInstanceInfo> listFinishedActivity(String processInstanceId);
 
 
+    String getProcessDefinitionBpmn20Xml(String processDefinitionId);
+
+
 }

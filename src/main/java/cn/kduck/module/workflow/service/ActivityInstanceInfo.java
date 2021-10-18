@@ -5,12 +5,17 @@ import java.util.Date;
 public class ActivityInstanceInfo {
 
     private String id;
+    private String activityId;
     private String activityType;
     private String activityName;
     private String assignee;
     private Date startTime;
     private Date endTime;
     private Long durationInMillis;
+
+    private String processDefinitionKey;
+    private String processDefinitionId;
+    private String processInstanceId;
 
     public String getId() {
         return id;
@@ -34,6 +39,30 @@ public class ActivityInstanceInfo {
 
     public void setActivityName(String activityName) {
         this.activityName = activityName;
+    }
+
+    public String getProcessDefinitionKey() {
+        return processDefinitionKey;
+    }
+
+    public void setProcessDefinitionKey(String processDefinitionKey) {
+        this.processDefinitionKey = processDefinitionKey;
+    }
+
+    public String getProcessDefinitionId() {
+        return processDefinitionId;
+    }
+
+    public void setProcessDefinitionId(String processDefinitionId) {
+        this.processDefinitionId = processDefinitionId;
+    }
+
+    public String getProcessInstanceId() {
+        return processInstanceId;
+    }
+
+    public void setProcessInstanceId(String processInstanceId) {
+        this.processInstanceId = processInstanceId;
     }
 
     public String getAssignee() {
@@ -66,5 +95,13 @@ public class ActivityInstanceInfo {
 
     public void setDurationInMillis(Long durationInMillis) {
         this.durationInMillis = durationInMillis;
+    }
+
+    public String getActivityId() {
+        return activityId;
+    }
+
+    public void setActivityId(String activityId) {
+        this.activityId = activityId;
     }
 }

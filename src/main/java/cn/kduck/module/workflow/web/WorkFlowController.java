@@ -69,6 +69,12 @@ public class WorkFlowController {
         return new JsonObject(modelList);
     }
 
+    @GetMapping("/processDefinition/bpmnXml/get")
+    public JsonObject getProcessDefinitionBpmn20Xml(@RequestParam("processDefinitionId") String processDefinitionId){
+        String xml = workFlowService.getProcessDefinitionBpmn20Xml(processDefinitionId);
+        return new JsonObject(xml);
+    }
+
     @GetMapping("/processInstance/list")
     public JsonObject listDeployment(@RequestParam("deploymentId") String deploymentId, Page page){
         List<ProcessInstanceInfo> processInstanceList = workFlowService.listProcessInstance(deploymentId,page);
@@ -80,5 +86,7 @@ public class WorkFlowController {
         List<ActivityInstanceInfo> activityInstanceInfo = workFlowService.listFinishedActivity(processInstanceId);
         return new JsonObject(activityInstanceInfo);
     }
+
+
 
 }

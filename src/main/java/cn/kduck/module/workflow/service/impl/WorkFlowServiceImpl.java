@@ -8,6 +8,7 @@ import cn.kduck.flow.client.commons.dto.Sort;
 import cn.kduck.flow.client.commons.dto.Sort.SortOrderProperty;
 import cn.kduck.flow.client.definition.BpmProcessDefinitionService;
 import cn.kduck.flow.client.definition.dto.ProcessDefinition;
+import cn.kduck.flow.client.definition.dto.ProcessDefinitionDiagram;
 import cn.kduck.flow.client.definition.dto.ProcessDefinitionQuery;
 import cn.kduck.flow.client.definition.dto.ProcessDefinitionSoryBy;
 import cn.kduck.flow.client.deployment.BpmDeploymentService;
@@ -177,25 +178,40 @@ public class WorkFlowServiceImpl implements WorkFlowService {
         List<ActivityInstanceInfo> activityInstanceInfoList = new ArrayList<>(historyActivitys.length);
         for (HistoryActivityInstance historyActivity : historyActivitys) {
             String id = historyActivity.getId();
+            String activityId = historyActivity.getActivityId();
             String activityType = historyActivity.getActivityType();
             String activityName = historyActivity.getActivityName();
             String assignee = historyActivity.getAssignee();
+            String processDefinitionId = historyActivity.getProcessDefinitionId();
+            String processDefinitionKey = historyActivity.getProcessDefinitionKey();
+
             Date startTime = historyActivity.getStartTime();
             Date endTime = historyActivity.getEndTime();
             Long durationInMillis = historyActivity.getDurationInMillis();
 
             ActivityInstanceInfo activityInstanceInfo = new ActivityInstanceInfo();
             activityInstanceInfo.setId(id);
+            activityInstanceInfo.setActivityId(activityId);
             activityInstanceInfo.setActivityName(activityName);
             activityInstanceInfo.setActivityType(activityType);
             activityInstanceInfo.setStartTime(startTime);
             activityInstanceInfo.setEndTime(endTime);
             activityInstanceInfo.setAssignee(assignee);
             activityInstanceInfo.setDurationInMillis(durationInMillis);
+            activityInstanceInfo.setProcessDefinitionId(processDefinitionId);
+            activityInstanceInfo.setProcessDefinitionKey(processDefinitionKey);
+            activityInstanceInfo.setProcessInstanceId(processInstanceId);
 
             activityInstanceInfoList.add(activityInstanceInfo);
         }
         return activityInstanceInfoList;
+    }
+
+    @Override
+    public String getProcessDefinitionBpmn20Xml(String processDefinitionId) {
+        BpmProcessDefinitionService processDefinitionService = bpmServiceFactory.getService(BpmProcessDefinitionService.class);
+        ProcessDefinitionDiagram bpmn20Xml = processDefinitionService.getProcessDefinitionBpmn20Xml(processDefinitionId);
+        return bpmn20Xml.getBpmn20Xml();
     }
 
 

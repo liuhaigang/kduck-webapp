@@ -12,7 +12,16 @@
 <script type="text/javascript" language="javascript" src="https://cdn.bootcdn.net/ajax/libs/sockjs-client/1.5.0/sockjs.js"></script>
 
 <style type="text/css">
-    html, body { overflow:hidden }
+    html, body {
+        padding: 0;
+        margin: 0;
+        overflow:hidden;
+    }
+
+    .needs-discussion:not(.djs-connection) .djs-visual > :nth-child(1) {
+        stroke: rgba(66, 180, 21, 0.7) !important; /* color elements as red */
+        fill: rgba(0, 80, 0, 0.4) !important;
+    }
 </style>
 
 </body>
