@@ -5,6 +5,7 @@ import cn.kduck.core.web.json.JsonObject;
 import cn.kduck.core.web.json.JsonPageObject;
 import cn.kduck.module.workflow.service.ActivityInstanceInfo;
 import cn.kduck.module.workflow.service.DeploymentInfo;
+import cn.kduck.module.workflow.service.HistoryProcessInstanceInfo;
 import cn.kduck.module.workflow.service.ProcessDefinitionInfo;
 import cn.kduck.module.workflow.service.ProcessInstanceInfo;
 import cn.kduck.module.workflow.service.WorkFlowService;
@@ -87,6 +88,17 @@ public class WorkFlowController {
         return new JsonObject(activityInstanceInfo);
     }
 
+    @GetMapping("/activity/unfinished/list")
+    public JsonObject listUnfinishedActivity(@RequestParam("processInstanceId") String processInstanceId){
+        List<ActivityInstanceInfo> activityInstanceInfo = workFlowService.listUnfinishedActivity(processInstanceId);
+        return new JsonObject(activityInstanceInfo);
+    }
 
+
+    @GetMapping("/historic/processInstance/list")
+    public JsonObject listHistoricProcessInstances(@RequestParam("processDefinitionId") String processDefinitionId, Page page){
+        List<HistoryProcessInstanceInfo> historyProcessInstanceInfoList = workFlowService.listHistoricProcessInstances(processDefinitionId,page);
+        return new JsonPageObject(page,historyProcessInstanceInfoList);
+    }
 
 }

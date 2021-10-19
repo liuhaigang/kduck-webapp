@@ -18,14 +18,18 @@ import cn.kduck.flow.client.history.BpmHistoryService;
 import cn.kduck.flow.client.history.dto.HistoryActivityInstance;
 import cn.kduck.flow.client.history.dto.HistoryActivityInstanceQuery;
 import cn.kduck.flow.client.history.dto.HistoryActivitySortBy;
+import cn.kduck.flow.client.history.dto.HistoryProcessInstance;
+import cn.kduck.flow.client.history.dto.HistoryProcessInstanceQuery;
 import cn.kduck.flow.client.process.BpmProcceeService;
 import cn.kduck.flow.client.process.dto.ProcessInstance;
 import cn.kduck.flow.client.process.dto.ProcessInstanceQuery;
 import cn.kduck.module.workflow.service.ActivityInstanceInfo;
 import cn.kduck.module.workflow.service.DeploymentInfo;
+import cn.kduck.module.workflow.service.HistoryProcessInstanceInfo;
 import cn.kduck.module.workflow.service.ProcessDefinitionInfo;
 import cn.kduck.module.workflow.service.ProcessInstanceInfo;
 import cn.kduck.module.workflow.service.WorkFlowService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -173,8 +177,13 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 //        query.setSortOrder(Sort.SORT_ORDER_ASC);
 //        query.setSortBy(HistoryActivitySortBy.startTime.toString());
         //FIXME query startIndex and maxResult
-        HistoryActivityInstance[] historyActivitys = historyService.listActivity(query, 0, 1000);
+        HistoryActivityInstance[] historyActivitys = historyService.listActivity(query, 0, 200);
 
+        List<ActivityInstanceInfo> activityInstanceInfoList = convertActivityInstanceInfo(historyActivitys);
+        return activityInstanceInfoList;
+    }
+
+    private List<ActivityInstanceInfo> convertActivityInstanceInfo(HistoryActivityInstance[] historyActivitys) {
         List<ActivityInstanceInfo> activityInstanceInfoList = new ArrayList<>(historyActivitys.length);
         for (HistoryActivityInstance historyActivity : historyActivitys) {
             String id = historyActivity.getId();
@@ -184,6 +193,7 @@ public class WorkFlowServiceImpl implements WorkFlowService {
             String assignee = historyActivity.getAssignee();
             String processDefinitionId = historyActivity.getProcessDefinitionId();
             String processDefinitionKey = historyActivity.getProcessDefinitionKey();
+            String processInstanceId = historyActivity.getProcessInstanceId();
 
             Date startTime = historyActivity.getStartTime();
             Date endTime = historyActivity.getEndTime();
@@ -208,10 +218,44 @@ public class WorkFlowServiceImpl implements WorkFlowService {
     }
 
     @Override
+    public List<ActivityInstanceInfo> listUnfinishedActivity(String processInstanceId) {
+        BpmHistoryService historyService = bpmServiceFactory.getService(BpmHistoryService.class);
+
+        HistoryActivityInstanceQuery query = new HistoryActivityInstanceQuery();
+        query.setUnfinished(true);
+        query.setProcessInstanceId(processInstanceId);
+        //FIXME query startIndex and maxResult
+        HistoryActivityInstance[] historyActivitys = historyService.listActivity(query, 0, 200);
+
+        List<ActivityInstanceInfo> activityInstanceInfoList = convertActivityInstanceInfo(historyActivitys);
+        return activityInstanceInfoList;
+    }
+
+    @Override
     public String getProcessDefinitionBpmn20Xml(String processDefinitionId) {
         BpmProcessDefinitionService processDefinitionService = bpmServiceFactory.getService(BpmProcessDefinitionService.class);
         ProcessDefinitionDiagram bpmn20Xml = processDefinitionService.getProcessDefinitionBpmn20Xml(processDefinitionId);
         return bpmn20Xml.getBpmn20Xml();
+    }
+
+    @Override
+    public List<HistoryProcessInstanceInfo> listHistoricProcessInstances(String processDefinitionId, Page page) {
+        BpmHistoryService historyService = bpmServiceFactory.getService(BpmHistoryService.class);
+
+        HistoryProcessInstanceQuery query = new HistoryProcessInstanceQuery();
+        query.setProcessDefinitionId(processDefinitionId);
+
+        Count count = historyService.countProcess(query);
+        PageUtils.calculate(page,count.getCount());
+        HistoryProcessInstance[] historyProcessInstances = historyService.listProcess(query, page.getFirstResult(), page.getPageSize());
+
+        List<HistoryProcessInstanceInfo> processInstanceInfoList = new ArrayList<>();
+        for (HistoryProcessInstance historyProcessInstance : historyProcessInstances) {
+            HistoryProcessInstanceInfo historyProcessInstanceInfo = new HistoryProcessInstanceInfo();
+            BeanUtils.copyProperties(historyProcessInstance,historyProcessInstanceInfo);
+            processInstanceInfoList.add(historyProcessInstanceInfo);
+        }
+        return processInstanceInfoList;
     }
 
 

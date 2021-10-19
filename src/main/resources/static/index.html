@@ -18,9 +18,14 @@
         overflow:hidden;
     }
 
-    .needs-discussion:not(.djs-connection) .djs-visual > :nth-child(1) {
-        stroke: rgba(66, 180, 21, 0.7) !important; /* color elements as red */
-        fill: rgba(0, 80, 0, 0.4) !important;
+    .activity-finished:not(.djs-connection) .djs-visual > :nth-child(1) {
+        stroke: rgba(54, 54, 54, 0.7) !important; /* color elements as red */
+        fill: rgba(137, 137, 137, 0.4) !important;
+    }
+
+    .activity-unfinished:not(.djs-connection) .djs-visual > :nth-child(1) {
+        stroke: rgba(54,117,23, 0.7) !important; /* color elements as red */
+        fill: rgba(72, 150, 32, 0.4) !important;
     }
 </style>
 
