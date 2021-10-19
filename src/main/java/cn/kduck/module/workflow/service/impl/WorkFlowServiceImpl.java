@@ -253,6 +253,7 @@ public class WorkFlowServiceImpl implements WorkFlowService {
         for (HistoryProcessInstance historyProcessInstance : historyProcessInstances) {
             HistoryProcessInstanceInfo historyProcessInstanceInfo = new HistoryProcessInstanceInfo();
             BeanUtils.copyProperties(historyProcessInstance,historyProcessInstanceInfo);
+            historyProcessInstanceInfo.setProcessInstanceId(historyProcessInstance.getId());
             processInstanceInfoList.add(historyProcessInstanceInfo);
         }
         return processInstanceInfoList;

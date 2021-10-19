@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class HistoryProcessInstanceInfo {
 
-    private String id;
+    private String processInstanceId;
     private String businessKey;
     private String processDefinitionId;
     private String processDefinitionKey;
@@ -24,12 +24,12 @@ public class HistoryProcessInstanceInfo {
     private String tenantId;
     private String state;
 
-    public String getId() {
-        return id;
+    public String getProcessInstanceId() {
+        return processInstanceId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setProcessInstanceId(String processInstanceId) {
+        this.processInstanceId = processInstanceId;
     }
 
     public String getBusinessKey() {
