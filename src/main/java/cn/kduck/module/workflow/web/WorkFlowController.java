@@ -12,6 +12,7 @@ import cn.kduck.module.workflow.service.WorkFlowService;
 import cn.kduck.module.workflow.web.model.ProcessDefinitionModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -99,6 +100,12 @@ public class WorkFlowController {
     public JsonObject listHistoricProcessInstances(@RequestParam("processDefinitionId") String processDefinitionId, Page page){
         List<HistoryProcessInstanceInfo> historyProcessInstanceInfoList = workFlowService.listHistoricProcessInstances(processDefinitionId,page);
         return new JsonPageObject(page,historyProcessInstanceInfoList);
+    }
+
+    @PutMapping("/processInstance/suspended")
+    public JsonObject suspendedProcessInstance(@RequestParam("processInstanceId") String processInstanceId,@RequestParam("suspended")  Boolean suspended){
+        workFlowService.suspendedProcessInstance(processInstanceId,suspended);
+        return JsonObject.SUCCESS;
     }
 
 }

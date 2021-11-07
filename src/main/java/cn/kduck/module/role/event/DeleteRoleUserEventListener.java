@@ -27,5 +27,6 @@ public class DeleteRoleUserEventListener implements EventListener<String[]> {
     @Override
     public void onEvent(String[] eventObject) {
         roleService.deleteRoleObject(eventObject, Role.ROLE_TYPE_USER);
+        System.out.println("event----->删除用户时触发删除角色用户");
     }
 }

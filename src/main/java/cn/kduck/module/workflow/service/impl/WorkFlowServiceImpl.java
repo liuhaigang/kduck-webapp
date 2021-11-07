@@ -4,7 +4,6 @@ import cn.kduck.core.service.Page;
 import cn.kduck.core.service.Page.PageUtils;
 import cn.kduck.flow.client.BpmServiceFactory;
 import cn.kduck.flow.client.commons.dto.Count;
-import cn.kduck.flow.client.commons.dto.Sort;
 import cn.kduck.flow.client.commons.dto.Sort.SortOrderProperty;
 import cn.kduck.flow.client.definition.BpmProcessDefinitionService;
 import cn.kduck.flow.client.definition.dto.ProcessDefinition;
@@ -17,7 +16,6 @@ import cn.kduck.flow.client.deployment.dto.DeploymentQuery;
 import cn.kduck.flow.client.history.BpmHistoryService;
 import cn.kduck.flow.client.history.dto.HistoryActivityInstance;
 import cn.kduck.flow.client.history.dto.HistoryActivityInstanceQuery;
-import cn.kduck.flow.client.history.dto.HistoryActivitySortBy;
 import cn.kduck.flow.client.history.dto.HistoryProcessInstance;
 import cn.kduck.flow.client.history.dto.HistoryProcessInstanceQuery;
 import cn.kduck.flow.client.process.BpmProcceeService;
@@ -29,7 +27,6 @@ import cn.kduck.module.workflow.service.HistoryProcessInstanceInfo;
 import cn.kduck.module.workflow.service.ProcessDefinitionInfo;
 import cn.kduck.module.workflow.service.ProcessInstanceInfo;
 import cn.kduck.module.workflow.service.WorkFlowService;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +43,7 @@ import java.util.Map;
 
 @Service
 public class WorkFlowServiceImpl implements WorkFlowService {
+
     @Autowired
     private BpmServiceFactory bpmServiceFactory;
 
@@ -165,6 +163,12 @@ public class WorkFlowServiceImpl implements WorkFlowService {
             processInstanceInfoList.add(processInstanceInfo);
         }
         return processInstanceInfoList;
+    }
+
+    @Override
+    public void suspendedProcessInstance(String processInstanceId, Boolean suspended) {
+        BpmProcceeService processService = bpmServiceFactory.getService(BpmProcceeService.class);
+        processService.suspended(processInstanceId,suspended);
     }
 
     @Override

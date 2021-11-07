@@ -13,6 +13,8 @@ public interface WorkFlowService {
 
     List<ProcessInstanceInfo> listProcessInstance(String deploymentId, Page page);
 
+    void suspendedProcessInstance(String processInstanceId, Boolean suspended);
+
     List<ActivityInstanceInfo> listFinishedActivity(String processInstanceId);
 
     List<ActivityInstanceInfo> listUnfinishedActivity(String processInstanceId);

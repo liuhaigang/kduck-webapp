@@ -15,7 +15,7 @@ logging:
 
 kduck:
   showSql:
-    enabled: true
+    enabled: false
   resource:
     enabled: true
   websocket:

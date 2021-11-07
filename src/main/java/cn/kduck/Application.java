@@ -21,7 +21,11 @@ import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 @SpringBootApplication
+//@EnableRabbit
 public class Application extends SpringBootServletInitializer {
 
     @Autowired
@@ -59,6 +63,14 @@ public class Application extends SpringBootServletInitializer {
 
 
     public static void main(String[] args) throws Exception {
+        InetAddress address = null;
+        try {
+            address = InetAddress.getLocalHost();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        System.out.println(address.getHostAddress());
+
         SpringApplication.run(Application.class, args);
     }
 

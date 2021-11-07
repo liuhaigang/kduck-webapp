@@ -26,5 +26,6 @@ public class DeleteOrgUserEventListener implements EventListener<String[]> {
     @Override
     public void onEvent(String[] userIds) {
         organizationService.deleteOrgUserByUser(userIds);
+        System.out.println("event----->删除用户时触发删除机构用户");
     }
 }
