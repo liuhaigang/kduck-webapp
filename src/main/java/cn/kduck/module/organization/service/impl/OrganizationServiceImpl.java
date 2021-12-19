@@ -23,6 +23,7 @@ import cn.kduck.core.service.ValueBean;
 import cn.kduck.core.service.ValueMapList;
 import cn.kduck.core.utils.PathUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +38,7 @@ import java.util.Map;
 public class OrganizationServiceImpl extends DefaultService implements OrganizationService {
 
     @Autowired
+    @Lazy
     private EventPublisher eventPublisher;
 
     @Override

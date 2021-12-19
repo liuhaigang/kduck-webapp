@@ -1,9 +1,5 @@
 package cn.kduck.module.user.web;
 
-import cn.kduck.core.service.ParamMap;
-import cn.kduck.module.user.service.User;
-import cn.kduck.module.user.service.UserAccount;
-import cn.kduck.module.user.service.UserService;
 import cn.kduck.core.service.Page;
 import cn.kduck.core.service.ValueMap;
 import cn.kduck.core.web.annotation.ModelOperate;
@@ -11,19 +7,27 @@ import cn.kduck.core.web.annotation.ModelResource;
 import cn.kduck.core.web.json.JsonObject;
 import cn.kduck.core.web.json.JsonPageObject;
 import cn.kduck.core.web.swagger.ApiField;
+import cn.kduck.core.web.swagger.ApiJsonResponse;
 import cn.kduck.core.web.swagger.ApiParamRequest;
+import cn.kduck.module.user.service.User;
+import cn.kduck.module.user.service.UserAccount;
+import cn.kduck.module.user.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -59,6 +63,13 @@ public class UserController {
             @ApiImplicitParam(name = "birthday", value = "出生日期", paramType = "query"),
             @ApiImplicitParam(name = "phone", value = "手机号", paramType = "query"),
             @ApiImplicitParam(name = "email", value = "邮箱", paramType = "query"),
+    })
+    @ApiJsonResponse({
+            @ApiField(name="userName",value="姓名"),
+            @ApiField(name="gender",value="性别(1 男,2 女)"),
+            @ApiField(name="birthday",value="出生日期"),
+            @ApiField(name="userName",value="手机号"),
+            @ApiField(name="email",value="邮箱")
     })
     @ModelOperate(name="添加用户")
     public JsonObject addUser(@Validated User user){

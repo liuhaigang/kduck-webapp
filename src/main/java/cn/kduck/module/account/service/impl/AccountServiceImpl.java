@@ -26,7 +26,7 @@ import java.util.Map;
 @Service
 public class AccountServiceImpl extends DefaultService implements AccountService {
 
-    @Autowired(required = false)
+
     private AccountPwdEncoder encoder;
 
     @Autowired
@@ -34,6 +34,10 @@ public class AccountServiceImpl extends DefaultService implements AccountService
 
     @Autowired
     private AccountPwdEncoder accountPwdEncoder;
+
+    public AccountServiceImpl(@Autowired(required = false)AccountPwdEncoder encoder){
+        this.encoder = encoder;
+    }
 
     @Override
     public void addAccount(Account account) throws DisallowedNameException {

@@ -17,6 +17,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ import static cn.kduck.module.authorize.service.AuthorizeOperate.AUTHORIZE_TYPE_
 /**
  * LiuHG
  */
+@Component
 public class CustomRoleAccessVoter extends AbstractRoleAccessVoter {
 
     private final Log logger = LogFactory.getLog(getClass());
@@ -38,7 +40,7 @@ public class CustomRoleAccessVoter extends AbstractRoleAccessVoter {
     @Autowired
     private ResourceService resourceService;
 
-    @Autowired
+//    @Autowired
     private AccountService accountService;
 
     @Autowired
@@ -46,6 +48,10 @@ public class CustomRoleAccessVoter extends AbstractRoleAccessVoter {
 
     @Autowired
     private HierarchicalAuthorizeService hierarchicalAuthorizeService;
+
+    public CustomRoleAccessVoter(AccountService accountService){
+        this.accountService = accountService;
+    }
 
 //    public CustomRoleAccessVoter(ResourceService resourceService,AuthorizeService authorizeService,AccountService accountService){
 //        this.resourceService = resourceService;

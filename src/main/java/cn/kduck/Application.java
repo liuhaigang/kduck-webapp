@@ -1,6 +1,7 @@
 package cn.kduck;
 
 import cn.kduck.module.account.service.AccountPwdEncoder;
+import cn.kduck.module.account.service.AccountService;
 import cn.kduck.security.UserExtInfo;
 import cn.kduck.webapp.login.UserExtInfoImpl;
 import cn.kduck.webapp.security.CustomRoleAccessVoter;
@@ -28,33 +29,33 @@ import java.net.UnknownHostException;
 //@EnableRabbit
 public class Application extends SpringBootServletInitializer {
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     @Bean
     public UserDetailsService userDetailsService(){
         return new UserDetailsServiceImpl();
     }
 
-    @Bean
-    public AccountPwdEncoder accountPwdEncoder(){
-        return new AccountPwdEncoder(){
-            @Override
-            public String encode(CharSequence rawPassword) {
-                return passwordEncoder.encode(rawPassword);
-            }
+//    @Bean
+//    public AccountPwdEncoder accountPwdEncoder(PasswordEncoder passwordEncoder){
+//        return new AccountPwdEncoder(){
+//            @Override
+//            public String encode(CharSequence rawPassword) {
+//                return passwordEncoder.encode(rawPassword);
+//            }
+//
+//            @Override
+//            public boolean matches(CharSequence rawPassword, String encodedPassword) {
+//                return passwordEncoder.matches(rawPassword,encodedPassword);
+//            }
+//        };
+//    }
 
-            @Override
-            public boolean matches(CharSequence rawPassword, String encodedPassword) {
-                return passwordEncoder.matches(rawPassword,encodedPassword);
-            }
-        };
-    }
-
-    @Bean
-    public CustomRoleAccessVoter roleAccessVoter(){
-        return new CustomRoleAccessVoter();
-    }
+//    @Bean
+//    public CustomRoleAccessVoter roleAccessVoter(AccountService accountService){
+//        return new CustomRoleAccessVoter(accountService);
+//    }
 
     @Bean
     public UserExtInfo userExtInfo(){
