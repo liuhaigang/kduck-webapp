@@ -21,6 +21,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,8 +37,12 @@ import java.util.Map;
 @Service
 public class ConfigStoreServiceImpl extends DefaultService implements ConfigStoreService, BeanPostProcessor {
 
-    @Autowired
-    private ConfigStoreReloader configStoreReloader;
+    private final ConfigStoreReloader configStoreReloader;
+
+    @Lazy
+    public ConfigStoreServiceImpl(ConfigStoreReloader configStoreReloader){
+        this.configStoreReloader = configStoreReloader;
+    }
 
     @Override
     public List<ConfigObjectBean> listConfigObject() {
