@@ -17,4 +17,6 @@ public interface ConfigStoreService {
 
     Object reloadValue(String configId);
 
+    ConfigObjectBean addConfigObject(String configCode, String configExplain);
+
 }

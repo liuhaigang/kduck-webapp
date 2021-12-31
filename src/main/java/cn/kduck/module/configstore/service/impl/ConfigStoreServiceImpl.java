@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class ConfigStoreServiceImpl extends DefaultService implements ConfigStoreService, BeanPostProcessor {
+public class ConfigStoreServiceImpl extends DefaultService implements ConfigStoreService {
 
     private final ConfigStoreReloader configStoreReloader;
 
@@ -145,7 +145,7 @@ public class ConfigStoreServiceImpl extends DefaultService implements ConfigStor
         return configWrapper;
     }
 
-    private ConfigObjectBean addConfigObject(String configCode, String configExplain) {
+    public ConfigObjectBean addConfigObject(String configCode, String configExplain) {
         ConfigObjectBean config = super.getForBean(CODE_CONFIG_STORE, "configCode", configCode, ConfigObjectBean::new);
         if(config == null){
             config = new ConfigObjectBean();
@@ -262,18 +262,6 @@ public class ConfigStoreServiceImpl extends DefaultService implements ConfigStor
         return configStoreReloader.reloadValue(configCode,configObject);
     }
 
-    @Override
-    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-
-        if(ConfigStoreProxy.class.isAssignableFrom(bean.getClass())){
-            Class configClass = ((ConfigStoreProxy) bean).getConfigClass();
-            ConfigObject configObjectAnno = (ConfigObject) configClass.getAnnotation(ConfigObject.class);
-            String configCode = "".equals(configObjectAnno.name()) ? configClass.getSimpleName() : configObjectAnno.name();
-            addConfigObject(configCode,configObjectAnno.explain());
-        }
-
-        return bean;
-    }
 
     public static class ConfigWrapper {
         private String configName;
