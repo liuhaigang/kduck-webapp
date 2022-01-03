@@ -97,6 +97,7 @@ public class CustomRoleAccessVoter extends AbstractRoleAccessVoter {
                 }
             }else{
                 logger.warn("当前登录用户对象AuthUser中没有赋予机构orgId属性，在访问授权时无法进行分级授权的判断");
+                request.setAttribute(GlobalErrorController.GLOBAL_ERROR_MESSAGE,resourceOperate.getOperateName());
                 return false;
             }
 
