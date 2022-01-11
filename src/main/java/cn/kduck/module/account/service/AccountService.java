@@ -29,6 +29,8 @@ public interface AccountService {
 
     void deleteAccount(String[] accountIds);
 
+    void deleteAccountByUserId(String[] userIds);
+
     void changePassword(String accountName,String oldPwd,String newPwd);
 
 }
