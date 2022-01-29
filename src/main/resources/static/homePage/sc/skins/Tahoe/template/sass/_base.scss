@@ -1,7 +1,6 @@
-//*===========* Imports *===========*/ 
-@import "compass/css3";
+//*===========* Tahoe Theme Customization *===========*/
 
-//>skin_default_variables
+//>theme_variables
 // ==== Global Settings - Flags and other settings that have skin-wide effects
 // General settings
 $theme_name: "Tahoe" !default;
@@ -10,7 +9,7 @@ $theme_name: "Tahoe" !default;
 // Definitions
 $primary_font: RobotoLight !default;
 $secondary_font: corbel !default;
-$secondary_font_bold: corbel-bold !default;
+$secondary_font_bold: corbel !default;
 $tertiary_font: calibri !default;
 // Widget
 $standard_body_font: $tertiary_font !default;
@@ -27,7 +26,7 @@ $secondary_header_font_size: 12.58px !default;
 $standard_header_font_weight: bold !default;
 $standard_font_weight: normal !default;
 // Other text settings
-$standard_line_height: 18px !default;
+$standard_line_height: 20px !default;
 
 // ==== Colors - Variables for high-level Colors
 // General highlight colors (headers, rollover's, buttons, etc)
@@ -53,12 +52,18 @@ $standard_header_dark_bgColor: adjust-color($standard_header_bgColor,$red:-50,$g
 $secondary_header_bgColor: #f0f0f0 !default;
 $secondary_header_color: #616161 !default;
 // Widget
+$canvas_pointer_bgColor: $standard_bgColor !default;
 $standard_widget_border_color: $standard_border_color !default;
 $standard_widget_bgColor: $standard_bgColor !default;
 // Glow settings
 $default_glow_color: adjust-color($highlight_color,$red:-40,$green:-14,$blue:12) !default;
 $default_outset_glow: 0 0 0.2em 0.1em $default_glow_color !default;
 $default_inset_glow: inset 0 0 0.2em 0.1em $default_glow_color !default;
+// Styles for LinkItems and HTML links
+$link_color: #0000EE !default;
+$link_visited_color: #551A8B !default;
+$link_active_color: #EE0000 !default;
+$link_over_color: $link_color !default;
 
 // ==== Standard Settings - Base settings that are derived by more localized variables
 // Standard settings
@@ -73,10 +78,7 @@ $standard_transparent_border: $standard_border_width $standard_border_style tran
 $default_border_dark_color: adjust-color($standard_border_color,$red:-4,$green:-4,$blue:-4) !default;
 $general_button_focused_border_color: adjust-color($active_border_color,$red:-21,$green:-43,$blue:-59) !default;
 // Other Settings
-// Safari browser wrongly renders white text in certain elements for some combinations of 
-// color/background-color.  Currently, we remap #ababab to #a1a1a1 to avoid the bug in formItem- 
-// related CSS classes for non-dark flat skins (i.e. all but Obsidian and Twilight).  So if you 
-// change default_disabled_text_color, Canvas._patchStyleSheetsForSafari() may need updating.
+// Disabled Text
 $default_disabled_text_color: #ababab !default;
 
 // ==== Button - Variables for Button styles
@@ -84,8 +86,9 @@ $default_disabled_text_color: #ababab !default;
 $button_font: $secondary_font !default;
 $button_font_size: $standard_font_size !default;
 $button_font_weight: $standard_font_weight !default;
-$button_padding: 5px !default;
+$button_padding: 0px 5px !default;
 $button_line_height: $standard_line_height !default;
+$button_opacity: $standard_opacity !default;
 // Normal
 $button_color: $standard_header_color !default;
 $button_bgColor: adjust-color($highlight_color,$red:-50,$green:-40,$blue:-23) !default;
@@ -118,7 +121,7 @@ $button_down_color: $button_over_color !default;
 $button_down_border_color: $button_focused_border_color !default;
 $button_down_border: $button_border_width $standard_border_style $button_down_border_color !default;
 $button_down_glow: inset 0 0 5px 1px $button_down_border_color !default;
-// Selected
+// Selected styles
 $button_selected_bgColor: $button_over_bgColor !default;
 $button_selected_color: $button_over_color !default;
 $button_selected_border_color: $button_focused_border_color !default;
@@ -129,13 +132,68 @@ $button_disabled_color: $default_disabled_text_color !default;
 $button_disabled_bgColor: #dadada !default;
 $button_disabled_border_color: #dadada !default;
 $button_disabled_border: $button_border_width $standard_border_style $button_disabled_border_color !default;
+$button_disabled_opacity: $button_opacity !default;
 $button_deselected_disabled_color: hsl(0, 0%, 66%) !default;
+
+// ==== Other Button - A secondary button class
+// General
+$otherButton_font: $secondary_font !default;
+$otherButton_font_size: $standard_font_size !default;
+$otherButton_font_weight: $standard_font_weight !default;
+$otherButton_padding: 0px 5px !default;
+$otherButton_line_height: $standard_line_height !default;
+$otherButton_opacity: $standard_opacity !default;
+// Normal
+$otherButton_color: $standard_header_color !default;
+$otherButton_bgColor: adjust-color($highlight_color,$red:-50,$green:-40,$blue:-23) !default;
+$otherButton_border_color: $otherButton_bgColor !default;
+$otherButton_border_width: 2px !default;
+$otherButton_border_radius: $standard_border_radius !default;
+$otherButton_border: $otherButton_border_width $standard_border_style $otherButton_border_color !default;
+$otherButton_shadow: none !default;
+// Over
+$otherButton_over_color: $otherButton_color !default;
+$otherButton_over_bgColor: $otherButton_bgColor !default;
+$otherButton_over_border_color: $otherButton_border_color !default;
+$otherButton_over_border: $otherButton_border_width $standard_border_style $otherButton_over_border_color !default;
+$otherButton_over_shadow: 0 0 0.2em 0.1em $default_glow_color !default;
+// Focused
+$otherButton_focused_color: $otherButton_color !default;
+$otherButton_focused_bgColor: adjust-color($otherButton_bgColor,$red:8,$green:-14,$blue:-30) !default;
+$otherButton_focused_border_color: adjust-color($active_border_color,$red:-21,$green:-43,$blue:-59) !default;
+$otherButton_focused_border: $otherButton_border_width $standard_border_style $otherButton_focused_border_color !default;
+$otherButton_focused_shadow: none !default;
+// FocusedOver
+$otherButton_focused_over_color: $otherButton_color !default;
+$otherButton_focused_over_bgColor: $otherButton_focused_bgColor !default;
+$otherButton_focused_over_border_color: #003760 !default;
+$otherButton_focused_over_border: $otherButton_border_width $standard_border_style $otherButton_focused_over_border_color !default;
+$otherButton_focused_over_shadow: 0 0 5px $default_glow_color !default;
+// Down
+$otherButton_down_bgColor: $otherButton_over_bgColor !default;
+$otherButton_down_color: $otherButton_over_color !default;
+$otherButton_down_border_color: $otherButton_focused_border_color !default;
+$otherButton_down_border: $otherButton_border_width $standard_border_style $otherButton_down_border_color !default;
+$otherButton_down_glow: inset 0 0 5px 1px $otherButton_down_border_color !default;
+// Selected styles
+$otherButton_selected_bgColor: $otherButton_over_bgColor !default;
+$otherButton_selected_color: $otherButton_over_color !default;
+$otherButton_selected_border_color: $otherButton_focused_border_color !default;
+$otherButton_selected_border: $otherButton_border_width $standard_border_style $otherButton_selected_border_color !default;
+$otherButton_selected_shadow: inset 0 0 5px 1px $otherButton_down_border_color !default;
+// Disabled
+$otherButton_disabled_color: $default_disabled_text_color !default;
+$otherButton_disabled_bgColor: #dadada !default;
+$otherButton_disabled_border_color: #dadada !default;
+$otherButton_disabled_border: $otherButton_border_width $standard_border_style $otherButton_disabled_border_color !default;
+$otherButton_disabled_opacity: $otherButton_opacity !default;
+$otherButton_deselected_disabled_color: hsl(0, 0%, 66%) !default;
 
 // ==== MenuButtons - Variables for styling MenuButtons
 // General
 $menuButton_font: $button_font !default;
 $menuButton_font_size: $button_font_size !default;
-$menuButton_line_height: $standard_line_height !default;
+$menuButton_line_height: $button_line_height !default;
 $menuButton_padding: 0px 0px 0px 6px !default;
 // Normal
 $menuButton_color: $button_color !default;
@@ -179,29 +237,35 @@ $menuButton_opened_shadow: none !default;
 
 // ==== Windows and Dialogs - Variables used for styling Windows and Dialogs
 // Window settings
+$window_bgColor: $standard_bgColor !default;
 $window_border_color: $standard_border_color !default;
 $window_border: $standard_border_width $standard_border_style $window_border_color !default;
 $window_shadow: 5px 5px 15px 0 rgba(0, 0, 0, 0.05) !default;
 $window_body_padding: 0px 2px 2px 2px !default;
 $window_body_bgColor: $standard_bgColor !default;
+$window_body_top_border: $window_border !default;
 // Header
 $window_header_font: $standard_header_font !default;
 $window_header_font_size: $standard_header_font_size !default;
-$window_header_padding: 10px !default;
+$window_header_padding: 0px !default;
 $window_header_line_height: 17px !default;
 $window_header_color: $standard_header_color !default;
 $window_header_bgColor: $standard_header_bgColor !default;
+$window_title_padding: 0px 0px 0px 5px !default;
 // Status-bar
+$window_status_font: $primary_font !default;
 $window_status_font_size: $standard_font_size !default;
 $window_status_color: $button_bgColor !default;
 $window_status_bgColor: $standard_widget_bgColor !default;
 $window_status_padding: 7px !default;
 // Settings for styling Dialogs
+$dialog_bgColor: $window_bgColor !default;
 $dialog_border_color: $standard_border_color !default;
 $dialog_border: $standard_border_width $standard_border_style $dialog_border_color !default;
 $dialog_shadow: 5px 5px 15px 0 rgba(0, 0, 0, 0.05) !default;
 $dialog_body_padding: 0px 2px 2px 2px !default;
 $dialog_body_bgColor: $standard_bgColor !default;
+$dialog_body_top_border: $window_body_top_border !default;
 // Dialog Headers
 $dialog_header_font: $standard_header_font !default;
 $dialog_header_font_size: $standard_header_font_size !default;
@@ -210,7 +274,9 @@ $dialog_header_line_height: $window_header_line_height !default;
 $dialog_header_color: $window_header_color !default;
 $dialog_header_bgColor: $window_header_bgColor !default;
 $dialog_header_border: $dialog_border !default;
+$dialog_title_padding: $window_title_padding !default;
 // Dialog Status-bar
+$dialog_status_font: $window_status_font !default;
 $dialog_status_font_size: $window_status_font_size !default;
 $dialog_status_color: $button_bgColor !default;
 $dialog_status_bgColor: $standard_widget_bgColor !default;
@@ -239,71 +305,88 @@ $menu_selected_bgColor: adjust-color($menu_over_bgColor,$red:42,$green:36,$blue:
 $menuItem_border_color: transparent !default;
 $menuItem_border_width: $standard_border_width !default;
 $menuItem_border: $menuItem_border_width $standard_border_style $menuItem_border_color !default;
+// IconField
+$menu_iconField_padding: 0px 1px 0px 12px !default;
 
 // ==== Tabs - Variables for Tab styles
 // Tabset
+$tabSet_container_font: $primary_font !default;
+$tabSet_container_font_size: $standard_font_size !default;
 $tabSet_container_color: $standard_color !default;
 $tabSet_container_bgColor: $standard_widget_bgColor !default;
 $tabSet_container_border_color: $standard_widget_border_color !default;
 $tabSet_container_border: $standard_border_width $standard_border_style $tabSet_container_border_color !default;
-$tabSet_container_font_size: $standard_font_size !default;
 $tabSet_scroller_bgColor: #e6e6e6 !default;
 $tabSet_scroller_sprite_image: url("images/TabSet/controls-btn.png") !default;
 $tabSet_scroller_border_radius: 3px !default;
 $tabSet_picker_bgColor: #e6e6e6 !default;
 $tabSet_picker_sprite_image: url("images/TabSet/controls-btn.png") !default;
 // TabButton settings
-$tabButton_font: $secondary_font_bold !default;
+// TabButton General
+$tabButton_font: $secondary_font !default;
 $tabButton_font_size: $button_font_size !default;
+$tabButton_font_weight: 500 !default;
 $tabButton_marginRight: 3px !default;
 $tabButton_h_padding: 0px 27px !default;
 $tabButton_v_padding: 10px 0px !default;
 $tabButton_iconOnly_h_padding: 0px 12px !default;
 $tabButton_iconOnly_v_padding: 12px 0px !default;
+// TabButton Normal
 $tabButton_color: $button_color !default;
 $tabButton_bgColor: adjust-color($button_bgColor,$red:111,$green:66,$blue:33) !default;
 $tabButton_border_color: adjust-color($highlight_color,$red:61,$green:26,$blue:10) !default;
 $tabButton_border_width: $button_border_width !default;
-$tabButton_border_radius: 4px !default;
 $tabButton_border: $tabButton_border_width $standard_border_style $tabButton_border_color !default;
+$tabButton_border_radius: 4px !default;
+// TabButton Over
 $tabButton_over_color: $tabButton_color !default;
 $tabButton_over_bgColor: $tabButton_bgColor !default;
 $tabButton_over_border_color: $tabButton_border_color !default;
 $tabButton_over_border: $tabButton_border_width $standard_border_style $tabButton_over_border_color !default;
 $tabButton_over_shadow: $button_over_shadow !default;
+// TabButton Focused
 $tabButton_focused_color: $tabButton_color !default;
 $tabButton_focused_bgColor: adjust-color($tabButton_bgColor,$red:-111,$green:-66,$blue:-33) !default;
 $tabButton_focused_border_color: adjust-color($tabButton_border_color,$red:-132,$green:-109,$blue:-92) !default;
 $tabButton_focused_border: $tabButton_border_width $standard_border_style $tabButton_focused_border_color !default;
 $tabButton_focused_shadow: none !default;
+// TabButton FocusedOver
 $tabButton_focused_over_color: $tabButton_focused_color !default;
 $tabButton_focused_over_bgColor: $tabButton_over_bgColor !default;
 $tabButton_focused_over_border_color: $tabButton_focused_border_color !default;
 $tabButton_focused_over_border: $tabButton_border_width $standard_border_style $tabButton_focused_over_border_color !default;
 $tabButton_focused_over_shadow: none !default;
+// TabButton Special
 $tabButton_top_down_shadow: inset -10px 0px 10px -11px $tabButton_focused_border_color, inset 10px 10px 10px -11px $tabButton_focused_border_color !default;
 $tabButton_bottom_down_shadow: inset -10px 0px 10px -11px $tabButton_focused_border_color, inset 10px -10px 10px -11px $tabButton_focused_border_color !default;
 $tabButton_left_down_shadow: inset 10px 10px 10px -11px $tabButton_focused_border_color, inset 0px -10px 10px -11px $tabButton_focused_border_color !default;
 $tabButton_right_down_shadow: inset -10px 10px 10px -11px $tabButton_focused_border_color, inset 0px -10px 10px -11px $tabButton_focused_border_color !default;
+// TabButton Selected
 $tabButton_selected_font: $tabButton_font !default;
 $tabButton_selected_color: $tabButton_over_color !default;
 $tabButton_selected_bgColor: adjust-color($tabButton_bgColor,$red:-111,$green:-66,$blue:-33) !default;
 $tabButton_selected_border_color: $tabButton_focused_border_color !default;
 $tabButton_selected_border: $tabButton_border_width $standard_border_style $tabButton_selected_border_color !default;
+// TabButton SelectedOver
 $tabButton_selected_over_color: $tabButton_selected_color !default;
 $tabButton_selected_over_bgColor: $tabButton_selected_bgColor !default;
 $tabButton_selected_over_border_color: $tabButton_selected_border_color !default;
 $tabButton_selected_over_border: $tabButton_border_width $standard_border_style $tabButton_selected_over_border_color !default;
+// TabButton SelectedFocused
+// TabButton SelectedFocusedOver
 $tabButton_selected_focused_over_color: $tabButton_selected_color !default;
 $tabButton_selected_focused_over_bgColor: adjust-color($tabButton_bgColor,$red:-111,$green:-66,$blue:-33) !default;
 $tabButton_selected_focused_over_border_color: $tabButton_selected_over_border_color !default;
 $tabButton_selected_focused_over_border: $tabButton_border_width $standard_border_style $tabButton_selected_focused_over_border_color !default;
+// TabButton Down
 $tabButton_down_border_color: $tabButton_border_color !default;
 $tabButton_down_border: $tabButton_border_width $standard_border_style $tabButton_down_border_color !default;
+// TabButton Disabled
 $tabButton_disabled_color: $button_disabled_color !default;
 $tabButton_disabled_bgColor: $button_disabled_bgColor !default;
 $tabButton_disabled_border_color: $button_disabled_border_color !default;
 $tabButton_disabled_border: $tabButton_border_width $standard_border_style $tabButton_disabled_border_color !default;
+// TabButton ContactEdge
 $tabButton_contactEdge_border_width: 0px !default;
 $tabButton_contactEdge_border_color: transparent !default;
 $tabButton_contactEdge_border: $tabButton_contactEdge_border_width $standard_border_style $tabButton_contactEdge_border_color !default;
@@ -328,8 +411,7 @@ $sectionStack_top_border: none !default;
 // SectionHeader
 $sectionHeader_font: $standard_header_font !default;
 $sectionHeader_font_size: $secondary_header_font_size !default;
-$sectionHeader_paddingLeft: 10px !default;
-$sectionHeader_paddingRight: 0px !default;
+$sectionHeader_padding: 0px 0px 0px 10px !default;
 $sectionHeader_color: $secondary_header_color !default;
 $sectionHeader_bgColor: $secondary_header_bgColor !default;
 $sectionHeader_border_radius: $standard_border_radius !default;
@@ -375,15 +457,30 @@ $navButton_selected_color: $secondary_header_bgColor !default;
 $navButton_selected_bgColor: adjust-color($navBar_bgColor,$red:-143,$green:-143,$blue:-143) !default;
 $navButton_selected_border_color: #929292 !default;
 $navButton_selected_border: $standard_border_width $standard_border_style $navButton_selected_border_color !default;
+$navButton_disabled_color: $default_disabled_text_color !default;
+$navButton_disabled_bgColor: $navButton_bgColor !default;
 
 // ==== DynamicForms and FormItems - Variables used for styling DynamicForms and the various FormItem types
 // General
+// DynamicForm
+$form_bgColor: transparent !default;
+$form_border: none !default;
+$form_border_radius: 0px !default;
+$form_padding: 0px !default;
+// Form Title
+$form_title_font: $primary_font !default;
+$form_title_font_size: $standard_font_size !default;
+$form_title_padding: 0px 0px 0px 0px !default;
+$form_vertical_title_padding: 4px 0px 2px 0px !default;
 $form_title_color: adjust-color($highlight_color,$red:-71,$green:-118,$blue:-123) !default;
+$form_title_error_color: #8f2227 !default;
+$form_title_error_font_weight: bold !default;
 // FormItem
 $formItem_font: $primary_font !default;
 $formItem_font_size: 12.58px !default;
-$formItem_padding: 2px 9px !default;
+$formItem_padding: 0px 3px !default;
 $formItem_opacity: 1 !default;
+$formItem_lineHeight: 12.58px !default;
 $formItem_color: $standard_color !default;
 $formItem_bgColor: $standard_widget_bgColor !default;
 $formItem_border_color: adjust-color($standard_widget_border_color,$red:-24,$green:-24,$blue:-24) !default;
@@ -408,10 +505,14 @@ $formItem_disabled_color: $default_disabled_text_color !default;
 $formItem_disabled_bgColor: #e2e2e2 !default;
 $formItem_disabled_border_color: $formItem_border_color !default;
 $formItem_disabled_border: $formItem_border_width $standard_border_style $formItem_disabled_border_color !default;
-$formItem_hint_color: adjust-color($formItem_color,$red:113,$green:113,$blue:113) !default;
-$formItem_hint_padding: 3px !default;
 $formItem_error_color: #8f2227 !default;
 $formItem_error_border: $formItem_border_width $standard_border_style $formItem_border_color !default;
+$formItem_value_error_color: $formItem_color !default;
+$formItem_hint_color: adjust-color($formItem_color,$red:113,$green:113,$blue:113) !default;
+$formItem_hint_padding: 3px !default;
+$formItem_hint_font: $formItem_font !default;
+$formItem_hint_font_size: $formItem_font_size !default;
+$formItem_hint_error_color: $formItem_hint_color !default;
 $headerItem_color: hsl(0, 0%, 30%) !default;
 $uploadItem_bgColor: $formItem_bgColor !default;
 $uploadItem_border: none !default;
@@ -419,11 +520,23 @@ $uploadItem_padding: $standard_padding !default;
 $pickerSearchBox_padding: 4px 6px 4px 6px !default;
 $pickerSearchBox_border_radius: 3px !default;
 $pickerIcon_left_border: none !default;
+$pickerIcon_padding: 0px 0px 0px 2px !default;
 $nativeDateItem_padding: 4px 2px 4px 2px !default;
+// Styles for compact, inline formItems
+$inlineFormItem_font: $formItem_font !default;
+$inlineFormItem_font_size: $formItem_font_size !default;
+$inlineFormItem_color: $formItem_color !default;
+$inlineFormItem_bgColor: $formItem_bgColor !default;
+$inlineFormItem_padding: 0px 2px 0px 2px !default;
+$inlineFormItem_border_color: $formItem_border_color !default;
+$inlineFormItem_border_width: $formItem_border_width !default;
+$inlineFormItem_border: $inlineFormItem_border_width $standard_border_style $inlineFormItem_border_color !default;
+$inlineFormItem_border_radius: $formItem_border_radius !default;
 // ComboBox
 $combobox_item_picker_icon: url(./images/pickers/down.png) !default;
 $combobox_item_picker_over_icon: url(./images/pickers/down.png) !default;
 $combobox_item_picker_focused_over_icon: url(./images/pickers/down.png) !default;
+$combobox_item_picker_error_icon: url(./images/pickers/down.png) !default;
 $combobox_item_picker_disabled_icon: url(./images/pickers/down_Disabled.png) !default;
 // SelectItem
 $select_item_lite_control_focused_outline: none !default;
@@ -443,7 +556,6 @@ $pending_value_dark_color: #981c65 !default;
 
 // ==== ListGrids - Variables for ListGrid styles
 // General ListGrid settings
-$listGrid_specialCol_line_height: 22px !default;
 $listGrid_recordEditor_line_height: 22px !default;
 $listGrid_message_padding: 11px !default;
 $listGrid_body_bgColor: $standard_widget_bgColor !default;
@@ -451,6 +563,8 @@ $listGrid_body_bgColor: $standard_widget_bgColor !default;
 $listGrid_sortNumeral_font_size: 7px !default;
 $listGrid_summaryCell_font_size: 12.5px !default;
 $listGrid_summaryCell_fontWeight: bold !default;
+$listGrid_dragTracker_font: $primary_font !default;
+$listGrid_dragTracker_font_size: $standard_font_size !default;
 $listGrid_cell_font_size: $normal_font_size !default;
 $listGrid_cell_font: $standard_body_font !default;
 $listGrid_headerButton_font: $standard_header_font !default;
@@ -466,13 +580,16 @@ $listGrid_border: $standard_border_width $standard_border_style $listGrid_border
 $listGrid_dragTracker_padding: 1px !default;
 $listGrid_dragTracker_border: $standard_border_width dotted $standard_border_color !default;
 // HeaderBar
+$listGrid_headerBar_color: $standard_header_color !default;
 $listGrid_headerBar_bgColor: $standard_header_bgColor !default;
 $listGrid_headerBar_bottom_border: none !default;
 $listGrid_headerBar_gradient_color: #b6bdc9 !default;
 $listGrid_headerBar_gradient: none !default;
+$listGrid_sorterButton_padding: 0px !default;
 // HeaderButton
-$listGrid_headerButton_color: $standard_header_color !default;
-$listGrid_headerButton_bgColor: $standard_header_bgColor !default;
+$listGrid_headerButton_color: $listGrid_headerBar_color !default;
+$listGrid_headerButton_bgColor: $listGrid_headerBar_bgColor !default;
+$listGrid_headerButton_border_color: transparent !default;
 $listGrid_headerButton_border: none !default;
 $listGrid_headerButton_over_color: $listGrid_headerButton_color !default;
 $listGrid_headerButton_over_bgColor: adjust-color($listGrid_headerButton_bgColor,$red:31,$green:23,$blue:18) !default;
@@ -487,9 +604,10 @@ $listGrid_headerSpan_over_bgColor: $listGrid_headerButton_over_bgColor !default;
 $listGrid_headerSpan_border_color: #ffffff !default;
 $listGrid_headerSpan_border: $standard_border_width $standard_border_style $listGrid_headerSpan_border_color !default;
 // Cells...
-$listGrid_cell_paddingLeft: 3px !default;
+$listGrid_linkCell_color: $link_color !default;
+$listGrid_cell_padding: 0px 3px 0px 3px !default;
 $listGrid_cell_border: none !default;
-$listGrid_row_border: none !default;
+$listGrid_row_border: $standard_transparent_border !default;
 $listGrid_cell_color: adjust-color($standard_color,$red:23,$green:23,$blue:23) !default;
 $listGrid_cell_bgColor: $standard_widget_bgColor !default;
 $listGrid_cell_dark_bgColor: adjust-color($listGrid_cell_bgColor,$red:-5,$green:-5,$blue:-5) !default;
@@ -505,25 +623,32 @@ $listGrid_cell_selected_over_border_color: $active_selected_bgColor !default;
 $listGrid_cell_selected_over_border: $standard_border_width $standard_border_style $listGrid_cell_selected_over_border_color !default;
 $listGrid_cell_selected_over_glow_color: $active_selected_bgColor !default;
 $listGrid_cell_selected_over_glow: 0 0 5px 0 $listGrid_cell_selected_over_glow_color !default;
-$listGrid_cell_disabled_color: #b8b8b8 !default;
+$listGrid_cell_disabled_color: $default_disabled_text_color !default;
 $listGrid_cell_disabled_bgColor: #ededed !default;
 // Summary Cells
 $listGrid_summaryCell_color: adjust-color($listGrid_headerButton_bgColor,$red:-71,$green:-83,$blue:-82) !default;
 $listGrid_summaryCell_bgColor: adjust-color($listGrid_headerButton_bgColor,$red:160,$green:79,$blue:28) !default;
 $listGrid_summaryCell_border_color: adjust-color($listGrid_headerButton_bgColor,$red:-71,$green:-83,$blue:-82) !default;
 $listGrid_summaryCell_border: $standard_border_width $standard_border_style $listGrid_summaryCell_border_color !default;
-$listGrid_summaryCell_disabled_border: $standard_border_width $standard_border_style $listGrid_summaryCell_border_color !default;
+$listGrid_summaryCell_disabled_border: $standard_border_width $standard_border_style $listGrid_cell_disabled_bgColor !default;
 $listGrid_summaryCell_dark_color: hsl(0, 0%, 34.5%) !default;
 $listGrid_summaryCell_disabled_bgColor: $listGrid_summaryCell_bgColor !default;
 // Header nodes in grouped grids
 $listGrid_groupNode_font: $listGrid_cell_font !default;
 $listGrid_groupNode_font_size: 12.5px !default;
 $listGrid_groupNode_fontWeight: bold !default;
-$listGrid_groupNode_padding: 1px 1px 1px $listGrid_cell_paddingLeft !default;
+$listGrid_groupNode_padding: 1px 1px 1px 3px !default;
 $listGrid_groupNode_text_color: adjust-color($highlight_color,$red:-71,$green:-83,$blue:-82) !default;
 $listGrid_groupNode_bgColor: $listGrid_cell_bgColor !default;
 $listGrid_groupNode_border_color: adjust-color($listGrid_border_color,$red:-68,$green:-68,$blue:-68) !default;
 $listGrid_groupNode_border: $standard_border_width $standard_border_style $listGrid_groupNode_border_color !default;
+$listGrid_groupNode_over_bgColor: $listGrid_cell_over_bgColor !default;
+$listGrid_groupNode_over_color: $listGrid_cell_over_color !default;
+$listGrid_groupNode_selected_bgColor: $listGrid_cell_selected_bgColor !default;
+$listGrid_groupNode_selected_color: $listGrid_cell_selected_color !default;
+$listGrid_groupNode_selected_over_bgColor: $listGrid_cell_selected_over_bgColor !default;
+$listGrid_groupNode_disabled_color: $listGrid_cell_disabled_color !default;
+$listGrid_groupNode_disabled_bgColor: $listGrid_cell_disabled_bgColor !default;
 // Control of Grid Cell-Editors
 $listGrid_editor_shadow: none !default;
 $listGrid_editor_focused_shadow: inset 0 0 5px 0 $formItem_focused_border_color !default;
@@ -535,8 +660,25 @@ $listGrid_filterOperatorIcon_fontWeight: normal !default;
 $listGrid_filterOperatorIcon_line_height: 14px !default;
 $listGrid_filterOperatorIcon_textAlign: center !default;
 $listGrid_filterOperatorIcon_padding: 0px !default;
-$listGrid_filterOperatorIcon_margin: 0px !default;
+$listGrid_filterOperatorIcon_margin: 0px 0px 0px 1px !default;
 $listGrid_filterOperatorIcon_border_radius: 5px !default;
+// Special columns, like the rowNumberField
+$listGrid_specialCol_font: $listGrid_cell_font !default;
+$listGrid_specialCol_font_size: $listGrid_cell_font_size !default;
+$listGrid_specialCol_padding: $listGrid_cell_padding !default;
+$listGrid_specialCol_line_height: 22px !default;
+$listGrid_specialCol_bgColor: $listGrid_cell_dark_bgColor !default;
+$listGrid_specialCol_color: $listGrid_cell_color !default;
+$listGrid_specialCol_over_bgColor: $active_over_bgColor !default;
+$listGrid_specialCol_row_border: $listGrid_row_border !default;
+$listGrid_specialCol_cell_border: $listGrid_cell_border !default;
+$listGrid_specialCol_over_color: $listGrid_specialCol_color !default;
+$listGrid_specialCol_selected_bgColor: $active_selected_bgColor !default;
+$listGrid_specialCol_selected_color: $listGrid_cell_selected_color !default;
+$listGrid_specialCol_selected_over_bgColor: $active_selected_bgColor !default;
+$listGrid_specialCol_selected_over_color: $listGrid_specialCol_selected_color !default;
+$listGrid_specialCol_disabled_bgColor: $listGrid_cell_disabled_bgColor !default;
+$listGrid_specialCol_disabled_color: $listGrid_cell_disabled_color !default;
 
 // ==== Trees - Variables for TreeGrid styles
 // General
@@ -544,14 +686,16 @@ $treeGrid_border_color: $standard_widget_border_color !default;
 $treeGrid_border: $standard_border_width $standard_border_style $treeGrid_border_color !default;
 $treeGrid_body_bgColor: $listGrid_body_bgColor !default;
 $treeGrid_glow_color: $listGrid_glow_color !default;
+$treeGrid_row_border: $listGrid_row_border !default;
 // Cell
 $treeGrid_cell_font: $listGrid_cell_font !default;
 $treeGrid_cell_font_size: $listGrid_cell_font_size !default;
+$treeGrid_cell_padding: 0px 3px 0px 0px !default;
 $treeGrid_cell_color: $listGrid_cell_color !default;
 $treeGrid_cell_over_color: $listGrid_cell_over_color !default;
 $treeGrid_cell_bgColor: $listGrid_cell_bgColor !default;
-$treeGrid_cell_border_color: $standard_widget_border_color !default;
-$treeGrid_cell_border: $standard_border_width $standard_border_style $treeGrid_cell_border_color !default;
+$treeGrid_cell_border_color: transparent !default;
+$treeGrid_cell_border: none !default;
 $treeGrid_cell_dark_bgColor: $listGrid_cell_dark_bgColor !default;
 $treeGrid_cell_over_bgColor: $listGrid_cell_over_bgColor !default;
 $treeGrid_cell_selected_color: $listGrid_cell_selected_color !default;
@@ -609,6 +753,48 @@ $cubeGrid_cell_selected_over_glow_color: $listGrid_cell_selected_over_glow_color
 $cubeGrid_cell_selected_over_glow: 0 0 5px 0 $cubeGrid_cell_selected_over_glow_color !default;
 $cubeGrid_cell_disabled_color: $listGrid_cell_disabled_color !default;
 
+// ==== NavPanel - Styles for NavPanel components
+// NavPanel Header
+$navPanel_header_font: $sectionHeader_font !default;
+$navPanel_header_font_size: $sectionHeader_font_size !default;
+$navPanel_header_padding: $sectionHeader_padding !default;
+$navPanel_header_color: $sectionHeader_color !default;
+$navPanel_header_bgColor: $sectionHeader_bgColor !default;
+$navPanel_header_border_radius: $sectionHeader_border_radius !default;
+$navPanel_header_border: $sectionHeader_border !default;
+$navPanel_header_bottom_border: $navPanel_header_border !default;
+$navPanel_header_disabled_text_color: $sectionHeader_disabled_text_color !default;
+$navPanel_header_disabled_bgColor: $sectionHeader_disabled_bgColor !default;
+$navPanel_header_disabled_border_color: $sectionHeader_disabled_border_color !default;
+$navPanel_header_disabled_border: $standard_border_width $standard_border_style $navPanel_header_disabled_border_color !default;
+// NavPanel NavItem-container
+$navPanel_border_color: $standard_widget_border_color !default;
+$navPanel_border: $standard_border_width $standard_border_style $navPanel_border_color !default;
+$navPanel_body_bgColor: $listGrid_body_bgColor !default;
+// Styles for NavItems in a NavPanel
+$navItem_font: $treeGrid_cell_font !default;
+$navItem_font_size: $treeGrid_cell_font_size !default;
+$navItem_cell_padding: $treeGrid_cell_padding !default;
+$navItem_color: $treeGrid_cell_color !default;
+$navItem_glow_color: $listGrid_glow_color !default;
+$navItem_over_color: $treeGrid_cell_over_color !default;
+$navItem_bgColor: $treeGrid_cell_bgColor !default;
+$navItem_border_color: $standard_widget_border_color !default;
+$navItem_border: $standard_border_width $standard_border_style $navItem_border_color !default;
+$navItem_dark_bgColor: $treeGrid_cell_dark_bgColor !default;
+$navItem_over_bgColor: $treeGrid_cell_over_bgColor !default;
+$navItem_selected_color: $treeGrid_cell_selected_color !default;
+$navItem_selected_bgColor: $treeGrid_cell_selected_bgColor !default;
+$navItem_selected_over_color: $treeGrid_cell_selected_over_color !default;
+$navItem_selected_over_bgColor: $treeGrid_cell_selected_bgColor !default;
+$navItem_selected_over_glow_color: $treeGrid_cell_selected_over_glow_color !default;
+$navItem_selected_over_glow: 0 0 5px 0 $navItem_selected_over_glow_color !default;
+$navItem_disabled_color: $treeGrid_cell_disabled_color !default;
+$navItem_disabled_bgColor: $treeGrid_cell_disabled_bgColor !default;
+// NavPanel Deck
+$navPanel_deck_color: $standard_color !default;
+$navPanel_deck_bgColor: $standard_widget_bgColor !default;
+
 // ==== FilterBuilder - Settings that affect FilterBuilder widgets
 // BracketBorder
 $filterBuilder_bracketBorder_color: $standard_widget_border_color !default;
@@ -622,7 +808,9 @@ $pickList_menu_border: $standard_border_width $standard_border_style $standard_w
 $pickList_menu_shadow: none !default;
 $pickList_menu_body_border: $pickList_menu_border !default;
 // Cell
-$pickList_cell_paddingBottom: 2px !default;
+$pickList_cell_font: $primary_font !default;
+$pickList_cell_font_size: $standard_font_size !default;
+$pickList_cell_padding: 2px 1px 2px 3px !default;
 $pickList_cell_color: $listGrid_cell_color !default;
 $pickList_cell_bgColor: $listGrid_cell_bgColor !default;
 $pickList_cell_border: none !default;
@@ -691,20 +879,11 @@ $toolStrip_border_color: $standard_widget_border_color !default;
 $toolStrip_border: $standard_border_width $standard_border_style $toolStrip_border_color !default;
 $toolStrip_bgColor: $secondary_header_bgColor !default;
 $toolStrip_v_padding: 4px !default;
-// Group
-$toolStripGroup_font: $standard_body_font !default;
-$toolStripGroup_font_size: 15.5px !default;
-$toolStripGroup_fontWeight: 500 !default;
-$toolStripGroup_padding: 0px !default;
-$toolStripGroup_title_padding: 8px 10px 8px 10px !default;
-$toolStripGroup_color: $secondary_header_color !default;
-$toolStripGroup_bgColor: $toolStrip_bgColor !default;
-$toolStripGroup_border_color: $standard_widget_border_color !default;
-$toolStripGroup_border: $standard_border_width $standard_border_style $toolStripGroup_border_color !default;
 // Button
 $toolStripButton_font: $primary_font !default;
 $toolStripButton_padding: 3px 4px 3px 4px !default;
 $toolStripButton_color: $standard_color !default;
+$toolStripButton_bgColor: transparent !default;
 $toolStripButton_border_color: transparent !default;
 $toolStripButton_border_width: $standard_border_width !default;
 $toolStripButton_border_radius: $standard_border_radius !default;
@@ -728,35 +907,44 @@ $ribbonBar_border_color: $standard_widget_border_color !default;
 $ribbonBar_border: $standard_border_width $standard_border_style $ribbonBar_border_color !default;
 $ribbonBar_shadow: #fafcff 0 1px 0 inset !default;
 // RibbonGroup
+$ribbonGroup_font: $standard_body_font !default;
+$ribbonGroup_font_size: 15.5px !default;
+$ribbonGroup_fontWeight: 500 !default;
 $ribbonGroup_padding: 0px !default;
+$ribbonGroup_color: $secondary_header_color !default;
 $ribbonGroup_bgColor: $ribbonBar_bgColor !default;
+$ribbonGroup_border_color: $standard_widget_border_color !default;
 $ribbonGroup_border: $ribbonBar_border !default;
+$ribbonGroup_border_radius: 0px !default;
 $ribbonGroup_shadow: 3px 3px 5px 2px #f3f3f3 !default;
-// IconButton
-$iconButton_font: $standard_body_font !default;
-$iconButton_font_size: 13.5px !default;
-$iconButton_padding: 3px !default;
-$iconButton_color: #4d4d4d !default;
-$iconButton_bgColor: transparent !default;
-$iconButton_border_color: transparent !default;
-$iconButton_border_width: $standard_border_width !default;
-$iconButton_border: $iconButton_border_width $standard_border_style $iconButton_border_color !default;
-$iconButton_border_radius: 3px !default;
-$iconButton_over_bgColor: $secondary_bgColor !default;
-$iconButton_over_border_color: $standard_widget_border_color !default;
-$iconButton_over_border: $iconButton_border_width $standard_border_style $iconButton_over_border_color !default;
-$iconButton_selected_border_color: adjust-color($highlight_color,$red:-33,$green:-21,$blue:-2) !default;
-$iconButton_selected_border: $iconButton_border_width $standard_border_style $iconButton_selected_border_color !default;
-$iconButton_menu_icon_border_radius: $iconButton_border_radius !default;
+$ribbonGroup_title_color: $secondary_header_color !default;
+$ribbonGroup_title_bgColor: $secondary_header_bgColor !default;
+$ribbonGroup_title_padding: 8px 10px 8px 10px !default;
+// RibbonButton
+$ribbonButton_font: $standard_body_font !default;
+$ribbonButton_font_size: 13.5px !default;
+$ribbonButton_padding: 3px !default;
+$ribbonButton_color: #4d4d4d !default;
+$ribbonButton_bgColor: transparent !default;
+$ribbonButton_border_color: transparent !default;
+$ribbonButton_border_width: $standard_border_width !default;
+$ribbonButton_border: $ribbonButton_border_width $standard_border_style $ribbonButton_border_color !default;
+$ribbonButton_border_radius: 3px !default;
+$ribbonButton_over_bgColor: $secondary_bgColor !default;
+$ribbonButton_over_border_color: $standard_widget_border_color !default;
+$ribbonButton_over_border: $ribbonButton_border_width $standard_border_style $ribbonButton_over_border_color !default;
+$ribbonButton_selected_border_color: adjust-color($highlight_color,$red:-33,$green:-21,$blue:-2) !default;
+$ribbonButton_selected_border: $ribbonButton_border_width $standard_border_style $ribbonButton_selected_border_color !default;
+$ribbonButton_menu_icon_border_radius: $ribbonButton_border_radius !default;
 
 // ==== Scrollbars - Variables used for styling Scrollbars
 // ScrollTrack
 $scrollTrack_bgColor: adjust-color($secondary_bgColor,$red:-13,$green:-13,$blue:-13) !default;
 $scrollTrack_down_bgColor: adjust-color($scrollTrack_bgColor,$red:-33,$green:-33,$blue:-33) !default;
 $scrollTrack_over_bgColor: adjust-color($scrollTrack_bgColor,$red:-19,$green:-19,$blue:-19) !default;
-$scrollTrack_disabled_background: linear-gradient(top, #e3e3e3, #efefef 20%, #f2f2f2 90%, $scrollTrack_bgColor) !default;
+$scrollTrack_disabled_background: adjust-color($scrollTrack_bgColor,$red:+5,$green:+5,$blue:+5) !default;
 // Scrollbar
-$scrollbar_corner_bgImage: linear-gradient(top, #f2f2f2, #ebebeb 50%, $menuButton_disabled_border_color 50%, #cfcfcf) !default;
+$scrollbar_corner_bgImage: none !default;
 $scrollbar_default_border: none !default;
 $scrollbar_horizontal_sprite_image: url(./images/Scrollbar/hscroll_sprite.png) !default;
 $scrollbar_vertical_sprite_image: url(./images/Scrollbar/vscroll_sprite.png) !default;
@@ -823,14 +1011,20 @@ $slider_activeTrack_bgColor: $active_over_bgColor !default;
 // ==== DateChoosers - Variables used for styling DateChoosers
 // General
 $dateChooser_font: $primary_font !default;
+$dateChooser_font_size: $standard_font_size !default;
 $dateChooser_bgColor: $standard_widget_bgColor !default;
 $dateChooser_border_color: $standard_widget_border_color !default;
-$dateChooser_shadow: 5px 5px 15px 0 rgba(0,0,0,0.05) !default;
 $dateChooser_border: $standard_border_width $standard_border_style $dateChooser_border_color !default;
-$dateChooser_nav_border_radius: 3px !default;
+$dateChooser_border_radius: 0px !default;
+$dateChooser_shadow: 5px 5px 15px 0 rgba(0,0,0,0.05) !default;
 // Navigation
 $dateChooser_nav_sprite_image: none !default;
+$dateChooser_nav_bgColor: $secondary_header_bgColor !default;
+$dateChooser_nav_border_radius: 0px !default;
+$dateChooser_navButton_font: $dateChooser_font !default;
+$dateChooser_navButton_font_size: $standard_font_size !default;
 $dateChooser_navButton_padding: 2px !default;
+$dateChooser_navButton_border_radius: 3px !default;
 $dateChooser_navButton_bgColor: $secondary_header_bgColor !default;
 $dateChooser_navButton_color: $secondary_header_color !default;
 $dateChooser_navButton_over_color: adjust-color($highlight_color,$red:-50,$green:-40,$blue:-23) !default;
@@ -867,9 +1061,9 @@ $colorPicker_buttonLayout_padding: 8px !default;
 // Header
 $colorPicker_header_font: $window_header_font !default;
 $colorPicker_header_font_size: $window_header_font_size !default;
-$colorPicker_header_padding: 0px 0px 0px 10px !default;
-$colorPicker_header_bgColor: $secondary_header_bgColor !default;
-$colorPicker_header_color: $navBar_header_color !default;
+$colorPicker_header_padding: $window_header_padding !default;
+$colorPicker_header_bgColor: $window_header_bgColor !default;
+$colorPicker_header_color: $window_header_color !default;
 $colorPicker_headerText_padding: 4px 8px 4px 8px !default;
 // Cell
 $colorPicker_cell_bgColor: $secondary_header_bgColor !default;
@@ -880,19 +1074,23 @@ $colorPicker_cell_over_border: $standard_border_width $standard_border_style $co
 
 // ==== Calendars - Variables used for styling Calendars
 // General
+$calendar_font: $primary_font !default;
 $calendar_font_size: $standard_font_size !default;
-$calendar_dragCanvas_border: $standard_border_width dashed red !default;
+$calendar_text_color: $standard_color !default;
 $calendar_bgColor: $listGrid_body_bgColor !default;
 $calendar_border_color: $standard_border_color !default;
 $calendar_border: $standard_border_width $standard_border_style $calendar_border_color !default;
-$calendar_text_color: $standard_color !default;
-$calendar_dark_bgColor: $secondary_header_bgColor !default;
-$calendar_month_otherDay_header_selected_bgColor: adjust-color($highlight_color,$red:121,$green:49,$blue:9) !default;
-$calendar_disabled_over_bgColor: adjust-color($highlight_color,$red:93,$green:20,$blue:-8) !default;
 $calendar_disabled_bgColor: $secondary_header_bgColor !default;
-$calendar_label_column_bgColor: $secondary_header_bgColor !default;
+$calendar_disabled_over_bgColor: adjust-color($highlight_color,$red:93,$green:20,$blue:-8) !default;
+$calendar_selected_color: $listGrid_cell_selected_color !default;
+$calendar_selected_bgColor: $listGrid_cell_selected_bgColor !default;
+$calendar_disabled_selected_color: $calendar_selected_color !default;
+$calendar_disabled_selected_bgColor: darken($calendar_disabled_bgColor, 10%) !default;
+$calendar_month_otherDay_header_selected_bgColor: adjust-color($highlight_color,$red:121,$green:49,$blue:9) !default;
+$calendar_dark_bgColor: $secondary_header_bgColor !default;
 $calendar_other_day_color: #454545 !default;
 $calendar_day_header_font_color: $calendar_other_day_color !default;
+$calendar_dragCanvas_border: $standard_border_width dashed red !default;
 // Event Canvas
 $calendar_eventWindow_font: $primary_font !default;
 $calendar_eventWindow_font_size: $standard_font_size !default;
@@ -910,10 +1108,21 @@ $calendar_eventWindow_header_bgColor: adjust-color($highlight_color,$red:137,$gr
 $calendar_eventWindow_header_border_color: adjust-color($highlight_color,$red:137,$green:63,$blue:19) !default;
 $calendar_eventWindow_header_border: $standard_border_width $standard_border_style $calendar_eventWindow_header_border_color !default;
 $calendar_eventWindow_resizer_border: $standard_border_width $standard_border_style $calendar_bgColor !default;
+// Leading/Trailing date-lines, shown either side of Timeline-events
+$calendar_eventLine_bgColor: $highlight_color !default;
 // Layouts used to stack events in a day column
 $calendar_columnLayout_bgColor: $calendar_bgColor !default;
 $calendar_columnLayout_right_border: $standard_border_width $standard_border_style $calendar_border_color !default;
 $calendar_columnLayout_opacity: 1 !default;
+// Shows times in vertical views and lane-fields in Timelines
+$calendar_label_column_color: $calendar_text_color !default;
+$calendar_label_column_bgColor: $secondary_header_bgColor !default;
+$calendar_label_column_selected_color: $listGrid_cell_selected_color !default;
+$calendar_label_column_selected_bgColor: $listGrid_cell_selected_bgColor !default;
+$calendar_label_column_disabled_color: $listGrid_cell_disabled_color !default;
+$calendar_label_column_disabled_bgColor: $listGrid_cell_disabled_bgColor !default;
+$calendar_label_column_disabled_selected_color: $calendar_label_column_color !default;
+$calendar_label_column_disabled_selected_bgColor: $calendar_disabled_selected_bgColor !default;
 // Other Canvas
 $calendar_indicatorCanvas_bgColor: #AA0000 !default;
 $calendar_indicatorCanvas_color: $active_text_color !default;
@@ -935,9 +1144,9 @@ $chartBar1_bgColor: #FF0000 !default;
 $chartBar2_bgColor: #0000FF !default;
 $chartBar3_bgColor: #00FF00 !default;
 $chartBar1_gradient_color: #990000 !default;
-$chartBar1_gradient: linear-gradient(left, $chartBar1_gradient_color 0%, $chartBar1_bgColor 100%) !default;
-$chartBar2_gradient: linear-gradient(left, $chartBar1_gradient_color 0%, $chartBar2_bgColor 100%) !default;
-$chartBar3_gradient: linear-gradient(left, $chartBar1_gradient_color 0%, $chartBar3_bgColor 100%) !default;
+$chartBar1_gradient: none !default;
+$chartBar2_gradient: none !default;
+$chartBar3_gradient: none !default;
 $chart_axis_title_color: adjust-color($highlight_color,$red:-71,$green:-167,$blue:28) !default;
 
 // ==== Hover Canvas - Settings that affect the hover canvas
@@ -982,6 +1191,86 @@ $notify_error_shadow: 0px 0px 5px $notify_error_bgColor !default;
 $notify_warn_link_color: #4F140E !default;
 $notify_warn_bgColor: #ea9039 !default;
 $notify_warn_shadow: 0px 0px 5px $notify_warn_bgColor !default;
+
+// ==== Tour - Styles for the Tour UI
+// General
+$tour_font: calibri !default;
+// Tour Window
+$tourWindow_bgColor: #ffffff !default;
+$tourWindow_border_radius: 3px !default;
+$tourWindow_shadow: 0px 0px 25px 0 #bfbfbf !default;
+$tourWindow_pointer_bgColor: $tourWindow_bgColor !default;
+$tourWindow_title_font: $tour_font !default;
+$tourWindow_title_font_size: 16px !default;
+$tourWindow_title_font_weight: bold !default;
+$tourWindow_title_bottom_padding: 4px !default;
+$tourWindow_title_color: #595959 !default;
+$tourWindow_contents_font: $tour_font !default;
+$tourWindow_contents_font_size: 14px !default;
+$tourWindow_contents_font_weight: normal !default;
+$tourWindow_contents_color: #7f7f7f !default;
+// Tour Button
+// General
+$tourButton_font: $tour_font !default;
+$tourButton_font_size: 12px !default;
+$tourButton_font_weight: normal !default;
+$tourButton_padding: 5px !default;
+$tourButton_line_height: 18px !default;
+$tourButton_shadow: none !default;
+$tourButton_deselected_disabled_color: hsl(0, 0%, 66%) !default;
+// Normal
+$tourButton_color: #ffffff !default;
+$tourButton_bgColor: #4472c4 !default;
+$tourButton_border_color: $tourButton_bgColor !default;
+$tourButton_border_width: 1px !default;
+$tourButton_border_radius: 3px !default;
+$tourButton_border: $tourButton_border_width solid $tourButton_border_color !default;
+// Over
+$tourButton_over_color: $tourButton_color !default;
+$tourButton_over_bgColor: #2f5597 !default;
+$tourButton_over_border_color: $tourButton_border_color !default;
+$tourButton_over_border: $tourButton_border_width solid $tourButton_over_border_color !default;
+$tourButton_over_shadow: 0 0 0.2em 0.1em $default_glow_color !default;
+// Focused
+$tourButton_focused_color: $tourButton_color !default;
+$tourButton_focused_bgColor: adjust-color($tourButton_bgColor,$red:8,$green:-14,$blue:-30) !default;
+$tourButton_focused_border_color: adjust-color($active_border_color,$red:-21,$green:-43,$blue:-59) !default;
+$tourButton_focused_border: $tourButton_border_width solid $tourButton_focused_border_color !default;
+$tourButton_focused_shadow: none !default;
+// FocusedOver
+$tourButton_focused_over_color: $tourButton_color !default;
+$tourButton_focused_over_bgColor: $tourButton_focused_bgColor !default;
+$tourButton_focused_over_border_color: #003760 !default;
+$tourButton_focused_over_border: $tourButton_border_width solid $tourButton_focused_over_border_color !default;
+$tourButton_focused_over_shadow: 0 0 5px $default_glow_color !default;
+// Down
+$tourButton_down_bgColor: $tourButton_over_bgColor !default;
+$tourButton_down_color: $tourButton_over_color !default;
+$tourButton_down_border_color: #203864 !default;
+$tourButton_down_border: $tourButton_border_width solid $tourButton_down_border_color !default;
+$tourButton_down_glow: inset 0 0 5px 1px $tourButton_down_border_color !default;
+// Disabled
+$tourButton_disabled_color: $tourButton_color !default;
+$tourButton_disabled_bgColor: #dadada !default;
+$tourButton_disabled_border_color: #dadada !default;
+$tourButton_disabled_border: $tourButton_border_width solid $tourButton_disabled_border_color !default;
+// Tour Link Button
+// General
+$tourLinkButton_font: $tour_font !default;
+$tourLinkButton_font_size: 14px !default;
+$tourLinkButton_font_weight: normal !default;
+$tourLinkButton_padding: 5px !default;
+$tourLinkButton_line_height: 18px !default;
+$tourLinkButton_color: #bfbfbf !default;
+$tourLinkButton_bgColor: transparent !default;
+// Tour Progress Bar
+// Percent General
+$tourPercent_font: $tour_font !default;
+$tourPercent_font_size: 16px !default;
+$tourPercent_font_weight: normal !default;
+// Percent Normal
+$tourProgress_bgColor: #d5d5d5 !default;
+$tourPercent_color: #d5d5d5 !default;
 
 // ==== Login Window - Settings for the login UI
 // Login Form
@@ -1034,11 +1323,11 @@ $resize_thumb_border_color: adjust-color($standard_widget_border_color,$red:-80,
 $resize_thumb_border: $standard_border_width $standard_border_style $resize_thumb_border_color !default;
 $resize_thumb_gradient_color: #ffffff !default;
 $corner_resize_thumb_border_radius: 5px !default;
-$resize_thumb_gradient: linear-gradient($resize_thumb_gradient_color, $resize_thumb_bgColor, $resize_thumb_gradient_color) !default;
+$resize_thumb_gradient: none !default;
 // GroupLabel
 $groupLabel_font: $primary_font !default;
 $groupLabel_font_size: $standard_font_size !default;
-$groupLabel_padding: 5px !default;
+$groupLabel_padding: 0px 5px 0px 5px !default;
 $groupLabel_color: $standard_color !default;
 $groupLabel_bgColor: $standard_widget_bgColor !default;
 $groupLabel_border_color: $standard_border_color !default;
@@ -1048,7 +1337,7 @@ $propsheet_font: $primary_font !default;
 $propsheet_font_size: $standard_font_size !default;
 $propsheet_bgColor: $standard_widget_bgColor !default;
 $propsheet_border: $standard_border_width $standard_border_style $standard_border_color !default;
-$propsheet_title_bgColor: $standard_border_color !default;
+$propsheet_title_bgColor: $secondary_header_bgColor !default;
 $propsheet_field_marginTop: 3px !default;
 $propsheet_field_padding: 4px 0px 4px 0px !default;
 $propsheet_header_padding: 4px !default;
@@ -1075,11 +1364,6 @@ $paletteCell_font: $primary_font !default;
 $paletteCell_font_size: $standard_header_font_size !default;
 $paletteCell_color: $secondary_header_color !default;
 $paletteCell_bgColor: $secondary_header_bgColor !default;
-// Styles for LinkItems and HTML links
-$link_color: #0000EE !default;
-$link_visited_color: #551A8B !default;
-$link_active_color: #EE0000 !default;
-$link_over_color: $link_color !default;
 // Other
 $modalMask_bgColor: #000000 !default;
 $dropBorder_bgColor: #808080 !default;
@@ -1101,19 +1385,24 @@ $docMethod_color: blue !default;
 $docAttribute_color: green !default;
 $docParameter_color: black !default;
 $docOptionalParameter_color: gray !default;
-//<skin_default_variables
+//<theme_variables
+
+
+@import "compass/css3";
+
+
+//SKIN_VARS
+$listGrid_headerButton_separator_height: 100% !default;
+$listGrid_headerButton_separator_top: 0px !default;
+
+$listGrid_headerBar_color: $standard_header_color !default;
+$listGrid_headerBar_bgColor: $standard_header_bgColor !default;
+
+
 //>skin_header_doc
 
 //THE COMMENT BELOW IS A NOTE THAT WILL APPEAR IN GENERATED .css, 
 //IT DOES NOT APPLY TO THIS .scss FILE, SO YOU MAY EDIT IT.
-/*============================================================
-This CSS file is generated from the Flat series of skins
-
-DO NOT edit this .css file directly, unless renamed to 
-something other than skin_styles.css, since future compass compiles
-will overwrite that file.
-==============================================================*/
-
 /*============================================================
 	"Flat" theme CSS styles
 	Copyright 2001 and beyond, Isomorphic Software
@@ -1158,7 +1447,7 @@ will overwrite that file.
 			headers
 			cells
     12) ToolStrip
-    12a) Ribbons
+    12a) RibbonBar, RibbonGroup and RibbonButton
     13) Tools
     14) TileGrid
     15) Scrollbars
@@ -1173,6 +1462,7 @@ will overwrite that file.
 /*============================================================
 	1) General
 ============================================================*/
+
 
 [data-isc-overflow-style="none"] {
     -ms-overflow-style: none;
@@ -1278,8 +1568,44 @@ body {
         family: $groupLabel_font; 
         size: $groupLabel_font_size;
     }
-    padding-left: $groupLabel_padding; 
-    padding-right: $groupLabel_padding;
+    padding: $groupLabel_padding; 
+}
+
+/* canvas pointer */
+.pointerUp {
+    width: 0; 
+    height: 0; 
+    border-left: 15px solid transparent;
+    border-right: 14px solid transparent;
+    
+    border-bottom: 29px solid $canvas_pointer_bgColor;
+}
+
+.pointerDown {
+    width: 0; 
+    height: 0; 
+    border-left: 15px solid transparent;
+    border-right: 14px solid transparent;
+    
+    border-top: 29px solid $canvas_pointer_bgColor;
+}
+
+.pointerRight {
+    width: 0; 
+    height: 0; 
+    border-top: 15px solid transparent;
+    border-bottom: 14px solid transparent;
+    
+    border-left: 29px solid $canvas_pointer_bgColor;
+}
+
+.pointerLeft {
+    width: 0; 
+    height: 0; 
+    border-top: 15px solid transparent;
+    border-bottom: 14px solid transparent;
+    
+    border-right: 29px solid $canvas_pointer_bgColor;
 }
 
 /* RichTextEditor */
@@ -1310,26 +1636,23 @@ body {
 .linkDisabled,
 .linkText,
 .linkTextDisabled {
+    outline: none;
     vertical-align: middle;
-    font-family: $primary_font;
+    font-family: $formItem_font;
     font-size: $formItem_font_size;
-    @include border-radius($standard_border_radius);
+    @include border-radius($formItem_border_radius);
     color: $link_color;
 }
 
 .linkDisabled,
 .linkTextDisabled {
+    -webkit-text-fill-color: $formItem_disabled_color;
     color: $formItem_disabled_color;
 }
 
-/* HTML link colors */
-a:link { color: $link_color; }
-a:hover { color: $link_over_color; }
-a:active { color: $link_active_color; }
-a:visited { color: $link_visited_color;}
 
 /*============================================================
-    2) Button
+    2) Buttons - two variants, .button and .otherButton
 		button.baseStyle
 		buttonStrip.baseStyle
 		buttonTable.baseButtonStyle
@@ -1354,14 +1677,15 @@ a:visited { color: $link_visited_color;}
     background-color: $button_bgColor;
     border: $button_border;
     @include border-radius($button_border_radius);
-    padding-left: $button_padding;
-    padding-right: $button_padding;
+    padding: $button_padding;
     line-height: $button_line_height;
+    vertical-align: middle;
     outline: 0px; 
     color: $button_color;
     font-size: $button_font_size;
     font-family: $button_font;
     font-weight: $button_font_weight;
+    opacity: $button_opacity;
 }
 
 /* Over styles */
@@ -1416,6 +1740,7 @@ a:visited { color: $link_visited_color;}
     color: $button_disabled_color;
     background-color: $button_disabled_bgColor; 
     border: $button_disabled_border;
+    opacity: $button_disabled_opacity;
 }
 
 .buttonDeselectedDisabled {
@@ -1451,9 +1776,9 @@ a:visited { color: $link_visited_color;}
     background-color: $button_bgColor;
     border: $button_border;
     @include border-radius($button_border_radius);
-    padding-left: $button_padding;
-    padding-right: $button_padding;
+    padding: $button_padding;
     line-height: $button_line_height;
+    //vertical-align: middle;
     outline: 0px; 
 }
 
@@ -1477,6 +1802,152 @@ a:visited { color: $link_visited_color;}
     color: $button_disabled_color;
     background-color: $button_disabled_bgColor; 
     border: $button_disabled_border;
+    opacity: $button_disabled_opacity;
+}
+
+/* secondary button */
+.otherButton,
+.otherButtonOver,
+.otherButtonFocused,
+.otherButtonFocusedOver,
+.otherButtonDown,
+.otherButtonFocusedDown,
+.otherButtonSelected,
+.otherButtonSelectedFocused,
+.otherButtonSelectedDown,
+.otherButtonSelectedFocusedDown,
+.otherButtonSelectedOver,
+.otherButtonSelectedFocusedOver,
+.otherButtonDisabled,
+.otherButtonSelectedDisabled, 
+.otherButtonDeselectedDisabled {
+    background-color: $otherButton_bgColor;
+    border: $otherButton_border;
+    @include border-radius($otherButton_border_radius);
+    padding: $otherButton_padding;
+    line-height: $otherButton_line_height;
+    //vertical-align: middle;
+    outline: 0px; 
+    color: $otherButton_color;
+    font-size: $otherButton_font_size;
+    font-family: $otherButton_font;
+    font-weight: $otherButton_font_weight;
+    opacity: $otherButton_opacity;
+}
+
+/* Over styles */
+.otherButton:hover,
+.otherButtonOver {
+    color: $otherButton_over_color;
+    background-color: $otherButton_over_bgColor;
+    border: $otherButton_over_border;
+    @include box-shadow($otherButton_over_shadow);
+} 
+
+/* selected styles */
+.otherButtonSelected {
+    color: $otherButton_selected_color;
+    background-color: $otherButton_selected_bgColor;
+    border: $otherButton_selected_border;
+    @include box-shadow($otherButton_selected_shadow);
+}
+
+/* focused styles */
+.otherButtonFocused,
+.otherButtonSelectedFocused {
+    color: $otherButton_focused_color;
+    background-color: $otherButton_focused_bgColor;
+    border: $otherButton_focused_border;
+    @include box-shadow($otherButton_focused_shadow);
+}
+
+/* focusedOver styles */
+.otherButtonFocusedOver,
+.otherButtonSelectedFocusedOver {
+    color: $otherButton_focused_over_color;
+    background-color: $otherButton_focused_over_bgColor;
+    border: $otherButton_focused_over_border;
+    @include box-shadow($otherButton_focused_over_shadow);
+}
+
+/* Down styles */
+.otherButtonDown,
+.otherButtonFocusedDown,
+.otherButtonSelectedDown,
+.otherButtonSelectedFocusedDown {
+    color: $otherButton_down_color;
+    background-color: $otherButton_down_bgColor;
+    border: $otherButton_down_border;
+    @include box-shadow($otherButton_down_glow); 
+}
+
+/* disabled styles */
+.otherButtonDisabled,
+.otherButtonSelectedDisabled {
+    color: $otherButton_disabled_color;
+    background-color: $otherButton_disabled_bgColor; 
+    border: $otherButton_disabled_border;
+}
+
+.otherButtonDeselectedDisabled {
+    color: $otherButton_deselected_disabled_color;
+    text-decoration: line-through;
+}
+
+
+
+/* pending styles - used in conjunction with .otherButtonItem */
+.otherButtonPending,
+.otherButtonPendingOver,
+.otherButtonPendingFocused,
+.otherButtonPendingFocusedOver,
+.otherButtonPendingDown,
+.otherButtonPendingFocusedDown,
+.otherButtonPendingSelected,
+.otherButtonPendingSelectedFocused,
+.otherButtonPendingSelectedDown,
+.otherButtonPendingSelectedFocusedDown,
+.otherButtonPendingSelectedOver,
+.otherButtonPendingSelectedFocusedOver,
+.otherButtonPendingOpened,
+.otherButtonPendingOverOpened,
+.otherButtonPendingDisabled,
+.otherButtonPendingSelectedDisabled,
+.otherButtonDeselectedDisabled {
+    color: $pending_value_dark_color; 
+    font: {
+        family: $formItem_font; 
+        size: $formItem_font_size;
+    }
+    background-color: $otherButton_bgColor;
+    border: $otherButton_border;
+    @include border-radius($otherButton_border_radius);
+    padding: $otherButton_padding;
+    line-height: $otherButton_line_height;
+    //vertical-align: middle;
+    outline: 0px; 
+}
+
+.otherButtonDeselectedDisabled {
+    color: $otherButton_deselected_disabled_color;
+    background-color: $otherButton_disabled_bgColor;
+    text-decoration: line-through;
+}
+
+/* Over styles */
+.otherButtonPendingOver,
+.otherButtonPendingOverOpened {
+    background-color: $otherButton_over_bgColor;
+    border: $otherButton_over_border;
+    @include box-shadow($otherButton_over_shadow);
+} 
+
+/* disabled styles */
+.otherButtonPendingDisabled,
+.otherButtonPendingSelectedDisabled {
+    color: $otherButton_disabled_color;
+    background-color: $otherButton_disabled_bgColor; 
+    border: $otherButton_disabled_border;
 }
 
 
@@ -1502,9 +1973,9 @@ a:visited { color: $link_visited_color;}
     background-color: $button_bgColor;
     border: $button_border;
     @include border-radius($button_border_radius);
-    padding-left: $button_padding;
-    padding-right: $button_padding;
+    padding: $button_padding;
     line-height: $button_line_height;
+    //vertical-align: middle;
     outline: 0px; 
     color: $button_color;
     font-size: $formItem_font_size;
@@ -1646,6 +2117,8 @@ a:visited { color: $link_visited_color;}
         family: $formItem_font; 
         size: $formItem_font_size;
     }
+    //line-height: $button_line_height;
+    //vertical-align: middle;
 }
 
 
@@ -1705,6 +2178,7 @@ a:visited { color: $link_visited_color;}
     color: $menu_color;
     border-bottom: $menuItem_border;
     border-top: $menuItem_border;
+    vertical-align: middle;
     font: {
         family: $menu_font; 
         size: $menu_font_size;
@@ -1781,8 +2255,8 @@ a:visited { color: $link_visited_color;}
 .menuIconFieldSelectedOver,
 .menuIconFieldSelectedOverDark,
 .menuIconFieldDisabled {
-	padding-left: 17px; 
-    padding-right: 4px;
+    padding: $menu_iconField_padding;
+    vertical-align: middle;
 }
 
 /* disabled style */
@@ -1961,12 +2435,13 @@ a:visited { color: $link_visited_color;}
 /* Window and Dialog*/
 .windowBackground {
     border: $window_border;
+    background-color: $window_bgColor;
     @include box-shadow($window_shadow);
 }
 
 .windowBody {
     background-color: $window_body_bgColor;
-    border-top: $window_border;
+    border-top: $window_body_top_border;
     padding: $window_body_padding;
 }
 
@@ -1977,25 +2452,24 @@ a:visited { color: $link_visited_color;}
 
 .windowHeader,
 .windowHeaderHilite {
-    padding-right: $window_header_padding;
+    padding: $window_header_padding;
     background-color: $window_header_bgColor;
 }
 
 .windowHeaderText {
     background-color: $window_header_bgColor;
     color: $window_header_color;
+    font-family: $window_header_font;
     font-size: $window_header_font_size;
     font-weight: $standard_header_font_weight;
     line-height: $window_header_line_height;
-    padding-left: $window_header_padding;
-    padding-right: $window_header_padding;
-    font-family: $window_header_font;
+    padding: $window_title_padding;
 }
 .windowStatusBar {
     background-color: $window_status_bgColor;
     border-top: $window_border;
     color: $window_status_color;
-    font-family: $primary_font;
+    font-family: $window_status_font;
     font-size: $window_status_font_size;
     padding: $window_status_padding;
 }
@@ -2003,18 +2477,19 @@ a:visited { color: $link_visited_color;}
 /* Dialog styles */
 .dialogBackground {
     border: $dialog_border;
+    background-color: $dialog_bgColor;
     @include box-shadow($dialog_shadow);
 }
 
 .dialogBody {
     background-color: $dialog_body_bgColor;
+    border-top: $dialog_body_top_border;
     padding: $dialog_body_padding;
 }
 
 .dialogHeader,
 .dialogHeaderHilite {
-    padding-right: $dialog_header_padding;
-    border-bottom: $dialog_header_border;
+    padding: $dialog_header_padding;
     background-color: $dialog_header_bgColor;
 }
 
@@ -2022,19 +2497,18 @@ a:visited { color: $link_visited_color;}
 .dialogStatusBarText {
     background-color: $dialog_header_bgColor;
     color: $dialog_header_color;
+    font-family: $dialog_header_font;
     font-size: $dialog_header_font_size;
     font-weight: $standard_header_font_weight;
     line-height: $dialog_header_line_height;
-    padding-left: $dialog_header_padding;
-    padding-right: $dialog_header_padding;
-    font-family: $dialog_header_font;
+    padding: $dialog_title_padding;
 }
 
 .dialogStatusBar {
     background-color: $dialog_status_bgColor;
     border-top: $dialog_border;
     color: $dialog_status_color;
-    font-family: $primary_font;
+    font-family: $dialog_status_font;
     font-size: $dialog_status_font_size;
     padding: $dialog_status_padding;
 }
@@ -2140,7 +2614,7 @@ a:visited { color: $link_visited_color;}
     border: $tabSet_container_border;
     color: $tabSet_container_color;
     font: {
-        family: $primary_font; 
+        family: $tabSet_container_font; 
         size: $tabSet_container_font_size;
     }
     outline: none;
@@ -2284,7 +2758,7 @@ a:visited { color: $link_visited_color;}
 
 .tabPickerDisabledtop,
 .tabPickertop {
-    background-position: -155px 4px;
+    background-position: -155px 0px;
 }
 
 .tabPickerDowntop {
@@ -2293,7 +2767,7 @@ a:visited { color: $link_visited_color;}
 
 .tabPickerDisabledbottom,
 .tabPickerbottom {
-    background-position: -184px 4px;
+    background-position: -184px 0px;
 }
 
 .tabPickerDownbottom {
@@ -2395,6 +2869,7 @@ a:visited { color: $link_visited_color;}
 .#{$tabStyle}#{$side}Disabled {
     font-size: $tabButton_font_size;
     font-family: $tabButton_font;
+    font-weight: $tabButton_font_weight;
     color: $tabButton_color !important;
     background-color: $tabButton_bgColor;
     border: $tabButton_border;
@@ -2478,8 +2953,6 @@ a:visited { color: $link_visited_color;}
 
 .#{$tabStyle}#{$side}SelectedDisabled,
 .#{$tabStyle}#{$side}Disabled {
-    font-size: $tabButton_font_size;
-    font-family: $standard_tab_font;
     color: $tabButton_disabled_color !important;
     background-color: $tabButton_disabled_bgColor;
     border: $tabButton_disabled_border;
@@ -2522,8 +2995,7 @@ a:visited { color: $link_visited_color;}
 .sectionHeaderDisabledclosed {
     background-color: $sectionHeader_bgColor;
     color: $sectionHeader_color;
-    padding-left: $sectionHeader_paddingLeft;
-    padding-right: $sectionHeader_paddingRight;
+    padding: $sectionHeader_padding;
     font: {
         family: $sectionHeader_font; 
         size: $sectionHeader_font_size;
@@ -2727,32 +3199,218 @@ a:visited { color: $link_visited_color;}
     border: $navButton_over_border;
 }
 
+.navForwardButtonDisabled,
+.navBackButtonDisabled,
+.navButtonDisabled {
+    background-color: $navButton_disabled_bgColor;
+    color: $navButton_disabled_color;
+}
+
+/* NavPanel styling */
+/* navPanel, navPanelBody, navItem, navItemHeader, navDeck */
+.navPanel {
+    border: $navPanel_border;
+}
+.navPanelBody {
+    background-color: $navPanel_body_bgColor;
+}
+
 .navItemHeader {
-    color: $sectionHeader_color;
-    font-family: $sectionHeader_font;
-    font-size: $sectionHeader_font_size;
-    background-color: $sectionHeader_bgColor;
-    padding-left: $sectionHeader_paddingLeft;
+    color: $navPanel_header_color;
+    font-family: $navPanel_header_font;
+    font-size: $navPanel_header_font_size;
+    background-color: $navPanel_header_bgColor;
+    padding-left: $navPanel_header_padding;
     font-weight: $standard_header_font_weight;
-    border-top: $standard_border;
-    border-bottom: $standard_border;
-    @include border-radius($sectionHeader_border_radius);
+    border-top: $navPanel_header_border;
+    border-bottom: $navPanel_header_border;
+    @include border-radius($navPanel_header_border_radius);
     outline: none;
 }
+
+.navDeck {
+    color: $navPanel_deck_color;
+    background-color: $navPanel_deck_bgColor;
+}
+
+/* NavPanel navGrid styling */
+/*----------------------------------------------------------------------
+   navPanel.navItemBaseStyle - navItem - customized version of .treeCell
+------------------------------------------------------------------------*/
+.navItem,
+.navItemDark,
+.navItemOver,
+.navItemOverDark,
+.navItemSelected,
+.navItemSelectedDark,
+.navItemSelectedOver,
+.navItemSelectedOverDark,
+.navItemDisabled,
+.navItemDisabledDark {
+    background-color: $navItem_bgColor;
+    color: $navItem_color;
+    font-family: $navItem_font;
+    font-size: $navItem_font_size;
+    text-overflow: ellipsis;
+    padding: $navItem_cell_padding;
+}
+
+.navItemDark {
+	background-color: $navItem_dark_bgColor;
+}
+
+.navItemOver,
+.navItemOverDark {
+    background-color: $navItem_over_bgColor;
+    color: $navItem_over_color;
+}
+
+.navItemSelected,
+.navItemSelectedDark {
+    color: $navItem_selected_color;
+    background-color: $navItem_selected_bgColor;
+}
+
+.navItemSelectedOver,
+.navItemSelectedOverDark {
+    color: $navItem_selected_over_color;
+    background-color: $navItem_selected_over_bgColor;
+    @include box-shadow(0 0 5px $navItem_selected_over_bgColor);
+}
+
+.navItemDisabled,
+.navItemDisabledDark {
+	background-color: $navItem_disabled_bgColor;
+	color: $navItem_disabled_color;
+}
+
+/* alternate column styling in navItem */
+.navItemAltCol,
+.navItemDarkAltCol,
+.navItemOverAltCol,
+.navItemOverDarkAltCol,
+.navItemSelectedAltCol,
+.navItemSelectedOverAltCol,
+.navItemSelectedDarkAltCol,
+.navItemSelectedOverDarkAltCol,
+.navItemPendingSelectedAltCol,
+.navItemPendingSelectedDarkAltCol,
+.navItemPendingSelectedOverAltCol,
+.navItemPendingSelectedOverDarkAltCol,
+.navItemDeselectedAltCol,
+.navItemDeselectedDarkAltCol,
+.navItemDeselectedOverAltCol,
+.navItemDeselectedOverDarkAltCol,
+.navItemDisabledAltCol,
+.navItemDisabledDarkAltCol {
+    font-size: $navItem_font_size;
+    font-family: $navItem_font;
+    color: $navItem_color;
+    text-overflow: ellipsis;
+    border: none;
+    border-bottom: $listGrid_row_border;
+    padding: $navItem_cell_padding;
+}
+
+.navItemDisabledAltCol,
+.navItemDisabledDarkAltCol {
+    background-color: $navItem_disabled_bgColor;
+    cursor: not-allowed;
+    color: $navItem_disabled_color;
+}
+
+.navItemAltCol {
+    background-color: $listGrid_cell_altCol_bgColor;
+}
+
+.navItemDarkAltCol {
+    background-color: $listGrid_cell_altCol_dark_bgColor;
+}
+
+.navItemOverAltCol,
+.navItemOverDarkAltCol {
+    background-color: $navItem_over_bgColor; 
+    color: $navItem_over_color;
+}
+
+.navItemSelectedAltCol,
+.navItemSelectedDarkAltCol,
+.navItemSelectedOverAltCol,
+.navItemSelectedOverDarkAltCol,
+.navItemPendingSelectedAltCol,
+.navItemPendingSelectedDarkAltCol,
+.navItemPendingSelectedOverAltCol,
+.navItemPendingSelectedOverDarkAltCol {
+    background-color: $listGrid_cell_selected_bgColor;
+    color: $listGrid_cell_selected_color;
+}
+.navItemSelectedOverAltCol,
+.navItemSelectedOverDarkAltCol,
+.navItemPendingSelectedOverAltCol,
+.navItemPendingSelectedOverDarkAltCol {
+    background-color: $listGrid_cell_selected_over_bgColor;
+}
+
 
 /*============================================================
     8) Forms
 ============================================================*/
 
 /* general form styles */
+.form {
+    background-color: $form_bgColor;
+    border: $form_border;
+    border-radius: $form_border_radius;
+    padding: $form_padding;
+    color: $form_title_color;
+}
+.formDisabled {
+    color: $default_disabled_text_color;
+}
+
 .formRow {}
 
+/* formTitle styles */
 .formTitle,
 .formTitleRTL,
+.formTitleOver,
+.formTitleOverRTL,
 .formTitleFocused,
 .formTitleFocusedRTL,
+.formTitleFocusedOver,
+.formTitleFocusedOverRTL,
 .formTitleDisabled,
-.formTitleDisabledRTL,
+.formTitleDisabledRTL {
+    -webkit-text-size-adjust: 100%;
+    background-color: transparent;
+    color: $form_title_color;
+    font-family: $form_title_font;
+    font-size: $form_title_font_size;
+//    padding: $form_title_padding;
+}
+
+/* formTitle pending styles */
+.formTitlePending,
+.formTitlePendingRTL,
+.formTitlePendingOver,
+.formTitlePendingOverRTL,
+.formTitlePendingFocused,
+.formTitlePendingFocusedRTL,
+.formTitlePendingFocusedOver,
+.formTitlePendingFocusedOverRTL,
+.formTitlePendingDisabled,
+.formTitlePendingDisabledRTL,
+.formTitlePendingError,
+.formTitlePendingErrorRTL {
+    -webkit-text-size-adjust: 100%;
+    background-color: transparent;
+    color: $form_title_color;
+    font-family: $form_title_font;
+    font-size: $form_title_font_size;
+//    padding: $form_title_padding;
+}
+
+/* formTitle error styles */
 .formTitleError,
 .formTitleErrorRTL,
 .formTitleErrorFocused,
@@ -2760,24 +3418,123 @@ a:visited { color: $link_visited_color;}
 .formTitleErrorFocusedOver,
 .formTitleErrorFocusedOverRTL,
 .formTitleErrorDisabled,
-.formTitleErrorDisabldRTL,
-.formTitlePending,
-.formTitlePendingRTL,
-.formTitlePendingFocused,
-.formTitlePendingFocusedRTL,
-.formTitlePendingDisabled,
-.formTitlePendingDisabledRTL,
+.formTitleErrorDisabledRTL,
 .formTitlePendingError,
-.formTitlePendingErrorRTL,
+.formTitlePendingErrorRTL {
+    -webkit-text-size-adjust: 100%;
+    background-color: transparent;
+    color: $form_title_error_color;
+    font-family: $form_title_font;
+    font-size: $form_title_font_size;
+//    padding: $form_title_padding;
+}
 
+/* formTitle disabled styles */
+.formTitleDisabled,
+.formTitleDisabledRTL,
+.formTitleErrorDisabled,
+.formTitleErrorDisabledRTL,
+// check on these two - wrong way around
+.formTitleDisabledError,
+.formTitleDisabledErrorRTL,
+.formTitlePendingDisabled,
+.formTitlePendingDisabledRTL {
+    -webkit-text-fill-color: $default_disabled_text_color;
+	color: $default_disabled_text_color;
+}
+
+/* end formTitle */
+
+/* formTitleVertical styles */
+.formTitleVertical,
+.formTitleVerticalRTL,
+.formTitleVerticalOver,
+.formTitleVerticalOverRTL,
+.formTitleVerticalFocused,
+.formTitleVerticalFocusedRTL,
+.formTitleVerticalFocusedOver,
+.formTitleVerticalFocusedOverRTL,
+.formTitleVerticalDisabled,
+.formTitleVerticalDisabledRTL {
+    -webkit-text-size-adjust: 100%;
+    background-color: transparent;
+    color: $form_title_color;
+    font-family: $form_title_font;
+    font-size: $form_title_font_size;
+    padding: $form_vertical_title_padding;
+}
+
+/* formTitleVertical pending styles */
+.formTitleVerticalPending,
+.formTitleVerticalPendingRTL,
+.formTitleVerticalPendingOver,
+.formTitleVerticalPendingOverRTL,
+.formTitleVerticalPendingFocused,
+.formTitleVerticalPendingFocusedRTL,
+.formTitleVerticalPendingFocusedOver,
+.formTitleVerticalPendingFocusedOverRTL,
+.formTitleVerticalPendingDisabled,
+.formTitleVerticalPendingDisabledRTL,
+.formTitleVerticalPendingError,
+.formTitleVerticalPendingErrorRTL {
+    -webkit-text-size-adjust: 100%;
+    background-color: transparent;
+    color: $form_title_color;
+    font-family: $form_title_font;
+    font-size: $form_title_font_size;
+    padding: $form_vertical_title_padding;
+}
+
+/* formTitleVertical error styles */
+.formTitleVerticalError,
+.formTitleVerticalErrorRTL,
+.formTitleVerticalErrorFocused,
+.formTitleVerticalErrorFocusedRTL,
+.formTitleVerticalErrorFocusedOver,
+.formTitleVerticalErrorFocusedOverRTL,
+.formTitleVerticalErrorDisabled,
+.formTitleVerticalErrorDisabledRTL,
+.formTitleVerticalPendingError,
+.formTitleVerticalPendingErrorRTL {
+    -webkit-text-size-adjust: 100%;
+    background-color: transparent;
+    color: $form_title_error_color;
+    font-family: $form_title_font;
+    font-size: $form_title_font_size;
+    padding: $form_vertical_title_padding;
+}
+
+/* formTitleVertical disabled styles */
+.formTitleVerticalDisabled,
+.formTitleVerticalDisabledRTL,
+.formTitleVerticalErrorDisabled,
+.formTitleVerticalErrorDisabledRTL,
+// check on these two - wrong way around
+.formTitleVerticalDisabledError,
+.formTitleVerticalDisabledErrorRTL,
+.formTitleVerticalPendingDisabled,
+.formTitleVerticalPendingDisabledRTL {
+    -webkit-text-fill-color: $default_disabled_text_color;
+	color: $default_disabled_text_color;
+}
+
+/* end formTitle */
+
+/* formCell styles */
 .formCell,
 .formCellRTL,
+.formCellOver,
+.formCellOverRTL,
 .formCellFocused,
 .formCellFocusedRTL,
+.formCellFocusedOver,
+.formCellFocusedOverRTL,
 .formCellDisabled,
 .formCellDisabledRTL,
 .formCellError,
 .formCellErrorRTL,
+.formCellErrorOver,
+.formCellErrorOverRTL,
 .formCellErrorFocused,
 .formCellErrorFocusedRTL,
 .formCellErrorFocusedOver,
@@ -2786,64 +3543,100 @@ a:visited { color: $link_visited_color;}
 .formCellErrorDisabledRTL,
 .formCellPending,
 .formCellPendingRTL,
+.formCellPendingOver,
+.formCellPendingOverRTL,
 .formCellPendingFocused,
 .formCellPendingFocusedRTL,
+.formCellPendingFocusedOver,
+.formCellPendingFocusedOverRTL,
 .formCellPendingDisabled,
 .formCellPendingDisabledRTL,
 .formCellPendingError,
 .formCellPendingErrorRTL {
     -webkit-text-size-adjust: 100%;
+    background-color: transparent;
+    color: $form_title_color;
+    font: {
+        family: $form_title_font;
+        size: $form_title_font_size;
+    }
 }
 
-.formTitle,
-.formTitleRTL,
-.formTitleFocused,
-.formTitleFocusedRTL,
-.formTitleDisabled,
-.formTitleDisabledRTL,
-.formTitleError,
-.formTitleErrorRTL,
-.formTitleErrorFocused,
-.formTitleErrorFocusedRTL,
-.formTitleErrorFocusedOver,
-.formTitleErrorFocusedOverRTL,
-.formTitleErrorDisabled,
-.formTitleErrorDisabldRTL,
-.formTitlePending,
-.formTitlePendingRTL,
-.formTitlePendingFocused,
-.formTitlePendingFocusedRTL,
-.formTitlePendingDisabled,
-.formTitlePendingDisabledRTL,
-.formTitlePendingError,
-.formTitlePendingErrorRTL,
-
-.formCell,
-.formCellRTL,
-.formCellFocused,
-.formCellFocusedRTL,
-.formCellDisabled,
-.formCellDisabledRTL,
 .formCellError,
 .formCellErrorRTL,
+.formCellPendingError,
+.formCellPendingErrorRTL {
+    color: $formItem_error_color;
+}
+
+.formCellDisabled,
+.formCellDisabledRTL,
 .formCellErrorDisabled,
 .formCellErrorDisabledRTL,
-.formCellPending,
-.formCellPendingRTL,
-.formCellPendingFocused,
-.formCellPendingFocusedRTL,
 .formCellPendingDisabled,
-.formCellPendingDisabledRTL,
-.formCellPendingError,
-.formCellPendingErrorRTL,
+.formCellPendingDisabledRTL {
+    -webkit-text-fill-color: $formItem_disabled_color;
+    color: $formItem_disabled_color; 
+}
 
+.formCellErrorFocused,
+.formCellErrorFocusedOver {
+    outline: none;
+    color: $formItem_focused_color;
+    border-color: $formItem_focused_border_color;
+    background-color: $formItem_focused_bgColor;
+    @include box-shadow($formItem_focused_shadow);
+}
+
+.formCellErrorFocusedOver {
+    outline: none;
+    @include box-shadow($formItem_focused_over_shadow);
+    border: $formItem_focused_over_border;
+}
+/* end formCell */
+
+/* formHint styles */
 .formHint,
 .formHintRTL,
 .formHintOver,
 .formHintOverRTL,
 .formHintDisabled,
 .formHintDisabledRTL,
+.formHintError,
+.formHintErrorRTL,
+.formHintErrorOver,
+.formHintErrorOverRTL,
+.formHintErrorDisabled,
+.formHintErrorDisabledRTL {
+    background-color: transparent;
+    color: $formItem_hint_color;
+    font: {
+        family: $formItem_hint_font;
+        size: $formItem_hint_font_size;
+    }
+    padding: $formItem_hint_padding;
+}
 
+.formHintError,
+.formHintErrorRTL,
+.formHintErrorOver,
+.formHintErrorOverRTL,
+.formHintErrorDisabled,
+.formHintErrorDisabledRTL {
+    color: $formItem_hint_error_color;
+}
+
+/* formHint disabled */
+.formHintDisabled,
+.formHintDisabledRTL,
+.formHintErrorDisabled,
+.formHintErrorDisabledRTL {
+    color: $default_disabled_text_color
+}
+
+/* end formHint */
+
+/* headerItem */
 .headerItem,
 .headerItemRTL,
 .headerItemOver,
@@ -2851,7 +3644,17 @@ a:visited { color: $link_visited_color;}
 .headerItemDisabled,
 .headerItemDisabledRTL,
 .headerItemError,
-.headerItemErrorRTL,
+.headerItemErrorRTL {
+	color: $headerItem_color;
+    font: {
+        family: $formItem_font; 
+        size: $standard_header_font_size; 
+        weight: $standard_header_font_weight;
+    }
+    background-color: transparent;
+}
+/* end headerItem */
+
 
 .nativeSelectItem,
 .nativeSelectItemRTL,
@@ -2873,35 +3676,20 @@ a:visited { color: $link_visited_color;}
 .nativeSelectItemErrorFocusedOverRTL,
 .nativeSelectItemPending,
 .nativeSelectItemPendingRTL,
+.nativeSelectItemPendingOver,
+.nativeSelectItemPendingOverRTL,
 .nativeSelectItemPendingFocused,
 .nativeSelectItemPendingFocusedRTL,
+.nativeSelectItemPendingFocusedOver,
+.nativeSelectItemPendingFocusedOverRTL,
 .nativeSelectItemPendingDisabled,
 .nativeSelectItemPendingDisabledRTL,
 .nativeSelectItemPendingError,
-.nativeSelectItemPendingErrorRTL,
-
-.uploadItem,
-.uploadItemRTL,
-.uploadItemFocused,
-.uploadItemFocusedRTL,
-.uploadItemDisabled,
-.uploadItemDisabledRTL,
-.uploadItemError,
-.uploadItemErrorRTL,
-.uploadItemPending,
-.uploadItemPendingRTL,
-.uploadItemPendingFocused,
-.uploadItemPendingFocusedRTL,
-.uploadItemPendingDisabled,
-.uploadItemPendingDisabledRTL,
-.uploadItemPendingError,
-.uploadItemPendingErrorRTL,
-.uploadItemHint,
-.uploadItemHintRTL,
-.uploadItemDisabledHint,
-.uploadItemDisabledHintRTL {
+.nativeSelectItemPendingErrorRTL {
+    padding: 3px 1px;
     background-color: transparent;
     color: $formItem_color;
+    outline: none;
     font: {
         family: $formItem_font;
         size: $formItem_font_size;
@@ -2938,10 +3726,53 @@ a:visited { color: $link_visited_color;}
 .staticTextItemPendingDisabledRTL,
 .staticTextItemPendingError,
 .staticTextItemPendingErrorRTL {
+    padding-right: 3px;
     background-color: transparent;
-    //padding: $formItem_padding;
-    border: $standard_transparent_border;
     color: $formItem_color;
+    outline: none;
+    font: {
+        family: $formItem_font;
+        size: $formItem_font_size;
+    }
+}
+
+
+.staticTextItemLite,
+.staticTextItemLiteRTL,
+.staticTextItemLiteOver,
+.staticTextItemLiteOverRTL,
+.staticTextItemLiteFocused,
+.staticTextItemLiteFocusedRTL,
+.staticTextItemLiteFocusedOver,
+.staticTextItemLiteFocusedOverRTL,
+.staticTextItemLiteDisabled,
+.staticTextItemLiteDisabledRTL,
+.staticTextItemLiteError,
+.staticTextItemLiteErrorRTL,
+.staticTextItemLiteErrorOver,
+.staticTextItemLiteErrorOverRTL,
+.staticTextItemLiteErrorFocused,
+.staticTextItemLiteErrorFocusedRTL,
+.staticTextItemLiteErrorFocusedOver,
+.staticTextItemLiteErrorFocusedOverRTL,
+.staticTextItemLitePending,
+.staticTextItemLitePendingRTL,
+.staticTextItemLitePendingOver,
+.staticTextItemLitePendingOverRTL,
+.staticTextItemLitePendingFocused,
+.staticTextItemLitePendingFocusedRTL,
+.staticTextItemLitePendingFocusedOver,
+.staticTextItemLitePendingFocusedOverRTL,
+.staticTextItemLitePendingDisabled,
+.staticTextItemLitePendingDisabledRTL,
+.staticTextItemLitePendingError,
+.staticTextItemLitePendingErrorRTL {
+    border: $standard_transparent_border; 
+    padding: $formItem_padding;
+    //padding-right: 3px;
+    background-color: transparent;
+    color: $formItem_color;
+    outline: none;
     font: {
         family: $formItem_font;
         size: $formItem_font_size;
@@ -3011,77 +3842,12 @@ a:visited { color: $link_visited_color;}
     background-color: $pickList_cell_bgColor;
     color: $pickList_cell_color;
     font: {
-        family: $primary_font;
-        size: $standard_font_size;
+        family: $pickList_cell_font;
+        size: $pickList_cell_font_size;
     }
     /*padding: 7px 9px; this setting affects the checkbox in selects*/
-    padding-bottom: $pickList_cell_paddingBottom;
-}
-
-.formTitle,
-.formTitleRTL,
-.formTitleFocused,
-.formTitleFocusedRTL,
-.formTitlePending,
-.formTitlePendingRTL,
-.formTitlePendingFocused,
-.formTitlePendingFocusedRTL {
-    color: $form_title_color;
-}
-
-.formTitleDisabled,
-.formTitleDisabledRTL,
-.formTitleErrorDisabled,
-.formTitleErrorDisabledRTL,
-.formTitlePendingDisabled,
-.formTitlePendingDisabledRTL {
-	color: $default_disabled_text_color;
-}
-
-.formTitleError,
-.formTitleErrorRTL,
-.formTitleErrorFocused,
-.formTitleErrorFocusedRTL,
-.formTitleErrorFocusedOver,
-.formTitleErrorFocusedOverRTL,
-.formTitleErrorDisabled,
-.formTitleErrorDisabledRTL,
-.formTitlePendingError,
-.formTitlePendingErrorRTL {
-    color: $formItem_error_color; 
-    font-weight: bold; 
-}
-
-.formTitleErrorDisabled,
-.formTitleErrorDisabledRTL {
-	color: $default_disabled_text_color;
-}
-
-.formTitleDisabledError,
-.formTitleDisabledErrorRTL {
-	color: $default_disabled_text_color;
-}
-
-.formCellError,
-.formCellErrorRTL,
-.formCellPendingError,
-.formCellPendingErrorRTL {
-    color: $formItem_error_color; 
-}
-
-.formCellErrorDisabled,
-.formCellErrorDisabledRTL {
-    color: $formItem_disabled_color; 
-}
-
-.formHint,
-.formHintRTL,
-.formHintOver,
-.formHintOverRTL,
-.formHintDisabled,
-.formHintDisabledRTL {
-    color: $formItem_hint_color;
-    padding: $formItem_hint_padding;
+    /* padding-bottom: $pickList_cell_padding; */
+    padding: $pickList_cell_padding;
 }
 
 /* Allow for nested forms to lie flush against the left-hand edge of the containing form */
@@ -3096,23 +3862,6 @@ a:visited { color: $link_visited_color;}
 .nestedFormContainerDisabledRTL,
 .nestedFormContainerErrorRTL {
     padding-right: 0px;
-}
-
-/* headerItem */
-.headerItem,
-.headerItemRTL,
-.headerItemOver,
-.headerItemOverRTL,
-.headerItemDisabled,
-.headerItemDisabledRTL,
-.headerItemError,
-.headerItemErrorRTL {
-	color: $headerItem_color;
-    font: {
-        family: $primary_font; 
-        size: $standard_header_font_size; 
-        weight: $standard_header_font_weight;
-    }
 }
 
 .nativeSelectItemRTL[multiple] {
@@ -3158,7 +3907,7 @@ a:visited { color: $link_visited_color;}
     color: $formItem_color;
     
     font: {
-        family: $primary_font;
+        family: $formItem_font;
         size: $formItem_font_size;
     }
     -o-text-overflow: ellipsis;
@@ -3170,7 +3919,8 @@ a:visited { color: $link_visited_color;}
     @include input-placeholder {
         // We use the same lightness as Bootstrap’s default placeholder color (HSL(0, 0%, 60%)).
         // See: http://getbootstrap.com/components/#input-groups-basic
-        color: hsl(212, 53%, 60%);
+        //color: hsl(212, 53%, 60%);
+        color: $formItem_hint_color;
         // Firefox 19+ applies an opacity of 0.4. Revert this.
         // https://developer.mozilla.org/en-US/docs/Web/CSS/::-moz-placeholder
         // https://bugzilla.mozilla.org/show_bug.cgi?id=556145
@@ -3187,10 +3937,11 @@ a:visited { color: $link_visited_color;}
 .pickerSearchBoxDisabledHintRTL {
     background-color: $formItem_disabled_bgColor;
     border: $formItem_border;
+    -webkit-text-fill-color: $formItem_disabled_color;
     color: $formItem_disabled_color;
 
     @include input-placeholder {
-        color: $default_border_dark_color;
+        color: $formItem_hint_color;
         opacity: $formItem_opacity;
         text-overflow: ellipsis;
     }
@@ -3232,18 +3983,33 @@ a:visited { color: $link_visited_color;}
 }
 /* end pickerSearchBox */
 
+/* uploadItem - only select parts can be styled */
 .uploadItem,
 .uploadItemRTL,
+.uploadItemOver,
+.uploadItemOverRTL,
 .uploadItemFocused,
 .uploadItemFocusedRTL,
+.uploadItemFocusedOver,
+.uploadItemFocusedOverRTL,
 .uploadItemDisabled,
 .uploadItemDisabledRTL,
 .uploadItemError,
 .uploadItemErrorRTL,
+.uploadItemErrorOver,
+.uploadItemErrorOverRTL,
+.uploadItemErrorFocused,
+.uploadItemErrorFocusedRTL,
+.uploadItemErrorFocusedOver,
+.uploadItemErrorFocusedOverRTL,
 .uploadItemPending,
 .uploadItemPendingRTL,
+.uploadItemPendingOver,
+.uploadItemPendingOverRTL,
 .uploadItemPendingFocused,
 .uploadItemPendingFocusedRTL,
+.uploadItemPendingFocusedOver,
+.uploadItemPendingFocusedOverRTL,
 .uploadItemPendingDisabled,
 .uploadItemPendingDisabledRTL,
 .uploadItemPendingError,
@@ -3252,22 +4018,37 @@ a:visited { color: $link_visited_color;}
 .uploadItemHintRTL,
 .uploadItemDisabledHint,
 .uploadItemDisabledHintRTL {
-    margin: 0;
-    border: $uploadItem_border;
-    padding: $uploadItem_padding;
     // FIXME White background in IE10+
     // IE makes the background color gray by default. In IE9 and earlier, setting
     // the background to white will set the background color of the text box to
     // white, but this does not work in IE10+.
     // Setting the background to an all-white PNG image does not work, either.
     // http://stackoverflow.com/questions/29371245/how-to-set-the-background-color-of-a-file-input-in-ie10
+    background-color: transparent;
     background-color: $uploadItem_bgColor;
-    color: $standard_color;
+    color: $formItem_color;
+    border: $uploadItem_border;
+    font: {
+        family: $formItem_font;
+        size: $formItem_font_size;
+    }
+    padding: $uploadItem_padding;
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
     -webkit-appearance: none;
+    margin: 0;
 
     // no placeholder because <input type="file"> does not support the placeholder attribute
+}
+
+.uploadItemDisabled,
+.uploadItemDisabledRTL,
+.uploadItemPendingDisabled,
+.uploadItemPendingDisabledRTL,
+.uploadItemDisabledHint,
+.uploadItemDisabledHintRTL {
+    -webkit-text-fill-color: $formItem_disabled_color;
+    color: $formItem_disabled_color;
 }
 
 
@@ -3280,6 +4061,7 @@ a:visited { color: $link_visited_color;}
 .staticTextItemDisabledRTL,
 .staticTextItemPendingDisabled,
 .staticTextItemPendingDisabledRTL {
+    -webkit-text-fill-color: $formItem_disabled_color;
     color: $formItem_disabled_color;
 }
 
@@ -3295,12 +4077,14 @@ a:visited { color: $link_visited_color;}
 select:disabled,
 optgroup:disabled,
 option:disabled {
+    -webkit-text-fill-color: $formItem_disabled_color;
     color: $formItem_disabled_color;
 }
 
 
 select[disabled],
 select[disabled] option {
+    -webkit-text-fill-color: $formItem_disabled_color;
     color: $formItem_disabled_color;
 }
 
@@ -3332,16 +4116,6 @@ option:checked {
 }
 
 
-.uploadItemDisabled,
-.uploadItemDisabledRTL,
-.uploadItemPendingDisabled,
-.uploadItemPendingDisabledRTL,
-.uploadItemDisabledHint,
-.uploadItemDisabledHintRTL {
-    color: $formItem_disabled_color;
-}
-
-
 /* selectItemPickerIcon */
 .selectItemPickerIcon,
 .selectItemPickerIconOver,
@@ -3359,8 +4133,7 @@ option:checked {
 .selectItemPickerIconErrorFocusedRTL,
 .selectItemPickerIconErrorFocusedOver,
 .selectItemPickerIconErrorFocusedOverRTL {
-    padding-left: 2px;
-    padding-right: 2px;
+    padding: $pickerIcon_padding;
     border-left: $pickerIcon_left_border;
 }
 
@@ -3396,6 +4169,19 @@ option:checked {
     display: inline-block;
     background-position: 0px 0px;
     background: $combobox_item_picker_disabled_icon no-repeat;
+}
+
+.comboBoxItemPickerError,
+.comboBoxItemPickerErrorOver,
+.comboBoxItemPickerErrorFocused,
+.comboBoxItemPickerErrorFocusedOver,
+.comboBoxItemPickerErrorrtl,
+.comboBoxItemPickerErrorOverrtl,
+.comboBoxItemPickerErrorFocusedrtl,
+.comboBoxItemPickerErrorFocusedOver {
+    display: inline-block;
+    background-position: 0px 0px;
+    background: $combobox_item_picker_error_icon no-repeat;
 }
 
 /* Minimalist appearance text based items. Includes ComboBoxItem, SelectItem and SpinnerItem */
@@ -3439,35 +4225,6 @@ option:checked {
 .textItemLiteDisabledHint,
 .textItemLiteDisabledHintRTL,
 
-.staticTextItemLite,
-.staticTextItemLiteRTL,
-.staticTextItemLiteOver,
-.staticTextItemLiteOverRTL,
-.staticTextItemLiteFocused,
-.staticTextItemLiteFocusedRTL,
-.staticTextItemLiteFocusedOver,
-.staticTextItemLiteFocusedOverRTL,
-.staticTextItemLiteDisabled,
-.staticTextItemLiteDisabledRTL,
-.staticTextItemLiteError,
-.staticTextItemLiteErrorRTL,
-.staticTextItemLitePending,
-.staticTextItemLitePendingRTL,
-.staticTextItemLitePendingOver,
-.staticTextItemLitePendingOverRTL,
-.staticTextItemLitePendingFocused,
-.staticTextItemLitePendingFocusedRTL,
-.staticTextItemLitePendingFocusedOver,
-.staticTextItemLitePendingFocusedOverRTL,
-.staticTextItemLitePendingDisabled,
-.staticTextItemLitePendingDisabledRTL,
-.staticTextItemLitePendingError,
-.staticTextItemLitePendingErrorRTL,
-.staticTextItemLiteHint,
-.staticTextItemLiteHintRTL,
-.staticTextItemLiteDisabledHint,
-.staticTextItemLiteDisabledHintRTL,
-
 .selectItemLiteText,
 .selectItemLiteTextRTL,
 .selectItemLiteTextFocused,
@@ -3492,6 +4249,7 @@ option:checked {
 .selectItemLiteTextHintRTL,
 .selectItemLiteTextDisabledHint,
 .selectItemLiteTextDisabledHintRTL,
+
 
 .textAreaItemLite,
 .textAreaItemLiteRTL,
@@ -3533,6 +4291,7 @@ option:checked {
     font-family: $formItem_font;
     font-size: $formItem_font_size;
     padding: $formItem_padding;
+    //line-height: $formItem_lineHeight;
     outline: none;
     text-decoration: none;
     @include border-radius($formItem_border_radius);
@@ -3567,9 +4326,14 @@ option:checked {
 .selectItemLiteTextDisabledHintRTL {
     outline: none;
     border: none;
+    padding-left: 0px;
     padding-right: 0px;
     background-color: $transparent_background_from_rgba;
     background-color: $transparent_background_for_ie;
+}
+.selectItemLiteTextHintError,
+.selectItemLiteTextHintErrorRTL {
+    color: $formItem_hint_error_color;
 }
 
 /* borders and padding for minimalist text-based items */
@@ -3601,43 +4365,6 @@ option:checked {
 .textItemLiteHintRTL,
 .textItemLiteDisabledHint,
 .textItemLiteDisabledHintRTL,
-
-.selectItemLiteControl,
-.selectItemLiteControlRTL,
-.selectItemLiteControlOver,
-.selectItemLiteControlOverRTL,
-.selectItemLiteControlFocused,
-.selectItemLiteControlFocusedRTL,
-.selectItemLiteControlFocusedOver,
-.selectItemLiteControlFocusedOverRTL,
-.selectItemLiteControlDisabled,
-.selectItemLiteControlDisabledRTL,
-.selectItemLiteControlError,
-.selectItemLiteControlErrorRTL,
-.selectItemLiteControlErrorOver,
-.selectItemLiteControlErrorOverRTL,
-.selectItemLiteControlErrorFocused,
-.selectItemLiteControlErrorFocusedRTL,
-.selectItemLiteControlErrorFocusedOver,
-.selectItemLiteControlErrorFocusedOverRTL,
-.selectItemLiteControlErrorDisabled,
-.selectItemLiteControlErrorDisabledRTL,
-.selectItemLiteControlPending,
-.selectItemLiteControlPendingRTL,
-.selectItemLiteControlPendingOver,
-.selectItemLiteControlPendingOverRTL,
-.selectItemLiteControlPendingFocused,
-.selectItemLiteControlPendingFocusedRTL,
-.selectItemLiteControlPendingFocusedOver,
-.selectItemLiteControlPendingFocusedOverRTL,
-.selectItemLiteControlPendingDisabled,
-.selectItemLiteControlPendingDisabledRTL,
-.selectItemLiteControlPendingError,
-.selectItemLiteControlPendingErrorRTL,
-.selectItemLiteControlHint,
-.selectItemLiteControlHintRTL,
-.selectItemLiteControlDisabledHint,
-.selectItemLiteControlDisabledHintRTL,
 
 .nativeSelectItem,
 .nativeSelectItemRTL,
@@ -3675,6 +4402,62 @@ option:checked {
 .textAreaItemLiteDisabledHint,
 .textAreaItemLiteDisabledHintRTL {
     border: $formItem_border;
+    @include box-shadow($formItem_shadow);
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    background-color: $formItem_bgColor;
+    @include border-radius($formItem_border_radius);
+}
+
+/* selectItemLiteControl */
+.selectItemLiteControl,
+.selectItemLiteControlOver,
+.selectItemLiteControlFocused,
+.selectItemLiteControlFocusedOver,
+.selectItemLiteControlDisabled,
+.selectItemLiteControlError,
+.selectItemLiteControlErrorOver,
+.selectItemLiteControlErrorFocused,
+.selectItemLiteControlErrorFocusedOver,
+.selectItemLiteControlErrorDisabled,
+.selectItemLiteControlPending,
+.selectItemLiteControlPendingOver,
+.selectItemLiteControlPendingFocused,
+.selectItemLiteControlPendingFocusedOver,
+.selectItemLiteControlPendingDisabled,
+.selectItemLiteControlPendingError,
+.selectItemLiteControlHint,
+.selectItemLiteControlDisabledHint {
+    border: $formItem_border;
+    padding: $formItem_padding;
+    padding-right: 0px;
+    @include box-shadow($formItem_shadow);
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    background-color: $formItem_bgColor;
+    @include border-radius($formItem_border_radius);
+}
+
+/* selectItemLiteControl RTL - icon padding, basically */
+.selectItemLiteControlRTL,
+.selectItemLiteControlOverRTL,
+.selectItemLiteControlFocusedRTL,
+.selectItemLiteControlFocusedOverRTL,
+.selectItemLiteControlDisabledRTL,
+.selectItemLiteControlErrorRTL,
+.selectItemLiteControlErrorOverRTL,
+.selectItemLiteControlErrorFocusedRTL,
+.selectItemLiteControlErrorFocusedOverRTL,
+.selectItemLiteControlErrorDisabledRTL,
+.selectItemLiteControlPendingRTL,
+.selectItemLiteControlPendingOverRTL,
+.selectItemLiteControlPendingFocusedRTL,
+.selectItemLiteControlPendingFocusedOverRTL,
+.selectItemLiteControlPendingDisabledRTL,
+.selectItemLiteControlPendingErrorRTL,
+.selectItemLiteControlHintRTL,
+.selectItemLiteControlDisabledHintRTL {
+    border: $formItem_border;
+    padding: $formItem_padding;
+    padding-left: 0px;
     @include box-shadow($formItem_shadow);
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     background-color: $formItem_bgColor;
@@ -3719,11 +4502,7 @@ option:checked {
 .textAreaItemLitePendingFocused,
 .textAreaItemLitePendingFocusedRTL,
 .textAreaItemLitePendingFocusedOver,
-.textAreaItemLitePendingFocusedOverRTL,
-
-.formCellErrorFocused,
-.formCellErrorFocusedOver
-
+.textAreaItemLitePendingFocusedOverRTL
 
 {
     outline: none;
@@ -3774,9 +4553,7 @@ option:checked {
 .nativeSelectItemPendingOver,
 .nativeSelectItemPendingOverRTL,
 .nativeSelectItemPendingFocusedOver,
-.nativeSelectItemPendingFocusedOverRTL
-
-{
+.nativeSelectItemPendingFocusedOverRTL {
     @include box-shadow($formItem_over_shadow);
     border: $formItem_over_border;
     background-color: $formItem_over_bgColor;
@@ -3810,11 +4587,7 @@ option:checked {
 .selectItemLiteControlPendingFocusedOverRTL,
 
 .nativeSelectItemErrorFocusedOver,
-.nativeSelectItemErrorFocusedOverRTL,
-
-.formCellErrorFocusedOver
-
-{
+.nativeSelectItemErrorFocusedOverRTL {
     outline: $select_item_lite_control_focused_outline;
     @include box-shadow($formItem_focused_over_shadow);
     border: $formItem_focused_over_border;
@@ -3864,6 +4637,7 @@ option:checked {
     color: $pending_value_color;
 }
 .selectItemLiteMultiValuePendingDisabled {
+    -webkit-text-fill-color: $formItem_disabled_color;
     color: $formItem_disabled_color;
 }
 
@@ -3901,6 +4675,7 @@ option:checked {
 .textAreaItemLiteErrorDisabledHintRTL {
     background-color: $formItem_disabled_bgColor;
     border: $formItem_disabled_border;
+    -webkit-text-fill-color: $formItem_disabled_color;
     color: $formItem_disabled_color;
 }
 
@@ -3931,11 +4706,13 @@ option:checked {
 .textAreaItemLiteDisabledHintRTL,
 .textAreaItemLiteErrorDisabled,
 .textAreaItemLiteErrorDisabledRTL {
+    -webkit-text-fill-color: $formItem_disabled_color;
     color: $formItem_disabled_color;
     background-color: $formItem_disabled_bgColor;
 
     @include input-placeholder {
-        color: $default_border_dark_color;
+        -webkit-text-fill-color: $default_disabled_text_color;
+        color: $default_disabled_text_color;
         opacity: $formItem_opacity;
         text-overflow: ellipsis;
     }
@@ -3956,10 +4733,46 @@ option:checked {
 // error state - normal only
 .textItemLiteError,
 .textItemLiteErrorRTL,
+.textItemLiteErrorOver,
+.textItemLiteErrorOverRTL,
+.textItemLiteErrorFocused,
+.textItemLiteErrorFocusedRTL,
+.textItemLiteErrorFocusedOver,
+.textItemLiteErrorFocusedOverRTL,
+.textItemLiteErrorDisabled,
+.textItemLiteErrorDisabledRTL,
 
-.selectItemLiteError,
-.selectItemLiteErrorRTL,
- 
+.nativeSelectItemLiteError,
+.nativeSelectItemLiteErrorRTL,
+.nativeSelectItemLiteErrorOver,
+.nativeSelectItemLiteErrorOverRTL,
+.nativeSelectItemLiteErrorFocused,
+.nativeSelectItemLiteErrorFocusedRTL,
+.nativeSelectItemLiteErrorFocusedOver,
+.nativeSelectItemLiteErrorFocusedOverRTL,
+.nativeSelectItemLiteErrorDisabled,
+.nativeSelectItemLiteErrorDisabledRTL,
+
+.textAreaItemLiteError,
+.textAreaItemLiteErrorRTL,
+.textAreaItemLiteErrorOver,
+.textAreaItemLiteErrorOverRTL,
+.textAreaItemLiteErrorFocused,
+.textAreaItemLiteErrorFocusedRTL,
+.textAreaItemLiteErrorFocusedOver,
+.textAreaItemLiteErrorFocusedOverRTL,
+.textAreaItemLiteErrorDisabled,
+.textAreaItemLiteErrorDisabledRTL {
+    color: $formItem_value_error_color;
+    @include input-placeholder {
+        color: $formItem_value_error_color;
+        opacity: $formItem_opacity;
+        text-overflow: ellipsis;
+    }
+}
+
+.textItemLiteError,
+.textItemLiteErrorRTL,
 
 .nativeSelectItemLiteError,
 .nativeSelectItemLiteErrorRTL,
@@ -3969,6 +4782,34 @@ option:checked {
     border: $formItem_error_border;
 }
 
+/* SelectItem text */
+.selectItemLiteTextError,
+.selectItemLiteTextErrorRTL,
+.selectItemLiteTextErrorOver,
+.selectItemLiteTextErrorOverRTL,
+.selectItemLiteTextErrorOverHint,
+.selectItemLiteTextErrorOverHintRTL,
+.selectItemLiteTextErrorFocused,
+.selectItemLiteTextErrorFocusedRTL,
+.selectItemLiteTextErrorFocusedHint,
+.selectItemLiteTextErrorFocusedHintRTL,
+.selectItemLiteTextErrorFocusedOver,
+.selectItemLiteTextErrorFocusedOverRTL,
+.selectItemLiteTextErrorFocusedOverHint,
+.selectItemLiteTextErrorFocusedOverHintRTL,
+.selectItemLiteTextErrorHint,
+.selectItemLiteTextErrorHintRTL,
+.selectItemLiteTextErrorDisabled,
+.selectItemLiteTextErrorDisabledRTL {
+    border: none;
+    color: $formItem_value_error_color;
+    font-family: $formItem_font;
+    font-size: $formItem_font_size;
+    line-height: $formItem_lineHeight;
+    outline: none;
+    text-decoration: none;
+    padding: $formItem_padding;
+}
 
 /* sprited minimalist Select / ComboBoxItem picker */
 
@@ -4288,6 +5129,7 @@ option:checked {
     color: $formItem_color;
     font-family: $formItem_font; 
     font-size: $formItem_font_size;
+    vertical-align: middle;
     text-decoration: none;
     outline: none;
 }
@@ -4311,7 +5153,9 @@ option:checked {
 .pickListCellPendingSelectedOverDark,
 .pickListCellPendingSelectedOverDarkRTL,
 .pickListCellPendingDisabledDark,
-.pickListCellPendingDisabledDarkRTL,
+.pickListCellPendingDisabledDarkRTL {
+    color: $pending_value_color;
+}
 
 .labelAnchorPending,
 .labelAnchorPendingOver,
@@ -4332,6 +5176,7 @@ option:checked {
 .labelAnchorDisabledRTL,
 .labelAnchorPendingDisabled,
 .labelAnchorPendingDisabledRTL {
+    -webkit-text-fill-color: $formItem_disabled_color;
     color: $formItem_disabled_color;
 }
 
@@ -4392,8 +5237,10 @@ option:checked {
 .checkboxUnset,
 .checkboxUnsetOver,
 .checkboxUnsetDown {
-    min-height: 25px;
+    //min-height: 25px;
+    //min-width: 25px;
     display: inline-block;
+    vertical-align: middle;
     background-position: 0px 0px;
 }
 
@@ -4464,7 +5311,6 @@ option:checked {
 .checkboxPartialDown {
     background: url(./images/DynamicForm/cb-anything-focus.png) no-repeat;
 }
-
 
 .radioTrueDisabled,
 .radioTrue,
@@ -4638,6 +5484,7 @@ option:checked {
 .nativeDatetimeItemDisabled,
 .nativeDatetimeItemDisabledHint::-webkit-calendar-picker-indicator,
 .nativeDatetimeItemInFieldHintDisabled {
+    -webkit-text-fill-color: $formItem_disabled_color;
     color: $formItem_disabled_color;
 }
 
@@ -4699,7 +5546,7 @@ option:checked {
         family: $listGrid_cell_font;
     }
     color: $listGrid_cell_color;
-    padding-left: $listGrid_cell_paddingLeft;
+    padding: $listGrid_cell_padding;
     border: none;
     border-bottom: $listGrid_row_border;
     border-right: $listGrid_cell_border;
@@ -4714,7 +5561,7 @@ option:checked {
         family: $listGrid_cell_font;
     }
     color: $listGrid_cell_disabled_color;
-    padding-left: $listGrid_cell_paddingLeft;
+    padding: $listGrid_cell_padding;
     border: none;
     border-bottom: $listGrid_row_border;
     border-right: $listGrid_cell_border;
@@ -4722,6 +5569,27 @@ option:checked {
     cursor: not-allowed;
 }
 
+.ruleScopeSelectionTitleCell {
+    background-color: $treeGrid_cell_disabled_bgColor;
+    font: {
+        size: $treeGrid_cell_font_size;
+        family: $treeGrid_cell_font;
+    }
+    color: $treeGrid_cell_color;
+    padding: $treeGrid_cell_padding;
+    text-overflow: ellipsis;
+}
+
+.ruleScopeSelectionTitleCellSource {
+    background-color: $treeGrid_cell_disabled_bgColor;
+    font: {
+        size: $treeGrid_cell_font_size;
+        family: $treeGrid_cell_font;
+    }
+    color: $treeGrid_cell_disabled_color;
+    padding: $treeGrid_cell_padding;
+    text-overflow: ellipsis;
+}
 
 /*============================================================
      DateChooser
@@ -4779,18 +5647,6 @@ option:checked {
 .dateChooserWeekCellSelectedDown,
 .dateChooserWeekCellSelectedOver,
 .dateChooserWeekCellSelectedDisabled,
-.dateChooserDisabledWeekday,
-.dateChooserDisabledWeekdayOver,
-.dateChooserDisabledWeekdayDown,
-.dateChooserDisabledWeekdaySelected,
-.dateChooserDisabledWeekdaySelectedDown,
-.dateChooserDisabledWeekdaySelectedOver,
-.dateChooserDisabledWeekend,
-.dateChooserDisabledWeekendOver,
-.dateChooserDisabledWeekendDown,
-.dateChooserDisabledWeekendSelected,
-.dateChooserDisabledWeekendSelectedDown,
-.dateChooserDisabledWeekendSelectedOver,
 .dateChooserSelectedWeek,
 .dateChooserSelectedWeekOver,
 .dateChooserSelectedWeekDown,
@@ -4803,8 +5659,8 @@ option:checked {
     color: $dateChooser_header_text_color;
     border: $dateChooser_cell_border;
     font: {
-        family: $dateChooser_font; 
-        size: $standard_font_size;
+        family: $dateChooser_font;
+        size: $dateChooser_font_size;
     }
 }
 
@@ -4828,39 +5684,6 @@ option:checked {
     background-color: $dateChooser_cell_bgColor;
 }
 
-.dateChooserNavButton,
-.dateChooserNavButtonOver,
-.dateChooserNavButtonDown,
-.dateChooserNavButtonSelected,
-.dateChooserNavButtonSelectedOver,
-.dateChooserNavButtonSelectedDown,
-.dateChooserNavButtonFocused,
-.dateChooserNavButtonFocusedOver,
-.dateChooserNavButtonFocusedDown,
-.dateChooserNavButtonDisabled {
-    background-color: $dateChooser_navButton_bgColor;
-    color: $dateChooser_navButton_color;
-    font: {
-        family: $dateChooser_font; 
-        size: $standard_font_size;
-    }
-}
-
-/* year/month buttons */
-.dateChooserNavButton,
-.dateChooserNavButtonOver,
-.dateChooserNavButtonDown,
-.dateChooserNavButtonSelected,
-.dateChooserNavButtonSelectedOver,
-.dateChooserNavButtonSelectedDown,
-.dateChooserNavButtonFocused,
-.dateChooserNavButtonFocusedOver,
-.dateChooserNavButtonFocusedDown {
-    border-bottom: none;
-    border-top: none;
-    cursor: pointer;
-    padding: 2px;
-}
 
 /* for all buttons, plus weekday headers (dateChooserButton) */
 .dateChooserButton,
@@ -4874,18 +5697,10 @@ option:checked {
 .dateChooserWeekendButtonDown,
 .dateChooserWeekendButtonSelected,
 .dateChooserWeekendButtonSelectedOver,
-.dateChooserWeekendButtonSelectedDown,
-.dateChooserNavButton,
-.dateChooserNavButtonOver,
-.dateChooserNavButtonDown,
-.dateChooserNavButtonSelected,
-.dateChooserNavButtonSelectedOver,
-.dateChooserNavButtonSelectedDown,
-.dateChooserNavButtonFocused,
-.dateChooserNavButtonFocusedOver,
-.dateChooserNavButtonFocusedDown {
+.dateChooserWeekendButtonSelectedDown {
     font-weight: $standard_header_font_weight;
 }
+
 .dateChooserButton,
 .dateChooserButtonOver,
 .dateChooserButtonDown,
@@ -4900,18 +5715,6 @@ option:checked {
 .dateChooserWeekendButtonSelectedDown {
     color: $dateChooser_header_text_color;
 }
-.dateChooserNavButton,
-.dateChooserNavButtonOver,
-.dateChooserNavButtonDown,
-.dateChooserNavButtonSelected,
-.dateChooserNavButtonSelectedOver,
-.dateChooserNavButtonSelectedDown,
-.dateChooserNavButtonFocused,
-.dateChooserNavButtonFocusedOver,
-.dateChooserNavButtonFocusedDown {
-    background-color: $dateChooser_navButton_bgColor;
-    color: $dateChooser_navButton_color;
-}
 
 .dateChooserButtonOver,
 .dateChooserButtonDown {
@@ -4924,41 +5727,8 @@ option:checked {
 .dateChooserWeekendButtonDown,
 .dateChooserWeekendButtonSelected,
 .dateChooserWeekendButtonSelectedOver,
-.dateChooserWeekendButtonSelectedDown,
-.dateChooserDisabledWeekend,
-.dateChooserDisabledWeekendOver,
-.dateChooserDisabledWeekendDown,
-.dateChooserDisabledWeekendSelected,
-.dateChooserDisabledWeekendSelectedDown,
-.dateChooserDisabledWeekendSelectedOver {
+.dateChooserWeekendButtonSelectedDown {
     background-color: $dateChooser_weekend_bgColor;
-}
-
-.dateChooserNavButtonOver,
-.dateChooserNavButtonDown,
-.dateChooserNavButtonFocused,
-.dateChooserNavButtonFocusedOver,
-.dateChooserNavButtonFocusedDown {
-    color: $dateChooser_navButton_over_color;
-}
-
-.dateChooserDisabledWeekday,
-.dateChooserDisabledWeekdayOver,
-.dateChooserDisabledWeekdayDown,
-.dateChooserDisabledWeekdaySelected,
-.dateChooserDisabledWeekdaySelectedDown,
-.dateChooserDisabledWeekdaySelectedOver {
-    color: $dateChooser_cell_disabled_color;
-}
-
-.dateChooserDisabledWeekend,
-.dateChooserDisabledWeekendOver,
-.dateChooserDisabledWeekendDown,
-.dateChooserDisabledWeekendSelected,
-.dateChooserDisabledWeekendSelectedDown,
-.dateChooserDisabledWeekendSelectedOver {
-  color: $dateChooser_cell_disabled_color;
-  border: $dateChooser_weekend_border;
 }
 
 .dateChooserSelectedWeek,
@@ -5015,10 +5785,8 @@ option:checked {
 
 /* selected/over date-cell styling */
 .dateChooserWeekdaySelectedOver,
-.dateChooserWeekendSelectedOver,
-.dateChooserDisabledWeekdaySelectedOver,
-.dateChooserDisabledWeekendSelectedOver {
-    background-color: $dateChooser_cell_over_bgColor; 
+.dateChooserWeekendSelectedOver {
+    background-color: $dateChooser_cell_selected_bgColor; 
     color: $dateChooser_cell_over_color; 
     border: $dateChooser_cell_over_border;
     @include border-radius($dateChooser_cell_border_radius);
@@ -5029,23 +5797,62 @@ option:checked {
 .dateChooserWeekdaySelectedDown,
 .dateChooserWeekendSelected,
 .dateChooserWeekendDown,
-.dateChooserWeekendSelectedDown,
-/* disabled selected/over date-cells */
-.dateChooserDisabledWeekdayDown,
-.dateChooserDisabledWeekdaySelected,
-.dateChooserDisabledWeekdaySelectedDown,
-.dateChooserDisabledWeekendDown,
-.dateChooserDisabledWeekendSelected,
-.dateChooserDisabledWeekendSelectedDown {
+.dateChooserWeekendSelectedDown {
     background-color: $dateChooser_cell_selected_bgColor; 
     color: $dateChooser_cell_selected_color; 
     @include border-radius($dateChooser_cell_border_radius);
 }
 
-.dateChooserWeekdayDown,
-.dateChooserWeekendDown {
-	font-weight: normal;
+/* dateChooser disabled weekday cells */
+.dateChooserDisabledWeekday,
+.dateChooserDisabledWeekdayOver,
+.dateChooserDisabledWeekdayDown,
+.dateChooserDisabledWeekdaySelected,
+.dateChooserDisabledWeekdaySelectedDown,
+.dateChooserDisabledWeekdaySelectedOver {
+    color: $dateChooser_cell_disabled_color;
+    border: $dateChooser_cell_border;
+    background-color: $dateChooser_cell_bgColor;
+    font: {
+        family: $dateChooser_font;
+        size: $dateChooser_font_size;
+    }
 }
+
+.dateChooserDisabledWeekdaySelected,
+.dateChooserDisabledWeekdaySelectedDown,
+.dateChooserDisabledWeekdaySelectedOver {
+    background-color: $listGrid_cell_disabled_bgColor; 
+    color: $dateChooser_cell_color; 
+    @include border-radius($dateChooser_cell_border_radius);
+}
+/* end dateChooser disabled weekday cells */
+
+/* dateChooser disabled weekend cells */
+.dateChooserDisabledWeekend,
+.dateChooserDisabledWeekendOver,
+.dateChooserDisabledWeekendDown,
+.dateChooserDisabledWeekendSelected,
+.dateChooserDisabledWeekendSelectedDown,
+.dateChooserDisabledWeekendSelectedOver {
+    color: $dateChooser_cell_disabled_color;
+    border: $dateChooser_weekend_border;
+    background-color: $dateChooser_weekend_bgColor;
+    font: {
+        family: $dateChooser_font;
+        size: $dateChooser_font_size;
+    }
+}
+
+.dateChooserDisabledWeekendDown,
+.dateChooserDisabledWeekendSelected,
+.dateChooserDisabledWeekendSelectedDown {
+    background-color: $listGrid_cell_disabled_bgColor; 
+    color: $dateChooser_cell_color; 
+    @include border-radius($dateChooser_cell_border_radius);
+}
+/* end dateChooser disabled weekend cells */
+
 
 .dateChooserWeekdaySelected,
 .dateChooserWeekendSelected {
@@ -5069,14 +5876,55 @@ option:checked {
     background-color: $dateChooser_bgColor; 
     border: $dateChooser_border;
     @include box-shadow($dateChooser_shadow);
+    outline: none;
+    @include border-radius($dateChooser_border_radius);
 }
 
 .dateChooserBorderTop {
     border-top: $dateChooser_border;
 }
+/* applied to the navigation-layout at the top of the DateChooser */
 .dateChooserBorderBottom {
-    background-color: $dateChooser_navButton_bgColor; 
+    background-color: $dateChooser_nav_bgColor; 
     border-bottom: $dateChooser_border;
+    @include border-radius($dateChooser_nav_border_radius);
+}
+
+/* DateChooser navigation buttons, next/previous year/month, etc, across the top of the chooser */
+.dateChooserNavButton,
+.dateChooserNavButtonOver,
+.dateChooserNavButtonDown,
+.dateChooserNavButtonSelected,
+.dateChooserNavButtonSelectedOver,
+.dateChooserNavButtonSelectedDown,
+.dateChooserNavButtonFocused,
+.dateChooserNavButtonFocusedOver,
+.dateChooserNavButtonFocusedDown,
+.dateChooserNavButtonDisabled {
+    background-color: $dateChooser_navButton_bgColor;
+    color: $dateChooser_navButton_color;
+    font: {
+        family: $dateChooser_navButton_font; 
+        size: $dateChooser_navButton_font_size;
+        weight: $standard_header_font_weight;
+    }
+    padding: 2px;
+    @include border-radius($dateChooser_navButton_border_radius);
+    border-bottom: none;
+    border-top: none;
+    cursor: pointer;
+}
+
+.dateChooserNavButtonOver,
+.dateChooserNavButtonDown,
+.dateChooserNavButtonFocused,
+.dateChooserNavButtonFocusedOver,
+.dateChooserNavButtonFocusedDown {
+    color: $dateChooser_navButton_over_color;
+}
+
+.dateChooserNavButtonDisabled {
+    cursor: inherit;
 }
 
 /* Spriting for navigation arrows */
@@ -5086,7 +5934,7 @@ option:checked {
 .dateChooserNavYearForward {
     width: 22px;
     height: 22px;
-    @include border-radius($dateChooser_nav_border_radius);
+    @include border-radius($dateChooser_navButton_border_radius);
     display: inline-block;
     outline: none;
     vertical-align: middle;
@@ -5189,7 +6037,6 @@ option:checked {
     border: $colorPicker_cell_over_border;
 }
 
-
 /*ListGrid EditorTypes*/
 .textItemLiteEditorType,
 .textItemLiteEditorTypeRTL,
@@ -5203,6 +6050,12 @@ option:checked {
 .textItemLiteEditorTypeDisabledRTL,
 .textItemLiteEditorTypeError,
 .textItemLiteEditorTypeErrorRTL,
+.textItemLiteEditorTypeErrorOver,
+.textItemLiteEditorTypeErrorOverRTL,
+.textItemLiteEditorTypeErrorFocused,
+.textItemLiteEditorTypeErrorFocusedRTL,
+.textItemLiteEditorTypeErrorFocusedOver,
+.textItemLiteEditorTypeErrorFocusedOverRTL,
 .textItemLiteEditorTypePending,
 .textItemLiteEditorTypePendingRTL,
 .textItemLiteEditorTypePendingOver,
@@ -5219,20 +6072,20 @@ option:checked {
 .textItemLiteEditorTypeHintRTL,
 .textItemLiteEditorTypeDisabledHint,
 .textItemLiteEditorTypeDisabledHintRTL {
-    font-family: $formItem_font;
-    font-size: $formItem_font_size;
-    color: $formItem_color;
-    padding: 0px 6px 0px;
+    font-family: $inlineFormItem_font;
+    font-size: $inlineFormItem_font_size;
+    color: $inlineFormItem_color;
+    padding: $inlineFormItem_padding;
     outline: none;
     text-decoration: none;
     text-align: left;
-    
+
     /* borders and padding for minimalist text-based items */    
-    border: $formItem_border;
+    border: $inlineFormItem_border;
     @include box-shadow($listGrid_editor_shadow);
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-    background-color: white;
-    @include border-radius($formItem_border_radius);
+    background-color: $inlineFormItem_bgColor;
+    @include border-radius($inlineFormItem_border_radius);
 }
 /* focused state */
 .textItemLiteEditorTypeFocused,
@@ -5243,36 +6096,7 @@ option:checked {
     border-color: $formItem_focused_border_color;
     @include box-shadow($listGrid_editor_focused_shadow);
 }
-.selectItemLiteTextEditorType,
-.selectItemLiteTextEditorTypeRTL,
-.selectItemLiteTextEditorTypeFocused,
-.selectItemLiteTextEditorTypeFocusedRTL,
-.selectItemLiteTextEditorTypeDisabled,
-.selectItemLiteTextEditorTypeDisabledRTL,
-.selectItemLiteTextEditorTypeError,
-.selectItemLiteTextEditorTypeErrorRTL,
-.selectItemLiteTextEditorTypePending,
-.selectItemLiteTextEditorTypePendingRTL,
-.selectItemLiteTextEditorTypePendingFocused,
-.selectItemLiteTextEditorTypePendingFocusedRTL,
-.selectItemLiteTextEditorTypePendingDisabled,
-.selectItemLiteTextEditorTypePendingDisabledRTL,
-.selectItemLiteTextEditorTypePendingError,
-.selectItemLiteTextEditorTypePendingErrorRTL,
-.selectItemLiteTextEditorTypeHint,
-.selectItemLiteTextEditorTypeHintRTL,
-.selectItemLiteTextEditorTypeDisabledHint,
-.selectItemLiteTextEditorTypeDisabledHintRTL {
-    outline: none;
-    font-family: $formItem_font;
-    font-size: $formItem_font_size;
-    color: $formItem_color;
-    padding: 0px 6px 0px;
-    outline: none;
-    text-decoration: none;
-    text-align: left;
-    @include border-radius($formItem_border_radius);
-}
+
 /* suppress borders on selectItem text - border is applied to control element
    also zero out right-padding so we don't have unnecessary gap between text and
    the down-pointing chevron */
@@ -5284,6 +6108,12 @@ option:checked {
 .selectItemLiteTextEditorTypeDisabledRTL,
 .selectItemLiteTextEditorTypeError,
 .selectItemLiteTextEditorTypeErrorRTL,
+.selectItemLiteTextEditorTypeErrorOver,
+.selectItemLiteTextEditorTypeErrorOverRTL,
+.selectItemLiteTextEditorTypeErrorFocused,
+.selectItemLiteTextEditorTypeErrorFocusedRTL,
+.selectItemLiteTextEditorTypeErrorFocusedOver,
+.selectItemLiteTextEditorTypeErrorFocusedOverRTL,
 .selectItemLiteTextEditorTypePending,
 .selectItemLiteTextEditorTypePendingRTL,
 .selectItemLiteTextEditorTypePendingFocused,
@@ -5296,12 +6126,19 @@ option:checked {
 .selectItemLiteTextEditorTypeHintRTL,
 .selectItemLiteTextEditorTypeDisabledHint,
 .selectItemLiteTextEditorTypeDisabledHintRTL {
-    outline: none;
-    border: 0px;
-    padding-right: 0px;
     background-color: $transparent_background_from_rgba;
     background-color: $transparent_background_for_ie;
-} 
+    font-family: $inlineFormItem_font;
+    font-size: $inlineFormItem_font_size;
+    color: $inlineFormItem_color;
+    //padding: $inlineFormItem_padding;
+    padding-right: 0px;
+    outline: none;
+    text-decoration: none;
+    text-align: left;
+    @include border-radius($inlineFormItem_border_radius);
+    border: 0px;
+}
 
 .selectItemLiteControlEditorType,
 .selectItemLiteControlEditorTypeRTL,
@@ -5313,6 +6150,12 @@ option:checked {
 .selectItemLiteControlEditorTypeFocusedOverRTL,
 .selectItemLiteControlEditorTypeError,
 .selectItemLiteControlEditorTypeErrorRTL,
+.selectItemLiteControlEditorTypeErrorOver,
+.selectItemLiteControlEditorTypeErrorOverRTL,
+.selectItemLiteControlEditorTypeErrorFocused,
+.selectItemLiteControlEditorTypeErrorFocusedRTL,
+.selectItemLiteControlEditorTypeErrorFocusedOver,
+.selectItemLiteControlEditorTypeErrorFocusedOverRTL,
 .selectItemLiteControlEditorTypePending,
 .selectItemLiteControlEditorTypePendingRTL,
 .selectItemLiteControlEditorTypePendingFocused,
@@ -5327,51 +6170,129 @@ option:checked {
 .selectItemLiteControlEditorTypePendingErrorRTL,
 .selectItemLiteControlEditorTypeHint,
 .selectItemLiteControlEditorTypeHintRTL {
-    border: $formItem_border;
+    border: $inlineFormItem_border;
     //@include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075));
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-    background-color: white;
-    @include border-radius($formItem_border_radius);
+    background-color: $inlineFormItem_bgColor;
+    @include border-radius($inlineFormItem_border_radius);
 }
 .selectItemLiteControlEditorTypeFocused,
 .selectItemLiteControlEditorTypeFocusedRTL,
 .selectItemLiteControlEditorTypeFocusedOver,
 .selectItemLiteControlEditorTypeFocusedOverRTL,
+.selectItemLiteControlEditorTypeErrorFocused,
+.selectItemLiteControlEditorTypeErrorFocusedRTL,
+.selectItemLiteControlEditorTypeErrorFocusedOver,
+.selectItemLiteControlEditorTypeErrorFocusedOverRTL,
 .selectItemLiteControlEditorTypePendingFocused,
 .selectItemLiteControlEditorTypePendingFocusedRTL,
 .selectItemLiteControlEditorTypePendingFocusedOver,
 .selectItemLiteControlEditorTypePendingFocusedOverRTL {
     outline: none;
     border-color: $formItem_focused_border_color;
-    @include box-shadow($listGrid_editor_focused_shadow);
-    background-color: $formItem_focused_bgColor;
+    @include box-shadow($formItem_focused_shadow);
+    background-color: $inlineFormItem_bgColor;
 }
 
 /* over state */
-.textItemLiteControlEditorTypeOver,
-.textItemLiteControlEditorTypeOverRTL,
-.textItemLiteControlEditorTypeFocusedOver,
-.textItemLiteControlEditorTypeFocusedOverRTL,
-.textItemLiteControlEditorTypePendingOver,
-.textItemLiteControlEditorTypePendingOverRTL,
-.textItemLiteControlEditorTypePendingFocusedOver,
-.textItemLiteControlEditorTypePendingFocusedOverRTL {
-    @include box-shadow($listGrid_editor_focused_over_shadow);
-    border: $formItem_focused_border;
+.textItemLiteEditorTypeOver,
+.textItemLiteEditorTypeOverRTL,
+.textItemLiteEditorTypePendingOver,
+.textItemLiteEditorTypePendingOverRTL {
+    @include box-shadow($formItem_over_shadow);
+    border: $formItem_over_border;
 }
 
 .selectItemLiteControlEditorTypeOver,
 .selectItemLiteControlEditorTypeOverRTL,
-.selectItemLiteControlEditorTypeFocusedOver,
-.selectItemLiteControlEditorTypeFocusedOverRTL,
+.selectItemLiteControlEditorTypeErrorOver,
+.selectItemLiteControlEditorTypeErrorRTL,
 .selectItemLiteControlEditorTypePendingOver,
-.selectItemLiteControlEditorTypePendingOverRTL,
-.selectItemLiteControlEditorTypePendingFocusedOver,
-.selectItemLiteControlEditorTypePendingFocusedOverRTL {
-    @include box-shadow($listGrid_editor_focused_over_shadow);
-    border: $formItem_focused_border;
+.selectItemLiteControlEditorTypePendingOverRTL {
+    @include box-shadow($formItem_over_shadow);
+    border: $formItem_over_border;
 }
 
+/* focused over */
+.textItemLiteEditorTypeErrorFocusedOver,
+.textItemLiteEditorTypeErrorFocusedOverRTL,
+.textItemLiteEditorTypeFocusedOver,
+.textItemLiteEditorTypeFocusedOverRTL,
+.textItemLiteEditorTypePendingFocusedOver,
+.textItemLiteEditorTypePendingFocusedOverRTL,
+
+.textAreaItemLiteEditorTypeFocusedOver,
+.textAreaItemLiteEditorTypeFocusedOverRTL,
+.textAreaItemLiteEditorTypeErrorFocusedOver,
+.textAreaItemLiteEditorTypeErrorFocusedOverRTL,
+.textAreaItemLiteEditorTypePendingFocusedOver,
+.textAreaItemLiteEditorTypePendingFocusedOverRTL,
+
+.selectItemLiteEditorTypeControlFocusedOver,
+.selectItemLiteEditorTypeControlFocusedOverRTL,
+.selectItemLiteEditorTypeControlPendingFocusedOver,
+.selectItemLiteEditorTypeControlPendingFocusedOverRTL,
+
+.nativeSelectItemErrorFocusedOver,
+.nativeSelectItemErrorFocusedOverRTL
+{
+    //outline: $select_item_lite_control_focused_outline;
+    outline: none;
+    @include box-shadow($formItem_focused_over_shadow);
+    border: $formItem_focused_over_border;
+}
+
+/* error state
+.textItemLiteEditorTypeError,
+.textItemLiteEditorTypeErrorRTL,
+.textItemLiteEditorTypeErrorOver,
+.textItemLiteEditorTypeErrorOverRTL,
+.textItemLiteEditorTypeErrorFocused,
+.textItemLiteEditorTypeErrorFocusedRTL,
+.textItemLiteEditorTypeErrorFocusedOver,
+.textItemLiteEditorTypeErrorFocusedOverRTL,
+.textItemLiteEditorTypeErrorDisabled,
+.textItemLiteEditorTypeErrorDisabledRTL,
+
+.nativeSelectItemLiteEditorTypeError,
+.nativeSelectItemLiteEditorTypeErrorRTL,
+.nativeSelectItemLiteEditorTypeErrorOver,
+.nativeSelectItemLiteEditorTypeErrorOverRTL,
+.nativeSelectItemLiteEditorTypeErrorFocused,
+.nativeSelectItemLiteEditorTypeErrorFocusedRTL,
+.nativeSelectItemLiteEditorTypeErrorFocusedOver,
+.nativeSelectItemLiteEditorTypeErrorFocusedOverRTL,
+.nativeSelectItemLiteEditorTypeErrorDisabled,
+.nativeSelectItemLiteEditorTypeErrorDisabledRTL,
+
+.textAreaItemLiteEditorTypeError,
+.textAreaItemLiteEditorTypeErrorRTL,
+.textAreaItemLiteEditorTypeErrorOver,
+.textAreaItemLiteEditorTypeErrorOverRTL,
+.textAreaItemLiteEditorTypeErrorFocused,
+.textAreaItemLiteEditorTypeErrorFocusedRTL,
+.textAreaItemLiteEditorTypeErrorFocusedOver,
+.textAreaItemLiteEditorTypeErrorFocusedOverRTL,
+.textAreaItemLiteEditorTypeErrorDisabled,
+.textAreaItemLiteEditorTypeErrorDisabledRTL {
+    color: $formItem_value_error_color;
+    @include input-placeholder {
+        color: $formItem_value_error_color;
+        opacity: $formItem_opacity;
+        text-overflow: ellipsis;
+    }
+}
+
+.textItemLiteEditorTypeError,
+.textItemLiteEditorTypeErrorRTL,
+
+.nativeSelectItemLiteEditorTypeError,
+.nativeSelectItemLiteEditorTypeErrorRTL,
+
+.textAreaItemLiteEditorTypeError,
+.textAreaItemLiteEditorTypeErrorRTL {
+    border: $formItem_error_border;
+}
 
 
 /*============================================================
@@ -5422,6 +6343,8 @@ option:checked {
 .vSliderTrack,
 .hSliderTrackOver,
 .vSliderTrackOver,
+.hSliderTrackDown,
+.vSliderTrackDown,
 .hSliderTrackDisabled,
 .vSliderTrackDisabled {
     background-color: $slider_track_bgColor;
@@ -5598,9 +6521,12 @@ option:checked {
 
 /* slider activeTrack */
 
-.sliderTrackActive,
+.sliderTrackActive, 
+.sliderTrackActiveDown,
 .hSliderTrackActive,
-.vSliderTrackActive {
+.hSliderTrackActiveDown,
+.vSliderTrackActive,
+.vSliderTrackActiveDown {
     background-color: $slider_activeTrack_bgColor;
     @include border-radius($slider_track_border_radius);
 }
@@ -5675,17 +6601,23 @@ option:checked {
 }
 
 .headerBar {
-    background: {
-        color: $listGrid_headerBar_bgColor;
-        image: url(./images/ListGrid/header.png);
-        repeat: repeat-x;
-        position: bottom left;
-        attachment: scroll;
-    }
+    background-color: $listGrid_headerBar_bgColor;
     @include background-image($listGrid_headerBar_gradient);
     border-bottom: $listGrid_headerBar_bottom_border;
 }
+.headerBarDisabled {
+    background-color: $listGrid_headerButton_disabled_bgColor;
+    border-bottom: $listGrid_headerBar_bottom_border;
+}
 
+.dateGridHeaderBar {
+    background: {
+        color: $listGrid_headerBar_bgColor;
+    }
+}
+
+
+/* grid Action (filter) button */
 .gridActionButton,
 .gridActionButtonOver,
 .gridActionButtonDisabled {
@@ -5698,6 +6630,7 @@ option:checked {
     color: $formItem_disabled_color;
     background-color: $formItem_disabled_bgColor;
 }
+/* end grid Action (filter) button */
 
 .gridBody {
     background-color: $listGrid_body_bgColor;
@@ -5715,8 +6648,8 @@ option:checked {
 .emptyMessage {
     color: $standard_color;
     font: {
-        family: $primary_font; 
-        size: $standard_font_size; 
+        family: $listGrid_cell_font; 
+        size: $listGrid_cell_font_size; 
     }
     padding: $listGrid_message_padding;
 }
@@ -5724,10 +6657,10 @@ option:checked {
 .gridDragTracker {
     background-color: $listGrid_body_bgColor;
     border: $listGrid_dragTracker_border;
-	color: $standard_color;
+	color: $listGrid_cell_color;
 	font: {
-        family: $primary_font; 
-        size: $standard_font_size;
+        family: $listGrid_dragTracker_font; 
+        size: $listGrid_dragTracker_font_size;
     }
     padding: $listGrid_dragTracker_padding;
 }
@@ -5743,9 +6676,6 @@ option:checked {
 }
 
 .listTable {
-}
-.listTableDisabled {
-    background-color: $listGrid_cell_disabled_bgColor;
 }
 
 /* recordEditor */
@@ -5839,6 +6769,41 @@ option:checked {
 /* imgHeaderButton - ListGrid column header buttons for image based
    headerButton - ListGrid column header buttons for css3 based */
    
+   
+/* header/spannedHeaderButtonTable classes float a right-border-like separator :after LG 
+   headerButtons and spans, rather than showing a regular border - means the separator can be 
+   less than headerButton-height, unlike a border
+*/
+.headerButtonTable {}
+.headerButtonTable:after {
+	content: "";
+
+    // positioning
+	position: absolute;
+    right: 0px;
+    top: $listGrid_headerButton_separator_top;
+    width: 1px;
+    height: $listGrid_headerButton_separator_height;
+
+    background-color: $listGrid_headerButton_border_color;
+}
+
+.spannedHeaderButtonTable {}
+.spannedHeaderButtonTable:after {
+	content: "";
+
+    // positioning
+	position: absolute;
+    right: 0px;
+    top: $listGrid_headerButton_separator_top;
+    width: 1px;
+    height: $listGrid_headerButton_separator_height;
+
+    background-color: $listGrid_headerSpan_border_color;
+}
+
+/* END partial right-separator for header-buttons */   
+   
 /* ListGrid headerButtons - remove top and bottom padding to defeat a Button hack that can cause 
 some LG header-titles to be vertically offset from other headers */
 .headerButton,
@@ -5851,7 +6816,15 @@ some LG header-titles to be vertically offset from other headers */
 .headerButtonDisabled {
     padding-top: 0px; 
     padding-bottom: 0px;
-    border-right: $listGrid_headerButton_border;
+    border-right: none;
+    vertical-align: middle;
+    //line-height: $button_line_height;
+    color: $listGrid_headerButton_color;
+    background-color: $listGrid_headerButton_bgColor;
+    font-family: $listGrid_headerButton_font;
+    font-weight: $listGrid_headerButton_font_weight;
+    font-size: $listGrid_headerButton_font_size;
+    letter-spacing: $listGrid_headerButton_letterSpacing;
 }
 
 /* ListGrid header span headerButtons */
@@ -5870,7 +6843,7 @@ some LG header-titles to be vertically offset from other headers */
     background-color: $listGrid_headerButton_bgColor;
     letter-spacing: $listGrid_headerButton_letterSpacing;
     padding: $listGrid_headerButton_padding;
-    border-right: $listGrid_headerSpan_border;
+    border-right: none;
     border-bottom: $listGrid_headerSpan_border;
 }
 .headerSpanButtonSelectedOver,
@@ -5879,6 +6852,7 @@ some LG header-titles to be vertically offset from other headers */
 }
 .headerSpanButtonSelected {
     background-color: $listGrid_headerButton_selected_bgColor;
+    font-size: $listGrid_headerButton_font_size;
 }
 .headerSpanButtonDisabled {
     background-color: $listGrid_headerButton_disabled_bgColor; 
@@ -5901,8 +6875,7 @@ some LG header-titles to be vertically offset from other headers */
     font-family: $listGrid_headerButton_font;
     letter-spacing: $listGrid_headerButton_letterSpacing;
     padding: $listGrid_headerButton_padding;
-    border: none;
-    border-right: $listGrid_headerSpan_border;
+    border-right: none;
 }
 .spannedHeaderButtonSelectedOver,
 .spannedHeaderButtonOver {
@@ -5910,6 +6883,7 @@ some LG header-titles to be vertically offset from other headers */
 }
 .spannedHeaderButtonSelected {
     background-color: $listGrid_headerButton_selected_bgColor;
+    font-size: $listGrid_headerButton_font_size;
 }
 .spannedHeaderButtonDisabled {
     background-color: $listGrid_headerButton_disabled_bgColor; 
@@ -5919,6 +6893,7 @@ some LG header-titles to be vertically offset from other headers */
     background-color: $listGrid_headerButton_disabled_bgColor; 
     color: $listGrid_headerButton_disabled_color;
 }
+
 
 .imgHeaderButton,
 .headerButton,
@@ -5998,8 +6973,7 @@ some LG header-titles to be vertically offset from other headers */
 .sorterButtonDown,
 .sorterButtonSelectedOver,
 .sorterButtonSelectedDown {
-    padding-right: 0;
-    padding-left: 0;
+    padding: $listGrid_sorterButton_padding;
     border-bottom: $listGrid_headerBar_bottom_border;
 }
 
@@ -6194,33 +7168,18 @@ some LG header-titles to be vertically offset from other headers */
 .expansionCellCellSelectedOver,
 .expansionCellCellSelectedOverDark,
 .expansionCellCellDisabled,
-.expansionCellCellDisabledDark,
-.specialCol,
-.specialColOver,
-.specialColSelected,
-.specialColSelectedOver,
-.specialColDisabled {
+.expansionCellCellDisabledDark {
     background-color: $listGrid_cell_bgColor;
     font: {
         size: $listGrid_cell_font_size;
         family: $listGrid_cell_font;
     }
     color: $listGrid_cell_color;
-    padding-left: $listGrid_cell_paddingLeft;
+    padding: $listGrid_cell_padding;
     border: none;
     border-bottom: $listGrid_row_border;
     border-right: $listGrid_cell_border;
     text-overflow: ellipsis;
-}
-
-.specialCol,
-.specialColOver,
-.specialColSelected,
-.specialColSelectedOver,
-.specialColDisabled {
-    background-color: $listGrid_cell_dark_bgColor;
-	color: $listGrid_cell_color;
-    line-height: $listGrid_specialCol_line_height;
 }
 
 .cellDark,
@@ -6228,11 +7187,11 @@ some LG header-titles to be vertically offset from other headers */
     background-color: $listGrid_cell_dark_bgColor;
 }
 
+
 .cellOver,
 .cellOverDark,
 .cellDeselectedOver,
 .cellDeselectedOverDark,
-.specialColOver,
 .recordSummaryCellOver,
 .recordSummaryCellOverDark {
     background-color: $listGrid_cell_over_bgColor;
@@ -6245,7 +7204,6 @@ some LG header-titles to be vertically offset from other headers */
 .cellSelectedDark,
 .cellPendingSelected,
 .cellPendingSelectedDark,
-.specialColSelected,
 .recordSummaryCellSelected,
 .recordSummaryCellSelectedDark {
     background-color: $listGrid_cell_selected_bgColor;
@@ -6256,7 +7214,6 @@ some LG header-titles to be vertically offset from other headers */
 .cellSelectedOverDark,
 .cellPendingSelectedOver,
 .cellPendingSelectedOverDark,
-.specialColSelectedOver,
 .recordSummaryCellSelectedOver,
 .recordSummaryCellSelectedOverDark {    
     background-color: $listGrid_cell_selected_over_bgColor; 
@@ -6264,51 +7221,9 @@ some LG header-titles to be vertically offset from other headers */
 //    border-bottom: $listGrid_cell_selected_over_border;
 }
 
-/* Grid Summary cells */
-.gridSummaryCell,
-.gridSummaryCellDark,
-.gridSummaryCellAltCol,
-.gridSummaryCellDisabled,
-.gridSummaryCellDisabledDark,
-.gridSummaryCellDisabledAltCol {
-    color: $listGrid_summaryCell_color;
-    background-color: $listGrid_summaryCell_bgColor;
-    font: {
-        size: $listGrid_summaryCell_font_size;
-        family: $listGrid_cell_font;
-        weight: $listGrid_summaryCell_fontWeight;
-    }
-    border: none;
-    border-bottom: $listGrid_summaryCell_border;
-    border-top: $listGrid_summaryCell_border; 
-    padding-left: $listGrid_cell_paddingLeft;
-    text-overflow: ellipsis;
-}
-
-/* Grid Summary Disabled */
-.gridSummaryCellDisabled,
-.gridSummaryCellDisabledDark,
-.gridSummaryCellDisabledAltCol {
-    color: $listGrid_cell_disabled_color;
-    background-color: $listGrid_cell_disabled_bgColor;
-    border-bottom: $listGrid_summaryCell_disabled_border;
-    border-top: $listGrid_summaryCell_disabled_border;
-    cursor: not-allowed;
-}
-
-/* Grid Summary Dark */
-.gridSummaryCellDark,
-.gridSummaryCellDisabledDark {
-    color: $listGrid_summaryCell_dark_color;
-}
-
-/* end Grid Summary */
-
 .cellDisabled,
 .cellDisabledDark,
-.specialColDisabled,
 .recordSummaryCellDisabled,
-.recordSummaryCellDisabledAltCol,
 .recordSummaryCellDisabledDark {
     background-color: $listGrid_cell_disabled_bgColor;
     cursor: not-allowed;
@@ -6345,7 +7260,7 @@ some LG header-titles to be vertically offset from other headers */
     font-size: $listGrid_cell_font_size;
     font-family: $listGrid_cell_font;
     color: $listGrid_cell_color;
-    padding-left: $listGrid_cell_paddingLeft;
+    padding: $listGrid_cell_padding;
     text-overflow: ellipsis;
     border: none;
     border-bottom: $listGrid_row_border;
@@ -6424,18 +7339,68 @@ some LG header-titles to be vertically offset from other headers */
     @include box-shadow($cubeGrid_cell_selected_over_glow);
 }
 
+/* Grid Summary cells */
+.gridSummaryCell,
+.gridSummaryCellDark,
+.gridSummaryCellAltCol,
+.gridSummaryCellDisabled,
+.gridSummaryCellDisabledDark,
+.gridSummaryCellDisabledAltCol {
+    color: $listGrid_summaryCell_color;
+    background-color: $listGrid_summaryCell_bgColor;
+    font: {
+        size: $listGrid_summaryCell_font_size;
+        family: $listGrid_cell_font;
+        weight: $listGrid_summaryCell_fontWeight;
+    }
+    border: none;
+    border-bottom: $listGrid_summaryCell_border;
+    border-top: $listGrid_summaryCell_border; 
+    padding: $listGrid_cell_padding;
+    text-overflow: ellipsis;
+}
+
+/* Grid Summary Disabled */
+.gridSummaryCellDisabled,
+.gridSummaryCellDisabledDark,
+.gridSummaryCellDisabledAltCol {
+    color: $listGrid_cell_disabled_color;
+    background-color: $listGrid_cell_disabled_bgColor;
+    border-bottom: $listGrid_summaryCell_disabled_border;
+    border-top: $listGrid_summaryCell_disabled_border;
+    cursor: not-allowed;
+}
+
+/* Grid Summary Dark */
+.gridSummaryCellDark,
+.gridSummaryCellDisabledDark {
+    color: $listGrid_summaryCell_dark_color;
+}
+
+/* end Grid Summary */
 
 
 /* for grouping */
 .groupNode,
 .groupNodeDark,
 .groupNodeAltCol,
+.groupNodeDarkAltCol,
 .groupNodeOver,
 .groupNodeOverDark,
 .groupNodeOverAltCol,
+.groupNodeOverDarkAltCol,
+.groupNodeSelected,
+.groupNodeSelectedDark,
+.groupNodeSelectedAltCol,
+.groupNodeSelectedDarkAltCol,
+.groupNodeSelectedOver,
+.groupNodeSelectedOverDark,
+.groupNodeSelectedOverAltCol,
+.groupNodeSelectedOverDarkAltCol,
 .groupNodeDisabled,
 .groupNodeDisabledDark,
-.groupNodeDisabledAltCol {
+.groupNodeDisabledAltCol,
+.groupNodeDisabledDarkAltCol {
     background-color: $listGrid_groupNode_bgColor;
     border: none;
     border-bottom: $listGrid_groupNode_border;
@@ -6451,13 +7416,233 @@ some LG header-titles to be vertically offset from other headers */
     text-overflow: ellipsis;
 }
 
+.groupNodeOver,
+.groupNodeOverDark,
+.groupNodeOverAltCol,
+.groupNodeOverDarkAltCol {
+    background-color: $listGrid_groupNode_over_bgColor;
+    color: $listGrid_groupNode_over_color;
+    border-bottom: $listGrid_groupNode_border;
+}
+
+.groupNodeSelected,
+.groupNodeSelectedDark,
+.groupNodeSelectedAltCol,
+.groupNodeSelectedDarkAltCol {
+    background-color: $listGrid_groupNode_selected_bgColor;
+    color: $listGrid_groupNode_selected_color;
+    border-bottom: $listGrid_groupNode_border;
+}
+
+.groupNodeSelectedOver,
+.groupNodeSelectedOverDark,
+.groupNodeSelectedOverAltCol,
+.groupNodeSelectedOverDarkAltCol {
+    background-color: $listGrid_groupNode_selected_over_bgColor;
+    color: $listGrid_groupNode_selected_color;
+    border-bottom: $listGrid_groupNode_border;
+}
+
 .groupNodeDisabled,
 .groupNodeDisabledDark,
-.groupNodeDisabledAltCol {
+.groupNodeDisabledAltCol,
+.groupNodeDisabledDarkAltCol {
+    background-color: $listGrid_groupNode_disabled_bgColor;
+    cursor: not-allowed;
+    color: $listGrid_groupNode_disabled_color;
+}
+
+
+/* specialCol styles - used for LG special columns, like row-numbers */
+
+.specialCol,
+.specialColOver,
+.specialColSelected,
+.specialColSelectedOver,
+.specialColDisabled {
+    background-color: $listGrid_specialCol_bgColor;
+	color: $listGrid_specialCol_color;
+    line-height: $listGrid_specialCol_line_height;
+    font: {
+        family: $listGrid_specialCol_font;
+        size: $listGrid_specialCol_font_size;
+    }
+    padding: $listGrid_specialCol_padding;
+    border: none;
+    border-bottom: $listGrid_specialCol_row_border;
+    border-right: $listGrid_specialCol_cell_border;
+    text-overflow: ellipsis;
+}
+
+.specialColOver {
+    background-color: $listGrid_specialCol_over_bgColor;
+    color: $listGrid_specialCol_over_color;
+    border-bottom: $listGrid_specialCol_row_border;
+}
+
+.specialColSelected {
+    background-color: $listGrid_specialCol_selected_bgColor;
+    color: $listGrid_specialCol_selected_color;
+}
+
+.specialColSelectedOver {
+    background-color: $listGrid_specialCol_selected_over_bgColor; 
+    color: $listGrid_specialCol_selected_over_color;
+}
+
+.specialColDisabled {
+    background-color: $listGrid_specialCol_disabled_bgColor;
+    cursor: not-allowed;
+    color: $listGrid_specialCol_disabled_color;
+}
+
+/* end of specialCol styles */
+
+
+/* special style for showing cell-content in the link-color - bit of overkill */
+.linkCell,
+.linkCellDark,
+.linkCellOver,
+.linkCellOverDark,
+.linkCellSelected,
+.linkCellSelectedDark,
+.linkCellSelectedOver,
+.linkCellSelectedOverDark,
+.linkCellDeselected,
+.linkCellDeselectedDark,
+.linkCellDeselectedOver,
+.linkCellDeselectedOverDark,
+.linkCellPendingSelected,
+.linkCellPendingSelectedOver,
+.linkCellPendingSelectedOverDark,
+.linkCellDisabled,
+.linkCellDisabledDark {
+    background-color: $listGrid_cell_bgColor;
+    font: {
+        size: $listGrid_cell_font_size;
+        family: $listGrid_cell_font;
+    }
+    color: $listGrid_linkCell_color;
+    padding: $listGrid_cell_padding;
+    border: none;
+    border-bottom: $listGrid_row_border;
+    border-right: $listGrid_cell_border;
+    text-overflow: ellipsis;
+}
+
+.linkCellDark {
+  background-color: $listGrid_cell_dark_bgColor;
+}
+
+.linkCellOver,
+.linkCellOverDark,
+.linkCellDeselectedOver,
+.linkCellDeselectedOverDark {
+    background-color: $listGrid_cell_over_bgColor;
+    color: $listGrid_cell_over_color;
+    border-bottom: $listGrid_row_border;
+}
+
+.linkCellSelected,
+.linkCellSelectedDark,
+.linkCellPendingSelected,
+.linkCellPendingSelectedDark {
+    background-color: $listGrid_cell_selected_bgColor;
+    color: $listGrid_cell_selected_color;
+}
+
+.linkCellSelectedOver,
+.linkCellSelectedOverDark,
+.linkCellPendingSelectedOver,
+.linkCellPendingSelectedOverDark {
+    background-color: $listGrid_cell_selected_over_bgColor; 
+    color: $listGrid_cell_selected_color;
+}
+
+.linkCellDisabled,
+.linkCellDisabledDark {
     background-color: $listGrid_cell_disabled_bgColor;
     cursor: not-allowed;
     color: $listGrid_cell_disabled_color;
 }
+
+/* alternate column-styling for linkCell cells in ListGrid */
+.linkCellAltCol,
+.linkCellDarkAltCol,
+.linkCellOverAltCol,
+.linkCellOverDarkAltCol,
+.linkCellSelectedAltCol,
+.linkCellSelectedOverAltCol,
+.linkCellSelectedDarkAltCol,
+.linkCellSelectedOverDarkAltCol,
+.linkCellPendingSelectedAltCol,
+.linkCellPendingSelectedDarkAltCol,
+.linkCellPendingSelectedOverAltCol,
+.linkCellPendingSelectedOverDarkAltCol,
+.linkCellDeselectedAltCol,
+.linkCellDeselectedDarkAltCol,
+.linkCellDeselectedOverAltCol,
+.linkCellDeselectedOverDarkAltCol,
+.linkCellDisabledAltCol,
+.linkCellDisabledDarkAltCol {
+    font-size: $listGrid_cell_font_size;
+    font-family: $listGrid_cell_font;
+    color: $listGrid_linkCell_color;
+    padding: $listGrid_cell_padding;
+    text-overflow: ellipsis;
+    border: none;
+    border-bottom: $listGrid_row_border;
+    border-right: $listGrid_cell_border;
+}
+
+.linkCellDisabledAltCol,
+.linkCellDisabledDarkAltCol {
+    background-color: $listGrid_cell_disabled_bgColor;
+    cursor: not-allowed;
+    color: $listGrid_cell_disabled_color;
+}
+
+.linkCellAltCol {
+    background-color: $listGrid_cell_altCol_bgColor;
+}
+
+.linkCellDarkAltCol {
+    background-color: $listGrid_cell_altCol_dark_bgColor;
+}
+
+.linkCellOverAltCol {
+    font-size: $listGrid_cell_font_size;
+    font-family: $listGrid_cell_font;
+}
+
+.linkCellOverAltCol,
+.linkCellOverDarkAltCol {
+    background-color: $listGrid_cell_over_bgColor; 
+    color: $listGrid_cell_over_color;
+}
+
+.linkCellSelectedAltCol,
+.linkCellSelectedDarkAltCol,
+.linkCellSelectedOverAltCol,
+.linkCellSelectedOverDarkAltCol,
+.linkCellPendingSelectedAltCol,
+.linkCellPendingSelectedDarkAltCol,
+.linkCellPendingSelectedOverAltCol,
+.linkCellPendingSelectedOverDarkAltCol {
+    background-color: $listGrid_cell_selected_bgColor;
+    color: $listGrid_cell_selected_color;
+}
+
+.linkCellSelectedOverAltCol,
+.linkCellSelectedOverDarkAltCol,
+.linkCellPendingSelectedOverAltCol,
+.linkCellPendingSelectedOverDarkAltCol {
+    background-color: $listGrid_cell_selected_over_bgColor;
+}
+
+/* end linkCell */
+
+
 
 /*Tree styling*/
 .treeGrid {
@@ -6485,12 +7670,15 @@ some LG header-titles to be vertically offset from other headers */
     font-family: $treeGrid_cell_font;
     font-size: $treeGrid_cell_font_size;
     text-overflow: ellipsis;
+    padding: $treeGrid_cell_padding;
+    border: none;
+    border-bottom: $treeGrid_row_border;
+    border-right: $treeGrid_cell_border;
 }
 
 .treeCellDark {
 	background-color: $treeGrid_cell_dark_bgColor;
 }
-
 
 .treeCellOver,
 .treeCellOverDark {
@@ -6539,10 +7727,10 @@ some LG header-titles to be vertically offset from other headers */
     font-size: $treeGrid_cell_font_size;
     font-family: $treeGrid_cell_font;
     color: $treeGrid_cell_color;
-    padding-left: $listGrid_cell_paddingLeft;
     text-overflow: ellipsis;
     border: none;
     border-bottom: $listGrid_row_border;
+    padding: $treeGrid_cell_padding;
 }
 
 .treeCellDisabledAltCol,
@@ -6616,16 +7804,8 @@ some LG header-titles to be vertically offset from other headers */
     padding: $toolStrip_v_padding;
 }
 
-.ribbonBar {
-    background-color: $ribbonBar_bgColor;
-    border: $ribbonBar_border;
-    @include box-shadow($ribbonBar_shadow);
-    padding: $ribbonBar_padding;
-}
-
 .toolStripVertical {
     background-color: $toolStrip_bgColor;
-    background-image: url(images/ToolStrip/background_vertical.png);
     border: $toolStrip_border;
 }
 
@@ -6656,6 +7836,8 @@ some LG header-titles to be vertically offset from other headers */
     border: $toolStripButton_border;
     @include border-radius($toolStripButton_border_radius);
     color: $toolStripButton_color;
+    background-color: $toolStripButton_bgColor;
+
     font-size: $button_font_size;
     font-family: $toolStripButton_font;
     padding: $toolStripButton_padding;
@@ -6739,22 +7921,17 @@ some LG header-titles to be vertically offset from other headers */
 }
 
 
-/*============================================================
-   12a) Ribbons
-==============================================================*/
-.toolStripGroup,
-.toolStripGroupOver,
-.toolStripGroupSelected,
-.toolStripGroupSelectedDisabled,
-.toolStripGroupSelectedOver,
-.toolStripGroupDown,
-.toolStripGroupSelectedDown,
-.toolStripGroupDisabled {
-    background-color: $standard_widget_bgColor;
-    border: $toolStrip_border;
-    padding: $toolStripGroup_padding;
+/*===================================================================================
+   12a) RibbonBar, and RibbonGroup / RibbonButton (nee ToolStripGroup and IconButton)
+===================================================================================*/
+.ribbonBar {
+    background-color: $ribbonBar_bgColor;
+    border: $ribbonBar_border;
+    @include box-shadow($ribbonBar_shadow);
+    padding: $ribbonBar_padding;
 }
 
+/* RibbonGroup */
 .ribbonGroup,
 .ribbonGroupOver,
 .ribbonGroupSelected,
@@ -6767,101 +7944,104 @@ some LG header-titles to be vertically offset from other headers */
     border: $ribbonGroup_border;
     padding: $ribbonGroup_padding;
     @include box-shadow($ribbonGroup_shadow);
+    @include border-radius($ribbonGroup_border_radius);
 }
 
-.toolStripGroupTitle,
-.toolStripGroupTitleOver,
-.toolStripGroupTitleSelected,
-.toolStripGroupTitleSelectedDisabled,
-.toolStripGroupTitleSelectedOver,
-.toolStripGroupTitleDown,
-.toolStripGroupTitleSelectedDown,
-.toolStripGroupTitleDisabled {
-    background-color: $toolStripGroup_bgColor;
+/* RibbonGroup title style */
+.ribbonGroupTitle,
+.ribbonGroupTitleOver,
+.ribbonGroupTitleSelected,
+.ribbonGroupTitleSelectedDisabled,
+.ribbonGroupTitleSelectedOver,
+.ribbonGroupTitleDown,
+.ribbonGroupTitleSelectedDown,
+.ribbonGroupTitleDisabled {
+    background-color: $ribbonGroup_title_bgColor;
+    color: $ribbonGroup_title_color;
+    font-family: $ribbonGroup_font;
+    font-size: $ribbonGroup_font_size;
+    font-weight: $ribbonGroup_fontWeight;
+    padding: $ribbonGroup_title_padding;
     border: none;
-    border-bottom: $toolStripGroup_border;
-    color: $toolStripGroup_color;
-    font-family: $toolStripGroup_font;
-    font-size: $toolStripGroup_font_size;
-    font-weight: $toolStripGroup_fontWeight;
-    padding: $toolStripGroup_title_padding;
+    border-bottom: $ribbonGroup_border;
 }
 
-/* Ribbon */
-.iconButton,
-.iconButtonOver,
-.iconButtonDown,
-.iconButtonFocused,
-.iconButtonFocusedOver,
-.iconButtonFocusedDown,
-.iconButtonSelected,
-.iconButtonSelectedFocused,
-.iconButtonSelectedDown,
-.iconButtonSelectedFocusedDown,
-.iconButtonSelectedOver,
-.iconButtonSelectedFocusedOver,
-.iconButtonDisabled,
-.iconButtonSelectedDisabled {
-    background-color: $iconButton_bgColor;
-    border: $iconButton_border;
-    @include border-radius($iconButton_border_radius);
+/* RibbonButton */
+.ribbonButton,
+.ribbonButtonOver,
+.ribbonButtonDown,
+.ribbonButtonFocused,
+.ribbonButtonFocusedOver,
+.ribbonButtonFocusedDown,
+.ribbonButtonSelected,
+.ribbonButtonSelectedFocused,
+.ribbonButtonSelectedDown,
+.ribbonButtonSelectedFocusedDown,
+.ribbonButtonSelectedOver,
+.ribbonButtonSelectedFocusedOver,
+.ribbonButtonDisabled,
+.ribbonButtonSelectedDisabled {
+    background-color: $ribbonButton_bgColor;
+    border: $ribbonButton_border;
+    @include border-radius($ribbonButton_border_radius);
     padding: 3px;
-    font-family: $iconButton_font;
-    font-size: $iconButton_font_size;
-    color: $iconButton_color;
+    font-family: $ribbonButton_font;
+    font-size: $ribbonButton_font_size;
+    line-height: $standard_line_height;
+    color: $ribbonButton_color;
 }
 
-.iconButtonOver,
-.iconButtonDown {
-    background-color: $iconButton_over_bgColor;
-    border: $iconButton_over_border;
+.ribbonButtonOver,
+.ribbonButtonDown {
+    background-color: $ribbonButton_over_bgColor;
+    border: $ribbonButton_over_border;
 }
 
-.iconButtonSelected,
-.iconButtonSelectedOver,
-.iconButtonFocused,
-.iconButtonFocusedOver,
-.iconButtonSelectedFocused,
-.iconButtonSelectedFocusedOver {
-    background-color: $iconButton_over_bgColor;
-    border: $iconButton_selected_border;
+.ribbonButtonSelected,
+.ribbonButtonSelectedOver,
+.ribbonButtonFocused,
+.ribbonButtonFocusedOver,
+.ribbonButtonSelectedFocused,
+.ribbonButtonSelectedFocusedOver {
+    background-color: $ribbonButton_over_bgColor;
+    border: $ribbonButton_selected_border;
 }
 
-.iconButtonSelected,
-.iconButtonSelectedFocused,
-.iconButtonSelectedDown,
-.iconButtonSelectedFocusedDown,
-.iconButtonSelectedFocusedOver {
-    background-color: $iconButton_over_bgColor;
+.ribbonButtonSelected,
+.ribbonButtonSelectedFocused,
+.ribbonButtonSelectedDown,
+.ribbonButtonSelectedFocusedDown,
+.ribbonButtonSelectedFocusedOver {
+    background-color: $ribbonButton_over_bgColor;
 }
 
-.iconButtonSelectedOver {
-    border: $iconButton_selected_border;
+.ribbonButtonSelectedOver {
+    border: $ribbonButton_selected_border;
 }
 
-.iconButtonDisabled {
+.ribbonButtonDisabled {
     color: $button_disabled_color;
 }
 
-/* IconButton icon and menuIcon styles - used for spacing top and bottom of the title in v-buttons */
-.iconButtonHIcon {
+/* RibbonButton icon and menuIcon styles - used for spacing top and bottom of the title in v-buttons */
+.ribbonButtonHIcon {
     vertical-align: middle;
 }
-.iconButtonHMenuIcon {
+.ribbonButtonHMenuIcon {
     vertical-align: middle; 
     border: $standard_transparent_border; 
-    @include border-radius($iconButton_menu_icon_border_radius);
+    @include border-radius($ribbonButton_menu_icon_border_radius);
 }
 
-.iconButtonVIcon {
+.ribbonButtonVIcon {
     vertical-align: middle;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
 }
-.iconButtonVMenuIcon {
+.ribbonButtonVMenuIcon {
     vertical-align: middle; 
     border: $standard_transparent_border; 
-    @include border-radius($iconButton_menu_icon_border_radius);
-    margin-top: 6px;
+    @include border-radius($ribbonButton_menu_icon_border_radius);
+    margin-top: 3px;
 }
 
 /*============================================================
@@ -7135,7 +8315,7 @@ some LG header-titles to be vertically offset from other headers */
     background-color: $scrollTrack_over_bgColor;
 }
 .hScrollTrackDisabled {
-    @include background($scrollTrack_disabled_background padding-box);
+    @include background($scrollTrack_disabled_background);
     border-top: $scrollbar_default_border;
     border-bottom: $scrollbar_default_border;
 }
@@ -7156,7 +8336,7 @@ some LG header-titles to be vertically offset from other headers */
     border-right: $scrollbar_default_border;
 }
 .vScrollTrackDisabled {
-    @include background($scrollTrack_disabled_background padding-box);
+    @include background($scrollTrack_disabled_background);
     border-left: $scrollbar_default_border;
     border-right: $scrollbar_default_border;
 }
@@ -7184,6 +8364,23 @@ some LG header-titles to be vertically offset from other headers */
 .hScrollThumbGrip { background-position: -40px -26px; }
 .hScrollThumbGripOver { background-position: -40px -26px; }
 .hScrollThumbGripDown { background-position: -40px -26px; }
+
+/* MinimalScrollbar track and thumb */
+.minimalScrollTrackLight { background-color: transparent; }
+.minimalScrollTrackDark { background-color: transparent; }
+.minimalScrollTrackLightInteractive { background-color: rgba(169, 169, 169, 0.3); }
+.minimalScrollTrackDarkInteractive { background-color: rgba(211, 211, 211, 0.3); }
+
+.minimalScrollThumbLight,
+.minimalScrollThumbLightInteractive {
+    background-color: rgba(255, 255, 255, 0.4);            
+    border-radius:5px;
+}
+.minimalScrollThumbDark
+.minimalScrollThumbDarkInteractive {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius:5px;
+}
 
 /*IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
@@ -7562,12 +8759,17 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 }
 
 /*============================================================
-    Calendar
+	Calendar
 ============================================================*/
 /* Calendar headerBar */
 .calendarHeaderBar {
     background-color: $listGrid_headerBar_bgColor;
     border-right: $listGrid_headerSpan_border;
+    border-bottom: $listGrid_headerSpan_border;
+}
+.calendarHeaderBarDisabled {
+    background-color: $listGrid_headerButton_disabled_bgColor;
+    //border-right: $listGrid_headerSpan_border;
 }
 
 /* Calendar date cells */
@@ -7575,75 +8777,87 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 .calendarOver,
 .calendarSelected,
 .calendarSelectedOver,
-.calendarSelectedDisabled,
-.calendarSelectedDisabledOver,
 .calendarDisabled,
 .calendarDisabledOver,
-.calendarDark,
-.calendarOverDark,
-.calendarSelectedDark,
-.calendarSelectedOverDark,
-.calendarSelectedDisabledDark,
-.calendarSelectedDisabledOverDark,
-.calendarDisabledDark,
-.calendarDisabledOverDark {
+.calendarDisabledSelected {
     background-color: $calendar_bgColor;
     border: $standard_transparent_border;
     border-bottom: $calendar_border; 
     border-right: $calendar_border;
     color: $calendar_text_color;
     font: {
-        family: $primary_font; 
+        family: $calendar_font; 
         size: $calendar_font_size;
     }
 }
 
-.calendarDark {
-    background-color: $calendar_dark_bgColor;    
+/* normal cell Over state */
+.calendarOver {
+    //background-color: $calendar_disabled_over_bgColor;
+    background-color: $listGrid_cell_over_bgColor;
+    color: $listGrid_cell_over_color;
 }
 
-.calendarDisabled,
-.calendarDisabledDark,
-.calendarDisabledOver,
-.calendarDisabledOverDark {
+.calendarSelected {
+    //background-color: $default_border_dark_color; 
+    background-color: $calendar_selected_bgColor;
+    color: $calendar_selected_color;
+}
+
+.calendarSelectedOver {
+    //background-color: $calendar_disabled_over_bgColor;
+    background-color: $calendar_selected_bgColor;
+    color: $calendar_selected_color;
+}
+
+.calendarDisabled {
     background-color: $calendar_disabled_bgColor;    
 }
 
-.calendarOver,
+.calendarDisabledSelected {
+    background-color: $calendar_disabled_selected_bgColor;
+}
+
+
+/* calendar dark - for alternate row/col styles */
+.calendarDark,
 .calendarOverDark,
-.calendarSelected,
-.calendarSelectedOver,
-.calendarSelectedOverDark,
-.calendarSelectedDisabled,
-.calendarSelectedDisabledOver,
-.calendarSelectedDisabledOverDark,
-/* calendarDisabled is the baseStyle for disabled dates, but the cells are not disabled */
-.calendarDisabledOver,
-.calendarDisabledSelected,
-.calendarDisabledSelectedOver {
-    background-color: $listGrid_cell_over_bgColor;
-}
-
-.calendarSelected,
-.calendarSelectedDark {
-    background-color: $default_border_dark_color; 
-}
-
-.calendarDisabledOver,
-.calendarDisabledOverDark,
-.calendarDisabledSelected,
-.calendarDisabledSelectedOver,
-.calendarDisabledSelectedOverDark,
-.calendarSelectedDisabledOver,
-.calendarSelected,
-.calendarSelectedOver,
 .calendarSelectedDark,
 .calendarSelectedOverDark,
-.calendarSelectedDisabled,
-.calendarSelectedDisabledOver,
-.calendarSelectedDisabledOverDark {
-    background-color: $calendar_disabled_over_bgColor;
+.calendarDisabledDark,
+.calendarDisabledOverDark,
+.calendarDisabledSelectedDark {
+    background-color: $calendar_dark_bgColor;
+    border: $standard_transparent_border;
+    border-bottom: $calendar_border; 
+    border-right: $calendar_border;
+    color: $calendar_text_color;
+    font: {
+        family: $calendar_font; 
+        size: $calendar_font_size;
+    }
 }
+
+.calendarSelectedDark {
+    //background-color: $default_border_dark_color; 
+    background-color: $calendar_selected_bgColor;
+    color: $calendar_selected_color;
+}
+
+.calendarSelectedOverDark {
+    //background-color: $calendar_disabled_over_bgColor;
+    background-color: $calendar_selected_bgColor;
+    color: $calendar_selected_color;
+}
+
+.calendarDisabledDark {
+    background-color: $calendar_disabled_bgColor;    
+}
+
+.calendarDisabledSelectedDark {
+    background-color: $calendar_disabled_selected_bgColor;
+}
+
 
 /* drag-select canvas */
 .calendarCellSelected {
@@ -7653,7 +8867,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     border-right: $calendar_border;
     color: $calendar_text_color;
     font: {
-        family: $primary_font; 
+        family: $calendar_font; 
         size: $calendar_font_size;
     }
 }
@@ -7671,7 +8885,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     border-right: $calendar_border;
     color: $calendar_text_color;
     font: {
-        family: $primary_font; 
+        family: $calendar_font; 
         size: $calendar_font_size;
     }
 }
@@ -7684,7 +8898,7 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     background-color: $calendar_disabled_bgColor;    
 }
 
-/* Calendar time-column and Timeline laneFields */
+/* Calendar labelColumn - used for day/weekView time-column and Timeline-laneField */
 .labelColumn,
 .labelColumnDark,
 .labelColumnOver,
@@ -7692,14 +8906,18 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 .labelColumnSelected,
 .labelColumnSelectedOver,
 .labelColumnSelectedDark,
-.labelColumnSelectedOverDark {
+.labelColumnSelectedOverDark,
+.labelColumnDisabled,
+.labelColumnDisabledDark,
+.labelColumnDisabledSelected,
+.labelColumnDisabledSelectedDark {
     background-color: $calendar_label_column_bgColor;
+    color: $calendar_label_column_color;
     border: $standard_transparent_border;
     border-bottom: $calendar_border; 
     border-right: $calendar_border;
-    color: $calendar_text_color;
     font: {
-        family: $primary_font;
+        family: $calendar_font;
         size: $calendar_font_size;
     }
 }
@@ -7710,20 +8928,41 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 .labelColumnSelectedDark, 
 .labelColumnSelectedOver,
 .labelColumnSelectedOverDark {
-    background-color: $calendar_disabled_over_bgColor;
+    background-color: $calendar_label_column_selected_bgColor;
+    color: $calendar_label_column_selected_color;
 }
 
+.labelColumnDisabled,
+.labelColumnDisabledDark {
+    background-color: $calendar_label_column_disabled_bgColor;
+    color: $calendar_label_column_disabled_color;
+}
 
-/* ----month---- */
-/* calMonthDayHeader and Body */
+.labelColumnDisabledSelected,
+.labelColumnDisabledSelectedDark {
+    background-color: $calendar_label_column_disabled_selected_bgColor;
+    color: $calendar_label_column_disabled_selected_color;
+}
+
+/* ---- monthView ---- */
+
+/* calMonthDayHeader */
 .calMonthDayHeader,
-.calMonthDayHeaderDark {
+.calMonthDayHeaderDark,
+.calMonthDayHeaderOver,
+.calMonthDayHeaderOverDark,
+.calMonthDayHeaderSelected,
+.calMonthDayHeaderSelectedDark,
+.calMonthDayHeaderSelectedOver,
+.calMonthDayHeaderSelectedOverDark,
+.calMonthDayHeaderSelectedDisabled,
+.calMonthDayHeaderDisabled {
     background-color: $calendar_dark_bgColor;
     border-bottom: $calendar_border; 
     border-right: $calendar_border;
     color: $calendar_text_color;
     font: {
-        family: $primary_font;
+        family: $calendar_font;
         size: $calendar_font_size;
     }
 }
@@ -7735,34 +8974,27 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 .calMonthDayHeaderSelectedOver,
 .calMonthDayHeaderSelectedOverDark {
     background-color: $calendar_month_otherDay_header_selected_bgColor;
-    border-bottom: $calendar_border; 
-    border-right: $calendar_border;
     color: $calendar_day_header_font_color;
-    font: {
-        family: $primary_font;
-        size: $calendar_font_size;
-    }
 }
-.calMonthDayHeaderDisabled,
-.calMonthDayHeaderDisabledOver {
-    background-color: $standard_bgColor;
-    border-bottom: $calendar_border; 
-    border-right: $calendar_border;
-    color: $calendar_text_color;
-    font: {
-        family: $primary_font;
-        size: $calendar_font_size;
-    }
-}
+/* end calMonthDayHeader */
 
+/* calMonthDayBody */
 .calMonthDayBody,
-.calMonthDayBodyDark {
+.calMonthDayBodyDark,
+.calMonthDayBodyOver,
+.calMonthDayBodyOverDark,
+.calMonthDayBodySelected,
+.calMonthDayBodySelectedDark,
+.calMonthDayBodySelectedOver,
+.calMonthDayBodySelectedOverDark,
+.calMonthDayBodySelectedDisabled,
+.calMonthDayBodyDisabled {
     background-color: $calendar_bgColor;
     border-bottom: $calendar_border; 
     border-right: $calendar_border;
     color: $calendar_text_color;
     font: {
-        family: $primary_font;
+        family: $calendar_font;
         size: $calendar_font_size;
     }
 }
@@ -7774,64 +9006,45 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 .calMonthDayBodySelectedOver,
 .calMonthDayBodySelectedOverDark {
     background-color: $calendar_month_otherDay_header_selected_bgColor;
-    border-bottom: $calendar_border;
-    border-right: $calendar_border;
-    color: $calendar_text_color;
-    font: {
-        family: $primary_font;
-        size: $calendar_font_size;
-    }
 }
 
-.calMonthDayBodyDisabled,
-.calMonthDayBodyDisabledOver {
+.calMonthDayBodyDisabled {
     background-color: $calendar_dark_bgColor;
-    border-bottom: $calendar_border; 
-    border-right: $calendar_border;
-    color: $calendar_text_color;
-    font: {
-        family: $primary_font;
-        size: $calendar_font_size;
-    }
 }
+/* end calMonthDayBody */
 
 /* calMonthOtherDayHeader and Body */
 .calMonthOtherDayHeader,
-.calMonthOtherDayHeaderDark {
+.calMonthOtherDayHeaderOver,
+.calMonthOtherDayHeaderSelected,
+.calMonthOtherDayHeaderSelectedOver,
+.calMonthOtherDayHeaderSelectedDisabled,
+.calMonthOtherDayHeaderDisabled {
     background-color: $calendar_border_color;
     border-bottom: $calendar_border; 
     border-right: $calendar_border;
     color: $calendar_day_header_font_color;
     font: {
-        family: $primary_font; 
+        family: $calendar_font; 
         size: $calendar_font_size;
     }
 }
 
+.calMonthOtherDayHeaderOver
 .calMonthOtherDayHeaderSelected,
-.calMonthOtherDayHeaderSelectedOver,
-.calMonthOtherDayHeaderOver,
-.calMonthOtherDayHeaderOverDark {
+.calMonthOtherDayHeaderSelectedOver {
     background-color: $calendar_month_otherDay_header_selected_bgColor;
-    border-bottom: $calendar_border; 
-    border-right: $calendar_border;
-    color: $calendar_day_header_font_color;
-    font: {
-        family: $primary_font; 
-        size: $calendar_font_size;
-    }
 }
 
 .calMonthOtherDayBody,
 .calMonthOtherDayBodyDark, 
-.calMonthOtherDayBodyDisabled, 
-.calMonthOtherDayBodyDisabledOver{
-    background-color: $standard_bgColor;
+.calMonthOtherDayBodyDisabled {
+    background-color: $calendar_dark_bgColor;
     border-bottom: $calendar_border; 
     border-right: $calendar_border;
     color: $calendar_text_color;
     font: {
-        family: $primary_font; 
+        family: $calendar_font; 
         size: $calendar_font_size;
     }
 }
@@ -7843,10 +9056,11 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
     border-right: $calendar_border;
     color: $calendar_text_color;
     font: {
-        family: $primary_font; 
+        family: $calendar_font; 
         size: $calendar_font_size;
     }
 }
+/* end calMonthOtherDayHeader and Body */
 
 /* calMonthOtherDayBlank */
 .calMonthOtherDayBlank,
@@ -7856,13 +9070,15 @@ IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 .calMonthOtherDayBlankSelected,
 .calMonthOtherDayBlankSelectedDark,
 .calMonthOtherDayBlankSelectedOver,
-.calMonthOtherDayBlankSelectedOverDark {
+.calMonthOtherDayBlankSelectedOverDark,
+.calMonthOtherDayBlankSelectedDisabled,
+.calMonthOtherDayBlankDisabled {
     background-color: $standard_bgColor;
     border-bottom: $calendar_border; 
     border-right: $calendar_border;
     color: $calendar_other_day_color;
     font: {
-        family: $primary_font; 
+        family: $calendar_font; 
         size: $calendar_font_size;
     }
 }
@@ -7915,7 +9131,8 @@ a.calMonthEventLink:active {
     border: $calendar_eventWindow_selected_border;
 }
 
-.eventWindowHeader {
+.eventWindowHeader,
+.eventWindowHeaderSelected {
     position: absolute;
     left: 0px; 
     right: 0px;
@@ -7931,7 +9148,8 @@ a.calMonthEventLink:active {
     padding: $calendar_eventWindow_header_padding;
 }
 
-.eventWindowBody {
+.eventWindowBody,
+.eventWindowBodySelected {
     position: absolute;
     left: 0px; 
     right: 0px;
@@ -7962,6 +9180,11 @@ a.calMonthEventLink:active {
 .eventWindowResizer {
     border-bottom: $calendar_eventWindow_resizer_border;
     border-top: $calendar_eventWindow_resizer_border;
+}
+
+/* Leading/Trailing date-lines, shown either side of events in Timelines */
+.eventLine {
+    background-color: $calendar_eventLine_bgColor;
 }
 
 
@@ -8042,8 +9265,8 @@ a.calMonthEventLink:active {
         family: $propsheet_font;
         size: $propsheet_font_size;
     }
-    margin: 0px;
-    padding: 0px;
+    margin: 0px 2px 0px 0px;
+    padding: 1px 2px 0px 2px;
 }
 
 .propSheetTitle,
@@ -8172,6 +9395,7 @@ a.calMonthEventLink:active {
 
 .processElementDisabled,
 .processElementNewDisabled {
+    -webkit-text-fill-color: $default_disabled_text_color;
     color: $default_disabled_text_color;
 }
 
@@ -8270,6 +9494,242 @@ a.calMonthEventLink:active {
 }
 
 /*============================================================
+    Tour
+============================================================*/
+/* Note that Tour styles do no default from standard values
+   so that the output is independent of the current skin */
+
+/* Window */
+.tourWindowBackground {
+    background-color: $tourWindow_bgColor;
+    border: 1px solid $tourWindow_bgColor;
+    @include border-radius($tourWindow_border_radius);
+    @include box-shadow($tourWindow_shadow);
+}
+  
+.tourWindowBody {
+    background-color: $tourWindow_bgColor;
+    padding: 2px 2px 2px 2px;
+}
+
+.tourWindowTitle {
+    color: $tourWindow_title_color;
+    font-size: $tourWindow_title_font_size;
+    font-weight: $tourWindow_title_font_weight;
+    font-family: $tourWindow_title_font;
+    padding-bottom: $tourWindow_title_bottom_padding;
+}
+  
+.tourWindowContents {
+    color: $tourWindow_contents_color;
+    font-size: $tourWindow_contents_font_size;
+    font-weight: $tourWindow_contents_font_weight;
+    font-family: $tourWindow_contents_font;
+    margin: 0;
+}
+
+.tourPointerUp {
+    width: 0; 
+    height: 0; 
+    border-left: 15px solid transparent;
+    border-right: 14px solid transparent;
+    
+    border-bottom: 29px solid $tourWindow_pointer_bgColor;
+}
+
+.tourPointerDown {
+    width: 0; 
+    height: 0; 
+    border-left: 15px solid transparent;
+    border-right: 14px solid transparent;
+    
+    border-top: 29px solid $tourWindow_pointer_bgColor;
+}
+
+.tourPointerRight {
+    width: 0; 
+    height: 0; 
+    border-top: 15px solid transparent;
+    border-bottom: 14px solid transparent;
+    
+    border-left: 29px solid $tourWindow_pointer_bgColor;
+}
+
+.tourPointerLeft {
+    width: 0; 
+    height: 0; 
+    border-top: 15px solid transparent;
+    border-bottom: 14px solid transparent;
+    
+    border-right: 29px solid $tourWindow_pointer_bgColor;
+}
+
+.tourButton,
+.tourButtonOver,
+.tourButtonFocused,
+.tourButtonFocusedOver,
+.tourButtonDown,
+.tourButtonFocusedDown,
+.tourButtonSelected,
+.tourButtonSelectedFocused,
+.tourButtonSelectedDown,
+.tourButtonSelectedFocusedDown,
+.tourButtonSelectedOver,
+.tourButtonSelectedFocusedOver,
+.tourButtonDisabled,
+.tourButtonSelectedDisabled, 
+
+.tourButtonPending,
+.tourButtonPendingOver,
+.tourButtonPendingFocused,
+.tourButtonPendingFocusedOver,
+.tourButtonPendingDown,
+.tourButtonPendingFocusedDown,
+.tourButtonPendingSelected,
+.tourButtonPendingSelectedFocused,
+.tourButtonPendingSelectedDown,
+.tourButtonPendingSelectedFocusedDown,
+.tourButtonPendingSelectedOver,
+.tourButtonPendingSelectedFocusedOver,
+.tourButtonPendingDisabled,
+.tourButtonPendingSelectedDisabled,
+.tourButtonDeselectedDisabled {
+    background-color: $tourButton_bgColor;
+    border: $tourButton_border;
+    @include border-radius($tourButton_border_radius);
+    padding-left: $tourButton_padding;
+    padding-right: $tourButton_padding;
+    line-height: $tourButton_line_height;
+    outline: 0px; 
+    color: $tourButton_color;
+    font-size: $tourButton_font_size;
+    font-family: $tourButton_font;
+    font-weight: $tourButton_font_weight;
+}
+
+/* Over styles */
+.tourButton:hover,
+.tourButtonOver,
+.tourButtonPendingOver {
+    color: $tourButton_over_color;
+    background-color: $tourButton_over_bgColor;
+    border: $tourButton_over_border;
+    @include box-shadow($tourButton_over_shadow);
+} 
+
+/* focused styles */
+.tourButtonFocused,
+.tourButtonSelectedFocused {
+    color: $tourButton_focused_color;
+    background-color: $tourButton_focused_bgColor;
+    border: $tourButton_focused_border;
+    @include box-shadow($tourButton_focused_shadow);
+}
+
+/* focusedOver styles */
+.tourButtonFocusedOver,
+.tourButtonSelectedFocusedOver {
+    color: $tourButton_focused_over_color;
+    background-color: $tourButton_focused_over_bgColor;
+    border: $tourButton_focused_over_border;
+    @include box-shadow($tourButton_focused_over_shadow);
+}
+
+/* Down styles */
+.tourButtonDown,
+.tourButtonFocusedDown,
+.tourButtonSelectedDown,
+.tourButtonSelectedFocusedDown {
+    color: $tourButton_down_color;
+    background-color: $tourButton_down_bgColor;
+    border: $tourButton_down_border;
+    @include box-shadow($tourButton_down_glow); 
+}
+
+/* disabled styles */
+.tourButtonDisabled,
+.tourButtonSelectedDisabled,
+.tourButtonPendingDisabled,
+.tourButtonPendingSelectedDisabled {
+    color: $tourButton_disabled_color;
+    background-color: $tourButton_disabled_bgColor; 
+    border: $tourButton_disabled_border;
+}
+
+.tourButtonDeselectedDisabled {
+    color: $tourButton_deselected_disabled_color;
+    text-decoration: line-through;
+}
+
+/* pending styles */
+.tourButtonPending,
+.tourButtonPendingOver,
+.tourButtonPendingFocused,
+.tourButtonPendingFocusedOver,
+.tourButtonPendingDown,
+.tourButtonPendingFocusedDown,
+.tourButtonPendingSelected,
+.tourButtonPendingSelectedFocused,
+.tourButtonPendingSelectedDown,
+.tourButtonPendingSelectedFocusedDown,
+.tourButtonPendingSelectedOver,
+.tourButtonPendingSelectedFocusedOver,
+.tourButtonPendingSelectedDisabled {
+    color: $pending_value_dark_color; 
+}
+
+.tourLinkButton,
+.tourLinkButtonOver,
+.tourLinkButtonFocused,
+.tourLinkButtonFocusedOver,
+.tourLinkButtonDown,
+.tourLinkButtonFocusedDown,
+.tourLinkButtonSelected,
+.tourLinkButtonSelectedFocused,
+.tourLinkButtonSelectedDown,
+.tourLinkButtonSelectedFocusedDown,
+.tourLinkButtonSelectedOver,
+.tourLinkButtonSelectedFocusedOver,
+.tourLinkButtonDisabled,
+.tourLinkButtonSelectedDisabled,
+.tourLinkButtonPending,
+.tourLinkButtonPendingOver,
+.tourLinkButtonPendingFocused,
+.tourLinkButtonPendingFocusedOver,
+.tourLinkButtonPendingDown,
+.tourLinkButtonPendingFocusedDown,
+.tourLinkButtonPendingSelected,
+.tourLinkButtonPendingSelectedFocused,
+.tourLinkButtonPendingSelectedDown,
+.tourLinkButtonPendingSelectedFocusedDown,
+.tourLinkButtonPendingSelectedOver,
+.tourLinkButtonPendingSelectedFocusedOver,
+.tourLinkButtonPendingDisabled,
+.tourLinkButtonPendingSelectedDisabled,
+.tourLinkButtonDeselectedDisabled {
+    background-color: $tourLinkButton_bgColor;
+    padding-left: $tourLinkButton_padding;
+    padding-right: $tourLinkButton_padding;
+    line-height: $tourLinkButton_line_height;
+    outline: 0px; 
+    color: $tourLinkButton_color;
+    font-size: $tourLinkButton_font_size;
+    font-family: $tourLinkButton_font;
+    font-weight: $tourLinkButton_font_weight;
+}
+
+.tourProgress {
+    background-color: $tourProgress_bgColor;
+}
+
+.tourPercent {
+    color: $tourPercent_color;
+    font-size: $tourPercent_font_size;
+    font-family: $tourPercent_font;
+    font-weight: $tourPercent_font_weight;
+}
+
+/*============================================================
     Application
 ============================================================*/
 
@@ -8285,6 +9745,7 @@ a.calMonthEventLink:active {
 }
 
 .pageTitleDisabled {
+    -webkit-text-fill-color: $pageTitle_disabled_color;
     color: $pageTitle_disabled_color;
 }
 
@@ -8368,17 +9829,13 @@ a.calMonthEventLink:active {
 .docParameter { color: $docParameter_color; }
 .docOptionalParameter { color: $docOptionalParameter_color; }
 
-
-/*IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
-IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
-IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
-
-	Styles below this comment are not used by default in this skin
-
-IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
-IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
-IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII*/
-
-
-
 //<skin_base_styles
+
+
+
+//THE COMMENT BELOW IS A NOTE THAT WILL APPEAR IN GENERATED .css, 
+//IT DOES NOT APPLY TO THIS .scss FILE, SO YOU MAY EDIT IT.
+
+//*===========* Tahoe CSS Customization *===========*/
+
+

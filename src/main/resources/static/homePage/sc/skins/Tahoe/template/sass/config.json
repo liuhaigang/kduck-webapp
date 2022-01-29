@@ -1,5 +1,17 @@
 {
     "settings":{
+        "$highlight_color":{
+            "transform":{
+                "derivesFrom":"", 
+                "source":"#47a7e3", 
+                "r":0, 
+                "g":0, 
+                "b":0, 
+                "a":0, 
+                "sass":"adjust-color(#47a7e3,$red:0,$green:0,$blue:0)", 
+                "result":"#47a7e3"
+            }
+        }, 
         "$standard_header_bgColor":{
             "transform":{
                 "derivesFrom":"$highlight_color", 
@@ -80,7 +92,7 @@
                 "g":23, 
                 "b":23, 
                 "a":0, 
-                "sass":"adjust-color($standard_color,$red:23,$green:23,$blue:23)", 
+                "sass":"adjust-color($standard_color,$red:0,$green:0,$blue:0)", 
                 "result":"#3f3f3f"
             }
         }, 
@@ -500,7 +512,7 @@
                 "g":14, 
                 "b":14, 
                 "a":0, 
-                "sass":"adjust-color($standard_color,$red:14,$green:14,$blue:14)", 
+                "sass":"adjust-color($standard_color,$red:-10,$green:-10,$blue:-10)", 
                 "result":"#363636"
             }
         }, 
@@ -600,7 +612,7 @@
                 "result":"#84c1ed"
             }
         }, 
-        "$iconButton_selected_border_color":{
+        "$ribbonButton_selected_border_color":{
             "transform":{
                 "derivesFrom":"$highlight_color", 
                 "source":"#47a7e3", 

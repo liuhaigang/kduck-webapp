@@ -1,15 +1,14 @@
-//* Theme Settings */
-@import "./_skinSettings.scss";
+// This file generates skin_styles.css for this custom skin
 
-//* Custom Settings Overrides */
+// fonts
+@import "./_fonts.scss";
+
+/* Custom Settings Overrides */
 @import "./_userSettings.scss";
 
-// Base Skin Styles */
+/* Base Skin Styles */
 @import "./_base.scss";
 
-//* Theme Style Overrides */
-@import "./_skinStyles.scss";
-
-//* Custom Style Overrides */
+/* Custom Style Overrides */
 @import "./_userStyles.scss";
 

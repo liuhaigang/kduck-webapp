@@ -9,8 +9,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class DefaultAccountPwdEncoder implements AccountPwdEncoder {
 
-//    @Autowired
-//    @Lazy
     PasswordEncoder passwordEncoder;
 
     public DefaultAccountPwdEncoder(@Lazy PasswordEncoder passwordEncoder){
