@@ -118,6 +118,11 @@ public class AccountServiceImpl extends DefaultService implements AccountService
     }
 
     @Override
+    public void deleteAccountByUserId(String[] userIds) {
+        super.delete(CODE_ACCOUNT,"userId",userIds);
+    }
+
+    @Override
     public void changePassword(String accountName, String oldPwd, String newPwd) {
         Account acccount = super.getForBean(CODE_ACCOUNT, Account.ACCOUNT_NAME,accountName, Account::new);
         if(acccount != null){
