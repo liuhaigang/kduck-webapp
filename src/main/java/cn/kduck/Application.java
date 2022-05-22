@@ -1,22 +1,19 @@
 package cn.kduck;
 
-import cn.kduck.module.account.service.AccountPwdEncoder;
-import cn.kduck.module.account.service.AccountService;
 import cn.kduck.security.UserExtInfo;
 import cn.kduck.webapp.login.UserExtInfoImpl;
-import cn.kduck.webapp.security.CustomRoleAccessVoter;
 import cn.kduck.webapp.security.UserDetailsServiceImpl;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.oas.annotations.EnableOpenApi;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
@@ -27,6 +24,7 @@ import java.net.UnknownHostException;
 
 @SpringBootApplication
 //@EnableRabbit
+@EnableOpenApi
 public class Application extends SpringBootServletInitializer {
 
 //    @Autowired
@@ -64,6 +62,7 @@ public class Application extends SpringBootServletInitializer {
 
 
     public static void main(String[] args) throws Exception {
+
         InetAddress address = null;
         try {
             address = InetAddress.getLocalHost();
@@ -72,7 +71,17 @@ public class Application extends SpringBootServletInitializer {
         }
         System.out.println(address.getHostAddress());
 
-        SpringApplication.run(Application.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
+
+//        MessageSource messageSource = context.getBean(MessageSource.class);
+//        System.out.println(messageSource.getMessage("name1",new String[0], Locale.getDefault()));
+//        System.out.println(messageSource.getMessage("name100",new String[0], Locale.getDefault()));
+
+
+//        Enumeration<URL> urls = Application.class.getClassLoader().getResources(FACTORIES_RESOURCE_LOCATION);
+//        while(urls.hasMoreElements()){
+//            System.out.println(urls.nextElement());
+//        }
     }
 
     @Bean

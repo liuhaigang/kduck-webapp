@@ -3,8 +3,6 @@ package cn.kduck.module.privatemessage.web;
 import cn.kduck.core.service.Page;
 import cn.kduck.core.web.json.JsonObject;
 import cn.kduck.core.web.json.JsonPageObject;
-import cn.kduck.core.web.swagger.ApiField;
-import cn.kduck.core.web.swagger.ApiJsonRequest;
 import cn.kduck.module.privatemessage.service.MessageGroup;
 import cn.kduck.module.privatemessage.service.MessageReceiver;
 import cn.kduck.module.privatemessage.service.MessageUser;
@@ -40,15 +38,6 @@ public class PrivateMessageController {
 
     @PostMapping("/add")
     @ApiOperation("添加站内信")
-    @ApiJsonRequest({
-//            @ApiField(name="messageId",value="消息ID", paramType = "query"),
-            @ApiField(name="messageTitle",value="消息标题", paramType = "query"),
-            @ApiField(name="messageContent",value="消息内容", paramType = "query"),
-            @ApiField(name="receivers[].receiverId",value="接收对象Id", paramType = "query"),
-            @ApiField(name="receivers[].receiverType",value="接收对象类型（MessageUser，MessageGroup）", paramType = "query"),
-            @ApiField(name="receivers[].groupType",value="接收对象类型（ORG，ALL）", paramType = "query"),
-
-    })
     public JsonObject addPrivateMessage(@RequestBody PrivateMessageModel messageModel){
 
         PrivateMessage message = new PrivateMessage();

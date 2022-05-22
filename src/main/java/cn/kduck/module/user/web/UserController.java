@@ -6,9 +6,6 @@ import cn.kduck.core.web.annotation.ModelOperate;
 import cn.kduck.core.web.annotation.ModelResource;
 import cn.kduck.core.web.json.JsonObject;
 import cn.kduck.core.web.json.JsonPageObject;
-import cn.kduck.core.web.swagger.ApiField;
-import cn.kduck.core.web.swagger.ApiJsonResponse;
-import cn.kduck.core.web.swagger.ApiParamRequest;
 import cn.kduck.module.user.service.User;
 import cn.kduck.module.user.service.UserAccount;
 import cn.kduck.module.user.service.UserService;
@@ -64,13 +61,13 @@ public class UserController {
             @ApiImplicitParam(name = "phone", value = "手机号", paramType = "query"),
             @ApiImplicitParam(name = "email", value = "邮箱", paramType = "query"),
     })
-    @ApiJsonResponse({
-            @ApiField(name="userName",value="姓名"),
-            @ApiField(name="gender",value="性别(1 男,2 女)"),
-            @ApiField(name="birthday",value="出生日期"),
-            @ApiField(name="userName",value="手机号"),
-            @ApiField(name="email",value="邮箱")
-    })
+//    @ApiJsonResponse({
+//            @ApiField(name="userName",value="姓名"),
+//            @ApiField(name="gender",value="性别(1 男,2 女)"),
+//            @ApiField(name="birthday",value="出生日期"),
+//            @ApiField(name="userName",value="手机号"),
+//            @ApiField(name="email",value="邮箱")
+//    })
     @ModelOperate(name="添加用户")
     public JsonObject addUser(@Validated User user){
         processPhoto(user);
@@ -108,9 +105,9 @@ public class UserController {
 
     @GetMapping("/get")
     @ApiOperation(value = "查看用户详情")
-    @ApiParamRequest({
-            @ApiField(name="userId",value="用户Id",paramType = "query")
-    })
+//    @ApiParamRequest({
+//            @ApiField(name="userId",value="用户Id",paramType = "query")
+//    })
     @ModelOperate(name="查看用户详情")
     public JsonObject getUser(@RequestParam("userId") String userId){
         ValueMap user = userService.getUser(userId);

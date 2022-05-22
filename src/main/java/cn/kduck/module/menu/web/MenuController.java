@@ -8,8 +8,6 @@ import cn.kduck.core.utils.TreeNodeUtils;
 import cn.kduck.core.utils.TreeNodeUtils.Node;
 import cn.kduck.core.web.json.JsonObject;
 import cn.kduck.core.web.json.JsonPageObject;
-import cn.kduck.core.web.swagger.ApiField;
-import cn.kduck.core.web.swagger.ApiParamRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -31,14 +29,6 @@ public class MenuController {
 
     @PostMapping("/add")
     @ApiOperation("新增菜单")
-    @ApiParamRequest({
-            @ApiField(name="parentId",value = "上级菜单Id",paramType = "query"),
-            @ApiField(name="menuName",value = "菜单名称",paramType = "query"),
-            @ApiField(name="menuCode",value = "菜单编码",paramType = "query"),
-            @ApiField(name="menuType",value = "菜单类型 1事件 2文件夹",paramType = "query"),
-            @ApiField(name="icon",value = "菜单图标",paramType = "query"),
-            @ApiField(name="orderNum",value = "排序",paramType = "query")
-    })
     public JsonObject addMenu(@ApiIgnore Menu menu){
         menuService.addMenu(menu);
         return JsonObject.SUCCESS;
@@ -46,9 +36,6 @@ public class MenuController {
 
     @DeleteMapping("/delete")
     @ApiOperation("删除菜单")
-    @ApiParamRequest({
-            @ApiField(name="ids",value = "菜单主键Id",paramType = "query",allowMultiple = true)
-    })
     public JsonObject  deleteMenu(@RequestParam("ids") String[] ids){
         menuService.deleteMenu(ids);
         return JsonObject.SUCCESS;
@@ -56,14 +43,6 @@ public class MenuController {
 
     @PutMapping("/update")
     @ApiOperation("更新菜单")
-    @ApiParamRequest({
-            @ApiField(name="menuId",value = "菜单Id",paramType = "query"),
-            @ApiField(name="menuName",value = "菜单名称",paramType = "query"),
-            @ApiField(name="menuCode",value = "菜单编码",paramType = "query"),
-            @ApiField(name="menuType",value = "菜单类型 1事件 2文件夹",paramType = "query"),
-            @ApiField(name="icon",value = "菜单图标",paramType = "query"),
-            @ApiField(name="orderNum",value = "排序",paramType = "query")
-    })
     public JsonObject  updateMenu(@ApiIgnore Menu menu){
         menuService.updateMenu(menu);
         return JsonObject.SUCCESS;
@@ -71,9 +50,6 @@ public class MenuController {
 
     @GetMapping("/get")
     @ApiOperation("查看菜单详情")
-    @ApiParamRequest({
-            @ApiField(name="menuId",value = "菜单Id",paramType = "query")
-    })
     public JsonObject  getMenu(@RequestParam("menuId") String menuId){
         Menu menu = menuService.getMenu(menuId);
         return new JsonObject(menu);
@@ -108,9 +84,6 @@ public class MenuController {
 
     @GetMapping("/authorize/list")
     @ApiOperation("查询菜单授权")
-    @ApiParamRequest({
-            @ApiField(name="menuId",value = "菜单Id",paramType = "query")
-    })
     public JsonObject listMenuAuthorize(@RequestParam("menuId") String menuId,@RequestParam("operateType") Integer operateType){
         List<MenuAuthorize> menuAuthorizeList = menuService.listMenuAuthorize(menuId,operateType);
         return new JsonObject(menuAuthorizeList);

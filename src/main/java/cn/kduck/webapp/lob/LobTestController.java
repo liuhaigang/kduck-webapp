@@ -4,8 +4,6 @@ import cn.kduck.core.service.DefaultService;
 import cn.kduck.core.service.ParamMap;
 import cn.kduck.core.service.ValueMap;
 import cn.kduck.core.web.json.JsonObject;
-import cn.kduck.core.web.swagger.ApiField;
-import cn.kduck.core.web.swagger.ApiParamRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +33,6 @@ public class LobTestController {
 
     @PostMapping("/clob/add")
     @ApiOperation("添加为clob")
-    @ApiParamRequest({
-            @ApiField(name="text",value="文本", paramType = "query"),
-    })
     public JsonObject saveAsClob(String text){
         Map<String, Object> valueMap = ParamMap.create("demoClob", text).toMap();
         defaultService.add(DEMO,valueMap);

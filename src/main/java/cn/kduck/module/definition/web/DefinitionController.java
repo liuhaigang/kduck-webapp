@@ -10,8 +10,6 @@ import cn.kduck.core.service.ValueMapList;
 import cn.kduck.core.web.json.JsonMapObject;
 import cn.kduck.core.web.json.JsonObject;
 import cn.kduck.core.web.json.JsonPageObject;
-import cn.kduck.core.web.swagger.ApiField;
-import cn.kduck.core.web.swagger.ApiParamRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -44,11 +42,6 @@ public class DefinitionController {
 
     @PostMapping("/entity/add")
     @ApiOperation("新增实体信息，不包含字段信息")
-    @ApiParamRequest({
-            @ApiField(name = "entityCode", value = "实体编码",paramType = "query"),
-            @ApiField(name = "tableName", value = "数据表名",paramType = "query"),
-            @ApiField(name = "entityName", value = "实体名称（描述）",paramType = "query"),
-    })
     public JsonObject addBeanDefinition(@ApiIgnore EntityDef entityDef){
         definitionService.addBeanDef(entityDef);
         return JsonObject.SUCCESS;

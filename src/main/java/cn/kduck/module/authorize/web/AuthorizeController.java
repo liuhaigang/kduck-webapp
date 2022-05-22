@@ -1,8 +1,6 @@
 package cn.kduck.module.authorize.web;
 
 import cn.kduck.core.web.json.JsonObject;
-import cn.kduck.core.web.swagger.ApiField;
-import cn.kduck.core.web.swagger.ApiParamRequest;
 import cn.kduck.module.authorize.service.AuthorizeOperate;
 import cn.kduck.module.authorize.service.AuthorizeService;
 import cn.kduck.security.principal.AuthUser;
@@ -31,11 +29,11 @@ public class AuthorizeController {
      * operateObjects = "资源ID"+"#"+"分组名"
      */
     @ApiOperation("为用户授权")
-    @ApiParamRequest({
-            @ApiField(name="userId",value="授权用户Id"),
-            @ApiField(name="operateType",value="授权操作类型，1授权资源，2授权分组"),
-            @ApiField(name="operateObjects",value="授权操作对象（operateType=1，资源授权ID、operateType=2，资源ID#分组名）"),
-    })
+//    @ApiParamRequest({
+//            @ApiField(name="userId",value="授权用户Id"),
+//            @ApiField(name="operateType",value="授权操作类型，1授权资源，2授权分组"),
+//            @ApiField(name="operateObjects",value="授权操作对象（operateType=1，资源授权ID、operateType=2，资源ID#分组名）"),
+//    })
     @PostMapping("/save/forUser")
     public JsonObject saveAuthorizeOperateForUser(@RequestParam("userId") String userId, Integer operateType, String[] operateObjects){
         authorizeService.saveAuthorizeOperate(AuthorizeOperate.AUTHORIZE_TYPE_USER,userId,operateType,operateObjects);
@@ -43,11 +41,11 @@ public class AuthorizeController {
     }
 
     @ApiOperation("为角色授权")
-    @ApiParamRequest({
-            @ApiField(name="roleId",value="角色Id"),
-            @ApiField(name="operateType",value="授权操作类型，1授权资源，2授权分组"),
-            @ApiField(name="operateObjects",value="授权操作对象（operateType=1，资源授权ID、operateType=2，资源ID#分组名）"),
-    })
+//    @ApiParamRequest({
+//            @ApiField(name="roleId",value="角色Id"),
+//            @ApiField(name="operateType",value="授权操作类型，1授权资源，2授权分组"),
+//            @ApiField(name="operateObjects",value="授权操作对象（operateType=1，资源授权ID、operateType=2，资源ID#分组名）"),
+//    })
     @PostMapping("/save/forRole")
     public JsonObject saveAuthorizeOperateForRole(@RequestParam("roleCode") String roleCode, Integer operateType, String[] operateObjects){
         authorizeService.saveAuthorizeOperate(AuthorizeOperate.AUTHORIZE_TYPE_ROLE,roleCode,operateType,operateObjects);
@@ -55,11 +53,11 @@ public class AuthorizeController {
     }
 
     @ApiOperation("为分级授权用户授权")
-    @ApiParamRequest({
-            @ApiField(name="userId",value="授权用户Id"),
-            @ApiField(name="operateType",value="授权操作类型，1授权资源，2授权分组"),
-            @ApiField(name="operateObjects",value="授权操作对象（operateType=1，资源授权ID、operateType=2，资源ID#分组名）"),
-    })
+//    @ApiParamRequest({
+//            @ApiField(name="userId",value="授权用户Id"),
+//            @ApiField(name="operateType",value="授权操作类型，1授权资源，2授权分组"),
+//            @ApiField(name="operateObjects",value="授权操作对象（operateType=1，资源授权ID、operateType=2，资源ID#分组名）"),
+//    })
     @PostMapping("/save/forHierarchicalUser")
     public JsonObject saveAuthorizeOperateForHierarchicalUser(@RequestParam("userId") String userId, Integer operateType, String[] operateObjects){
         authorizeService.saveAuthorizeOperate(AuthorizeOperate.AUTHORIZE_TYPE_HIERARCHICAL,userId,operateType,operateObjects);
@@ -67,9 +65,9 @@ public class AuthorizeController {
     }
 
     @ApiOperation("根据用户ID查询授权的资源操作")
-    @ApiParamRequest({
-            @ApiField(name="userId",value="用户Id")
-    })
+//    @ApiParamRequest({
+//            @ApiField(name="userId",value="用户Id")
+//    })
     @GetMapping("/list/byUser")
     public JsonObject listAuthorizeOperateByUser(@RequestParam("userId") String userId,String operateType){
         List<AuthorizeOperate> authorizeOperates = authorizeService.listAuthorizeOperate(AuthorizeOperate.AUTHORIZE_TYPE_USER, userId);
@@ -77,9 +75,9 @@ public class AuthorizeController {
     }
 
     @ApiOperation("根据角色ID查询授权的资源操作")
-    @ApiParamRequest({
-            @ApiField(name="roleId",value="角色Id")
-    })
+//    @ApiParamRequest({
+//            @ApiField(name="roleId",value="角色Id")
+//    })
     @GetMapping("/list/byRole")
     public JsonObject listAuthorizeOperateByRole(@RequestParam("roleCode") String roleCode,String operateType){
         List<AuthorizeOperate> authorizeOperates = authorizeService.listAuthorizeOperate(AuthorizeOperate.AUTHORIZE_TYPE_ROLE, roleCode);

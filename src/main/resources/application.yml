@@ -1,29 +1,43 @@
 spring:
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/kduck?useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=Asia/Shanghai
+#    url: jdbc:mysql://127.0.0.1:3306/k-duck?useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=Asia/Shanghai
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: liuhg
+#    password: gang317
+    url: jdbc:mysql://rm-2zesaij85f01950h01o.mysql.rds.aliyuncs.com:3306/k-duck?useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: liuhg
-    password: gang317
+    username: lhg
+    password: Gang$317
   servlet:
     multipart:
       max-file-size: 100MB
       max-request-size: 200MB
 #  main:
 #    allow-circular-references: true
-#  rabbitmq:
-#    host: 192.168.9.110
-#    port: 33274
-#    username: gtiles
-#    password: Klx1234!
-#    virtual-host: dev-boe
+  redis:
+    password: gang317
+#    sentinel:
+#      master: redis-lhg
+#      nodes: 192.168.8.9:36379,192.168.8.9:46379,192.168.8.9:56379
+    cluster:
+      nodes: 192.168.8.9:8001,192.168.8.9:8002,192.168.8.9:8003
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+#    virtual-host: /
+
+
 logging:
   level:
-    root: error
+    root: info
     cn.kduck: info
-
 kduck:
+  swagger:
+    enabled: true
   showSql:
-    enabled: false
+    enabled: true
   resource:
     enabled: true
   websocket:
@@ -33,6 +47,9 @@ kduck:
     loginPage: /index.html
   flow:
     baseUrl: http://127.0.0.1:8088/kduck-engine-rest
+  proxy:
+    service:
+      demoService: a|http://xxx.com,b|http://yyy.com
 
 server:
   port: 8000

@@ -2,8 +2,6 @@ package cn.kduck.module.workday.web;
 
 
 import cn.kduck.core.web.json.JsonObject;
-import cn.kduck.core.web.swagger.ApiField;
-import cn.kduck.core.web.swagger.ApiParamRequest;
 import cn.kduck.module.workday.exception.WorkCalendarExistException;
 import cn.kduck.module.workday.service.CalendarDay;
 import cn.kduck.module.workday.service.CalendarMonth;
@@ -38,13 +36,13 @@ public class WorkCalendarController {
 
     @PostMapping("/calendar/add")
     @ApiOperation("新增工作日历")
-    @ApiParamRequest({
-            @ApiField(name="calendarName",value="日历名称", paramType = "query"),
-            @ApiField(name="calendarCode",value="日历编码", paramType = "query"),
-            @ApiField(name="calendarYear",value="日历年份", paramType = "query"),
-            @ApiField(name="publicHoliday",value="公休日，逗号分隔，周日为1，周一为2，以此类推，周日为7", paramType = "query"),
-            @ApiField(name="description",value="日历描述", paramType = "query"),
-    })
+//    @ApiParamRequest({
+//            @ApiField(name="calendarName",value="日历名称", paramType = "query"),
+//            @ApiField(name="calendarCode",value="日历编码", paramType = "query"),
+//            @ApiField(name="calendarYear",value="日历年份", paramType = "query"),
+//            @ApiField(name="publicHoliday",value="公休日，逗号分隔，周日为1，周一为2，以此类推，周日为7", paramType = "query"),
+//            @ApiField(name="description",value="日历描述", paramType = "query"),
+//    })
     public JsonObject addWorkCalendar(WorkCalendar workCalendar,String publicHoliday){
         String[] publicHolidayDays = null;
         if(StringUtils.hasText(publicHoliday)){
@@ -110,11 +108,11 @@ public class WorkCalendarController {
 
     @PutMapping("/calendar/update")
     @ApiOperation("更新工作日历")
-    @ApiParamRequest({
-            @ApiField(name="calendarId",value="日历ID", paramType = "query"),
-            @ApiField(name="calendarName",value="日历名称", paramType = "query"),
-            @ApiField(name="description",value="日历描述", paramType = "query")
-    })
+//    @ApiParamRequest({
+//            @ApiField(name="calendarId",value="日历ID", paramType = "query"),
+//            @ApiField(name="calendarName",value="日历名称", paramType = "query"),
+//            @ApiField(name="description",value="日历描述", paramType = "query")
+//    })
     public JsonObject updateWorkCalendar(WorkCalendar workCalendar){
         workCalendarService.updateWorkCalendar(workCalendar);
         return JsonObject.SUCCESS;
@@ -122,9 +120,9 @@ public class WorkCalendarController {
 
     @DeleteMapping("/calendar/delete")
     @ApiOperation("删除工作日历")
-    @ApiParamRequest({
-            @ApiField(name="calendarId",value="日历ID", paramType = "query"),
-    })
+//    @ApiParamRequest({
+//            @ApiField(name="calendarId",value="日历ID", paramType = "query"),
+//    })
     public JsonObject deleteWorkCalendar(@RequestParam("calendarId") String calendarId){
         workCalendarService.deleteWorkCalendar(new String[]{calendarId});
         return JsonObject.SUCCESS;
@@ -132,9 +130,9 @@ public class WorkCalendarController {
 
     @GetMapping("/calendar/get")
     @ApiOperation("查看工作日历信息（不含具体工作日信息）")
-    @ApiParamRequest({
-            @ApiField(name="calendarId",value="日历ID", paramType = "query"),
-    })
+//    @ApiParamRequest({
+//            @ApiField(name="calendarId",value="日历ID", paramType = "query"),
+//    })
     public JsonObject getWorkCalendar(String  calendarId){
         WorkCalendar workCalendar = workCalendarService.getWorkCalendar(calendarId);
         return new JsonObject(workCalendar);
@@ -142,9 +140,9 @@ public class WorkCalendarController {
 
     @GetMapping("/get")
     @ApiOperation("查看假日信息")
-    @ApiParamRequest({
-            @ApiField(name="holidayId",value="假期ID", paramType = "query")
-    })
+//    @ApiParamRequest({
+//            @ApiField(name="holidayId",value="假期ID", paramType = "query")
+//    })
     public JsonObject getHolidayDay(@RequestParam("holidayId") String holidayId){
         HolidayDay holidayDay = workCalendarService.getHolidayDay(holidayId);
         return new JsonObject(holidayDay);
@@ -152,13 +150,13 @@ public class WorkCalendarController {
 
     @PostMapping("/add")
     @ApiOperation("添加工作日为假日信息")
-    @ApiParamRequest({
-            @ApiField(name="calendarId",value="日历ID", paramType = "query"),
-            @ApiField(name="holidayName",value="假期名称", paramType = "query"),
-            @ApiField(name="holidayType",value="假期类型", paramType = "query"),
-            @ApiField(name="holidayMonth",value="月", paramType = "query"),
-            @ApiField(name="holidayDay",value="日", paramType = "query")
-    })
+//    @ApiParamRequest({
+//            @ApiField(name="calendarId",value="日历ID", paramType = "query"),
+//            @ApiField(name="holidayName",value="假期名称", paramType = "query"),
+//            @ApiField(name="holidayType",value="假期类型", paramType = "query"),
+//            @ApiField(name="holidayMonth",value="月", paramType = "query"),
+//            @ApiField(name="holidayDay",value="日", paramType = "query")
+//    })
     public JsonObject addHolidayDay(@ApiIgnore HolidayDay holidayDay){
         workCalendarService.addHolidayDay(holidayDay);
         return JsonObject.SUCCESS;
@@ -166,11 +164,11 @@ public class WorkCalendarController {
 
     @PutMapping("/update")
     @ApiOperation("更新假日信息")
-    @ApiParamRequest({
-            @ApiField(name="holidayId",value="假期ID", paramType = "query"),
-            @ApiField(name="holidayName",value="假期名称", paramType = "query"),
-            @ApiField(name="holidayType",value="假期类型", paramType = "query")
-    })
+//    @ApiParamRequest({
+//            @ApiField(name="holidayId",value="假期ID", paramType = "query"),
+//            @ApiField(name="holidayName",value="假期名称", paramType = "query"),
+//            @ApiField(name="holidayType",value="假期类型", paramType = "query")
+//    })
     public JsonObject updateHolidayDay(@ApiIgnore HolidayDay holidayDay){
         workCalendarService.updateHolidayDay(holidayDay);
         return JsonObject.SUCCESS;
@@ -178,9 +176,9 @@ public class WorkCalendarController {
 
     @DeleteMapping("/delete")
     @ApiOperation("删除假日（设置为工作日）")
-    @ApiParamRequest({
-            @ApiField(name="holidayId",value="假期ID", paramType = "query"),
-    })
+//    @ApiParamRequest({
+//            @ApiField(name="holidayId",value="假期ID", paramType = "query"),
+//    })
     public JsonObject deleteHolidayDay(@RequestParam("holidayId") String holidayId){
         workCalendarService.setWorkDay(new String[]{holidayId});
         return JsonObject.SUCCESS;
@@ -188,10 +186,10 @@ public class WorkCalendarController {
 
     @GetMapping("/get/byMonth")
     @ApiOperation("查看指定月份工作日历")
-    @ApiParamRequest({
-            @ApiField(name="calendarId",value="日历ID", paramType = "query"),
-            @ApiField(name="month",value="月份（1-12）", paramType = "query"),
-    })
+//    @ApiParamRequest({
+//            @ApiField(name="calendarId",value="日历ID", paramType = "query"),
+//            @ApiField(name="month",value="月份（1-12）", paramType = "query"),
+//    })
     public JsonObject getCalendarMonthByMonth(String  calendarId,Integer month){
         CalendarDay[] calendarDays = workCalendarService.getCalendarMonth(calendarId, month);
         return new JsonObject(calendarDays);
@@ -199,9 +197,9 @@ public class WorkCalendarController {
 
     @GetMapping("/get/byYear")
     @ApiOperation("查看指定日历ID的工作日信息")
-    @ApiParamRequest({
-            @ApiField(name="calendarId",value="日历ID", paramType = "query"),
-    })
+//    @ApiParamRequest({
+//            @ApiField(name="calendarId",value="日历ID", paramType = "query"),
+//    })
     public JsonObject getCalendarMonth(String  calendarId){
         CalendarMonth[] calendarMonths = workCalendarService.getCalendarMonths(calendarId);
         return new JsonObject(calendarMonths);
@@ -209,11 +207,11 @@ public class WorkCalendarController {
 
     @GetMapping("/get/afterWorkDay")
     @ApiOperation("查看指定日期后days天的工作日")
-    @ApiParamRequest({
-            @ApiField(name="calendarCode",value="日历编码"),
-            @ApiField(name="date",value="起始日期"),
-            @ApiField(name="days",value="跨天数"),
-    })
+//    @ApiParamRequest({
+//            @ApiField(name="calendarCode",value="日历编码"),
+//            @ApiField(name="date",value="起始日期"),
+//            @ApiField(name="days",value="跨天数"),
+//    })
     public JsonObject getAfterWorkDay(String calendarCode, Date date, int days){
         Date afterDate = workCalendarService.getAfterWorkDay(calendarCode,date,days);
         return new JsonObject(afterDate);
@@ -221,11 +219,11 @@ public class WorkCalendarController {
 
     @GetMapping("/get/beforeWorkDay")
     @ApiOperation("查看指定日期前days天的工作日")
-    @ApiParamRequest({
-            @ApiField(name="calendarCode",value="日历编码"),
-            @ApiField(name="date",value="起始日期"),
-            @ApiField(name="days",value="跨天数"),
-    })
+//    @ApiParamRequest({
+//            @ApiField(name="calendarCode",value="日历编码"),
+//            @ApiField(name="date",value="起始日期"),
+//            @ApiField(name="days",value="跨天数"),
+//    })
     public JsonObject getBeforeWorkDay(String calendarCode, Date date, int days){
         Date afterDate = workCalendarService.getBeforeWorkDay(calendarCode,date,days);
         return new JsonObject(afterDate);
