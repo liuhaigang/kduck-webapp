@@ -39,11 +39,8 @@ public class AssemblerConfiguration {
     public HttpSecurityConfigurer assemblerSecurityConfigurer(){
         return new HttpSecurityConfigurer(){
             @Override
-            public void configure(HttpSecurity http) throws Exception {}
-
-            @Override
-            public void configure(WebSecurity web) throws Exception {
-                web.ignoring().antMatchers("/captcha");
+            public void configure(HttpSecurity http) throws Exception {
+                http.authorizeRequests().antMatchers("/captcha").permitAll();
             }
         };
     }

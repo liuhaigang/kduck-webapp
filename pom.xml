@@ -19,7 +19,7 @@
         <dependency>
             <groupId>cn.kduck</groupId>
             <artifactId>kduck-core</artifactId>
-            <version>1.1.4</version>
+            <version>1.1.5</version>
         </dependency>
         <dependency>
             <groupId>cn.kduck</groupId>
@@ -40,13 +40,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-actuator-autoconfigure</artifactId>
-            <version>2.6.1</version>
+            <version>2.6.6</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
-            <version>2.6.1</version>
+            <version>2.6.6</version>
         </dependency>
 
         <!--<dependency>

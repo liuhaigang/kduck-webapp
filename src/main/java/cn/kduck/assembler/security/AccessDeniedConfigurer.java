@@ -2,7 +2,6 @@ package cn.kduck.assembler.security;
 
 import cn.kduck.security.configuration.HttpSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,8 +12,4 @@ public class AccessDeniedConfigurer implements HttpSecurityConfigurer {
         http.exceptionHandling().accessDeniedHandler(new AccessDeniedMessageHandler());
     }
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-
-    }
 }

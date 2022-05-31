@@ -43,7 +43,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/user")
 @Api(tags = "用户管理接口")
-@ModelResource
+@ModelResource("用户管理接口")
 public class UserController {
 
     @Autowired
@@ -68,7 +68,7 @@ public class UserController {
 //            @ApiField(name="userName",value="手机号"),
 //            @ApiField(name="email",value="邮箱")
 //    })
-    @ModelOperate(name="添加用户")
+    @ModelOperate(name="添加用户",group = "add")
     public JsonObject addUser(@Validated User user){
         processPhoto(user);
         userService.addUser(user);
@@ -80,7 +80,7 @@ public class UserController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", value = "用户ID", paramType = "query",allowMultiple = true)
     })
-    @ModelOperate(name="删除用户")
+    @ModelOperate(name="删除用户",group = "del")
     public JsonObject deleteUser(String[] ids){
         userService.deleteUser(ids);
         return JsonObject.SUCCESS;
@@ -96,7 +96,7 @@ public class UserController {
             @ApiImplicitParam(name = "phone", value = "手机号", paramType = "query"),
             @ApiImplicitParam(name = "email", value = "邮箱", paramType = "query"),
     })
-    @ModelOperate(name="修改用户")
+    @ModelOperate(name="修改用户",group = "edit")
     public JsonObject updateUser(User user){
         processPhoto(user);
         userService.updateUser(user);
@@ -108,7 +108,7 @@ public class UserController {
 //    @ApiParamRequest({
 //            @ApiField(name="userId",value="用户Id",paramType = "query")
 //    })
-    @ModelOperate(name="查看用户详情")
+    @ModelOperate(name="查看用户详情",group = "view")
     public JsonObject getUser(@RequestParam("userId") String userId){
         ValueMap user = userService.getUser(userId);
         return new JsonObject(user);
@@ -120,7 +120,7 @@ public class UserController {
             @ApiImplicitParam(name = "userName", value = "用户名", paramType = "query"),
             @ApiImplicitParam(name = "pageSize", value = "每页返回最大数据", paramType = "query")
     })
-    @ModelOperate(name="用户列表查询")
+    @ModelOperate(name="用户列表查询",group = "view")
 //    @ApiJsonResponse(code="K_USER")
     public JsonPageObject listUser(@ApiIgnore Page page, @ApiIgnore @RequestParam Map<String,Object> paramMap){
 //        AuthUser authUser = AuthUserHolder.getAuthUser();
@@ -130,7 +130,7 @@ public class UserController {
     }
 
     @PostMapping("/upload/photo")
-    @ModelOperate(name="更新用户头像")
+    @ModelOperate(name="更新用户头像",group = "view")
     public JsonObject uploadUserPhoto(String userId,MultipartFile photoFile){
         String photoId = UUID.randomUUID().toString().replaceAll("-", "") + ".new";
 

@@ -63,6 +63,9 @@ public class CustomRoleAccessVoter extends AbstractRoleAccessVoter {
     public boolean checkAuthorize(Authentication authentication, HttpServletRequest request) {
         String requestUri = request.getRequestURI();
         String method = request.getMethod();
+        if(method == null){
+            method = "GET";
+        }
         ResourceOperate resourceOperate = resourceService.getResourceOperate(requestUri, method);
         if(resourceOperate == null){
             return true;
